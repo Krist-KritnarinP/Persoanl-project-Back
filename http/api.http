@@ -1,0 +1,165 @@
+@BASE_URL = http://localhost:8899/api
+
+@usertoken ={{userLogin.response.body.token}}
+
+###
+POST {{BASE_URL}}/auth/register
+
+### 1.1 Register
+POST {{BASE_URL}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "KritTest013",
+  "email": "testXX3@example.com",
+  "password": "password001"
+}
+
+### 1.2 Login
+# @name userLogin
+POST {{BASE_URL}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "testXX3@example.com",
+  "password": "password001"
+}
+
+### 2.1 Get Current User Profile (Check Token)
+GET {{BASE_URL}}/users/me
+Authorization: Bearer {{usertoken}}
+
+# ### User put
+# PUT {{BASE_URL}}/users/me
+# Content-Type: application/json
+# Authorization: Bearer {{usertoken}}
+
+# {
+#  "username": "NEW003",
+#  "password": "newpassword1234"
+# }
+
+### 3.1 Get All Trips
+GET {{BASE_URL}}/trips
+Authorization: Bearer {{usertoken}}
+
+### 3.2 Create New Trip
+### 1. Create Trip (สร้างทริปเปล่าๆ บน Dashboard)
+POST {{BASE_URL}}/trips
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "tripName": "Thailand gogo2",
+  "destination": "Thailand",
+  "tripDescription": "Solo Trip gogo"
+}
+
+### 3.3 Get Trip Timeline Details (Get Trip + Days + Activities)
+GET {{BASE_URL}}/trips/42
+Authorization: Bearer {{usertoken}}
+
+### 4. Get Trips for Dashboard (ดูผลการคำนวณวันรวม และ ว/ด/ป)
+GET {{BASE_URL}}/trips
+Authorization: Bearer {{usertoken}}
+
+### 3.4 Update Trip
+PUT {{BASE_URL}}/trips/33
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "tripname": "Osaka & Kyoto Trip 2028 (Updated)",
+  "destination": "Japan",
+  "startdate": "2026-05-03",
+  "enddate": "2026-05-08",
+  "tripdescription": "Extended trip by 1 day"
+}
+
+### 3.5 Delete Trip
+DELETE {{BASE_URL}}/trips/29
+Authorization: Bearer {{usertoken}}
+
+### 2. Create Day 1 (ระบุ tripId ใน Path + ต้องส่ง dayDate มาเอง)
+POST {{BASE_URL}}/trips/42/days
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "dayDate": "2026-10-20",
+  "description": "Day 1: Arrival at Narita Airport"
+}
+
+
+### 3. Create Day 2 (ระบุ tripId ใน Path + ไม่ต้องส่ง dayDate)
+POST {{BASE_URL}}/trips/42/days
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "description": "Day 2: Tokyo Disneyland"
+}
+
+
+### 4.2 Update Day
+PUT {{BASE_URL}}/days/50
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "description": "Day 3: Arrival & Universal Studios Japan v2"
+}
+
+
+### 4.3 Delete Day
+DELETE {{BASE_URL}}/days/27
+Authorization: Bearer {{usertoken}}
+
+
+### 5.1 Create Activity (สร้างกิจกรรมใหม่)
+POST {{BASE_URL}}/activities
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "dayId": 59,
+  "activityType": "ATTRACTION",
+  "locationName": "Sensoji Temple (Asakusa)",
+  "activityDate": "2026-10-20",
+  "activityTime": "2026-10-20T09:30:00Z",
+  "price": 0.00,
+  "description": "Walk around Asakusa Nakamise Street",
+  "status": "planned"
+}
+
+### 5.1 Create Activity (สร้างกิจกรรมใหม่)
+POST {{BASE_URL}}/activities
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "dayId":27,
+  "activityType": "ATTRACTION",
+  "locationName": "Sensoji Temple (Asakusa)",
+  "activityDate": "2026-10-20",
+  "activityTime": "2026-10-20T09:30:00Z",
+  "price": 0.00,
+  "description": "Walk around Asakusa Nakamise Street",
+  "status": "planned"
+}
+
+### 5.2 Update Activity (แก้ไขกิจกรรม)
+PUT {{BASE_URL}}/activities/2
+Authorization: Bearer {{usertoken}}
+Content-Type: application/json
+
+{
+  "activityType": "RESTAURANT",
+  "locationName": "Ichiran Ramen Asakusa",
+  "price": 1200.00,
+  "description": "Lunch break"
+}
+
+### 5.3 Delete Activity (ลบกิจกรรม)
+DELETE {{BASE_URL}}/activities/28
+Authorization: Bearer {{usertoken}}

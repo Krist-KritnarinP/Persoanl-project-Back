@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement()) @map("user_id")
+  username  String   @db.VarChar(50)
+  email     String   @unique @db.VarChar(100)
+  password  String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  trips Trip[]
+
+  @@map("users")
+}
+
+model Trip {
+  id              Int       @id @default(autoincrement()) @map("trip_id")
+  userId          Int       @map("user_id")
+  tripName        String    @map("trip_name") @db.VarChar(100)
+  destination     String?   @db.VarChar(100)
+  startDate       DateTime? @map("start_date") @db.Date
+  endDate         DateTime? @map("end_date") @db.Date
+  tripDescription String?   @map("trip_description") @db.Text
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  days Day[]
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("trips")
+}
+
+model Day {
+  id          Int       @id @default(autoincrement()) @map("day_id")
+  tripId      Int       @map("trip_id")
+  // แก้ให้มันเพิ่มขึ้นได้ด้วย
+  dayCount    Int       @map("day_count")
+  dayDate     DateTime? @map("day_date") @db.Date
+  description String?   @db.Text
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  activities Activity[]
+  trip       Trip       @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@map("days")
+}
+
+enum ActivityType {
+  ACCOMMODATION
+  TRANSPORT
+  RESTAURANT
+  ATTRACTION
+}
+
+model Activity {
+  id           Int           @id @default(autoincrement()) @map("activity_id")
+  dayId        Int           @map("day_id")
+  // 2. เปลี่ยนชนิดข้อมูลจาก String? เป็น ActivityType?
+  activityType ActivityType? @map("activity_type")
+  locationName String        @map("location_name") @db.VarChar(150)
+  activityDate DateTime?     @map("activity_date") @db.Date
+  activityTime DateTime?     @map("activity_time") @db.Time
+  price        Decimal?      @default(0.00) @db.Decimal(10, 2)
+  description  String?       @db.Text
+  status       String?       @default("planned") @db.VarChar(50)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  day Day @relation(fields: [dayId], references: [id], onDelete: Cascade)
+
+  @@map("activities")
+}
