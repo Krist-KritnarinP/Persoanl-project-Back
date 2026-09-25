@@ -6,24 +6,27 @@ import { createToken } from "../utilities/jwt.js";
 import { loginSchema, registerSchema } from "../validations/schema.js";
 
 export async function register(req, res, next) {
-  const { username, email, password } = req.body;
-  
-  const result = registerSchema.parse(req.body)
-  console.log("req.body", req.body);
+  try {
+    const { username, email, password } = registerSchema.parse(req.body);
 
-  
-  const user = await findUserByEmail(email)
-  if (user) {
-      return next(createError(400, "Email already exist"))
+    const user = await findUserByEmail(email)
+    if (user) {
+        return next(createError(400, "Email already exist"))
+    }
+    const hashPassword = await bcrypt.hash(password, 10);
+    const newUser = await createUser(username, email, hashPassword)
+
+    res.status(201).json({
+      message: "Register Successfully",
+      user: {
+        id: newUser.id,
+        username: newUser.username,
+        email: newUser.email,
+      },
+    });
+  } catch (err) {
+    next(err);
   }
-  const hashPassword = await bcrypt.hash(password, 10);
-  console.log('hashPassword', hashPassword)
-  const newUser = await createUser(username, email, hashPassword)
-  
-  res.status(201).json({
-    message: "Register Successfully",
-    user: newUser,
-  });
 }
 
 
@@ -39,13 +42,13 @@ export async function login(req, res, next) {
     
     // 3. เช็กว่าพบ User หรือไม่ก่อน (ถ้าไม่พบ ให้หยุดและส่ง Error ทันที)
     if (!user) {
-      return next(createError(401, "Login failed controller1")); // ✅ ใส่ return
+      return next(createError(401, "Invalid email or password")); // ✅ ใส่ return
     }
 
     // 4. เปรียบเทียบ Password (บรรทัดนี้ปลอดภัยแล้วเพราะ user มีค่าแน่นอน)
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return next(createError(401, "Login failed controller2")); // ✅ ใส่ return
+      return next(createError(401, "Invalid email or password")); // ✅ ใส่ return
     }
 
     // 5. สร้าง Token และส่ง Response กลับ
@@ -57,7 +60,7 @@ export async function login(req, res, next) {
       user: {
         id: user.id,
         username: user.username,
-        role: user.role
+        email: user.email,
       }
     });
 

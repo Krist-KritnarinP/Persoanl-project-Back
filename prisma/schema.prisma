@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
 }
 
 model User {
@@ -22,6 +22,7 @@ model User {
 
   // Relations
   trips Trip[]
+  aiMessages AiMessage[]
 
   @@map("users")
 }
@@ -39,6 +40,7 @@ model Trip {
 
   // Relations
   days Day[]
+  aiMessages AiMessage[]
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("trips")
@@ -85,4 +87,29 @@ model Activity {
   day Day @relation(fields: [dayId], references: [id], onDelete: Cascade)
 
   @@map("activities")
+}
+
+enum AiMessageKind {
+  WEATHER
+  PLAN
+  CHAT
+}
+
+// ประวัติข้อความตอบกลับจาก AI (เช่น พยากรณ์อากาศรายทริป)
+model AiMessage {
+  id        Int            @id @default(autoincrement()) @map("message_id")
+  userId    Int            @map("user_id")
+  tripId    Int?           @map("trip_id")
+  kind      AiMessageKind  @default(WEATHER)
+  model     String?        @db.VarChar(100)
+  prompt    String?        @db.Text
+  content   String         @db.Text
+  createdAt DateTime       @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trip Trip? @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([userId, tripId, kind])
+  @@map("ai_messages")
 }

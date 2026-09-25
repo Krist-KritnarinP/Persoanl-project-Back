@@ -9,6 +9,7 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // ใช้ direct connection (5432) ตอน migrate/push — fallback ไป DATABASE_URL ถ้ายังไม่มี DIRECT_URL
+    url: process.env["DIRECT_URL"] || process.env["DATABASE_URL"],
   },
 });

@@ -18,15 +18,14 @@ export const getAllTripsService = async (userId) => {
     },
   });
 
-  // คำนวณ startDate, endDate และ totalDays จากรายการ Day ในทริป
+  // คำนวณ totalDays จาก Day; เก็บ startDate/endDate ที่ user กรอกเป็นหลัก
+  // ใช้ dayDate เป็น fallback เฉพาะกรณี trip ยังไม่มีวันที่
   return trips.map((trip) => {
     const days = trip.days;
     const totalDays = days.length;
-    
-    // วันเริ่มต้น = dayDate ของ Day 1 (ถ้ามี)
-    const startDate = totalDays > 0 ? days[0].dayDate : trip.startDate;
-    // วันสิ้นสุด = dayDate ของ Day วันสุดท้าย (ถ้ามี)
-    const endDate = totalDays > 0 ? days[totalDays - 1].dayDate : trip.endDate;
+
+    const startDate = trip.startDate ?? (totalDays > 0 ? days[0].dayDate : null);
+    const endDate = trip.endDate ?? (totalDays > 0 ? days[totalDays - 1].dayDate : null);
 
     return {
       ...trip,
@@ -87,8 +86,9 @@ export const getTripByIdService = async (tripId, userId) => {
 
   const days = trip.days;
   const totalDays = days.length;
-  const startDate = totalDays > 0 ? days[0].dayDate : trip.startDate;
-  const endDate = totalDays > 0 ? days[totalDays - 1].dayDate : trip.endDate;
+  // เก็บวันที่ของ trip เป็นหลัก, fallback ไป dayDate เฉพาะตอน trip ไม่มีวันที่
+  const startDate = trip.startDate ?? (totalDays > 0 ? days[0].dayDate : null);
+  const endDate = trip.endDate ?? (totalDays > 0 ? days[totalDays - 1].dayDate : null);
 
   return {
     ...trip,

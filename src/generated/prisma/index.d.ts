@@ -33,6 +33,11 @@ export type Day = $Result.DefaultSelection<Prisma.$DayPayload>
  * 
  */
 export type Activity = $Result.DefaultSelection<Prisma.$ActivityPayload>
+/**
+ * Model AiMessage
+ * 
+ */
+export type AiMessage = $Result.DefaultSelection<Prisma.$AiMessagePayload>
 
 /**
  * Enums
@@ -47,11 +52,24 @@ export namespace $Enums {
 
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType]
 
+
+export const AiMessageKind: {
+  WEATHER: 'WEATHER',
+  PLAN: 'PLAN',
+  CHAT: 'CHAT'
+};
+
+export type AiMessageKind = (typeof AiMessageKind)[keyof typeof AiMessageKind]
+
 }
 
 export type ActivityType = $Enums.ActivityType
 
 export const ActivityType: typeof $Enums.ActivityType
+
+export type AiMessageKind = $Enums.AiMessageKind
+
+export const AiMessageKind: typeof $Enums.AiMessageKind
 
 /**
  * ##  Prisma Client ʲˢ
@@ -213,6 +231,16 @@ export class PrismaClient<
     * ```
     */
   get activity(): Prisma.ActivityDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.aiMessage`: Exposes CRUD operations for the **AiMessage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AiMessages
+    * const aiMessages = await prisma.aiMessage.findMany()
+    * ```
+    */
+  get aiMessage(): Prisma.AiMessageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -663,7 +691,8 @@ export namespace Prisma {
     User: 'User',
     Trip: 'Trip',
     Day: 'Day',
-    Activity: 'Activity'
+    Activity: 'Activity',
+    AiMessage: 'AiMessage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -679,7 +708,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trip" | "day" | "activity"
+      modelProps: "user" | "trip" | "day" | "activity" | "aiMessage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -715,6 +744,10 @@ export namespace Prisma {
             args: Prisma.UserCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.UserCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
+          }
           delete: {
             args: Prisma.UserDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$UserPayload>
@@ -730,6 +763,10 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.UserUpdateManyArgs<ExtArgs>
             result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPayload>[]
           }
           upsert: {
             args: Prisma.UserUpsertArgs<ExtArgs>
@@ -781,6 +818,10 @@ export namespace Prisma {
             args: Prisma.TripCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.TripCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripPayload>[]
+          }
           delete: {
             args: Prisma.TripDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$TripPayload>
@@ -796,6 +837,10 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.TripUpdateManyArgs<ExtArgs>
             result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TripUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripPayload>[]
           }
           upsert: {
             args: Prisma.TripUpsertArgs<ExtArgs>
@@ -847,6 +892,10 @@ export namespace Prisma {
             args: Prisma.DayCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.DayCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DayPayload>[]
+          }
           delete: {
             args: Prisma.DayDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$DayPayload>
@@ -862,6 +911,10 @@ export namespace Prisma {
           updateMany: {
             args: Prisma.DayUpdateManyArgs<ExtArgs>
             result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DayUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DayPayload>[]
           }
           upsert: {
             args: Prisma.DayUpsertArgs<ExtArgs>
@@ -913,6 +966,10 @@ export namespace Prisma {
             args: Prisma.ActivityCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          createManyAndReturn: {
+            args: Prisma.ActivityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+          }
           delete: {
             args: Prisma.ActivityDeleteArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$ActivityPayload>
@@ -929,6 +986,10 @@ export namespace Prisma {
             args: Prisma.ActivityUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
+          updateManyAndReturn: {
+            args: Prisma.ActivityUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ActivityPayload>[]
+          }
           upsert: {
             args: Prisma.ActivityUpsertArgs<ExtArgs>
             result: $Utils.PayloadToResult<Prisma.$ActivityPayload>
@@ -944,6 +1005,80 @@ export namespace Prisma {
           count: {
             args: Prisma.ActivityCountArgs<ExtArgs>
             result: $Utils.Optional<ActivityCountAggregateOutputType> | number
+          }
+        }
+      }
+      AiMessage: {
+        payload: Prisma.$AiMessagePayload<ExtArgs>
+        fields: Prisma.AiMessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AiMessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AiMessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>
+          }
+          findFirst: {
+            args: Prisma.AiMessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AiMessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>
+          }
+          findMany: {
+            args: Prisma.AiMessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>[]
+          }
+          create: {
+            args: Prisma.AiMessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>
+          }
+          createMany: {
+            args: Prisma.AiMessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AiMessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>[]
+          }
+          delete: {
+            args: Prisma.AiMessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>
+          }
+          update: {
+            args: Prisma.AiMessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.AiMessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AiMessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AiMessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.AiMessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AiMessagePayload>
+          }
+          aggregate: {
+            args: Prisma.AiMessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAiMessage>
+          }
+          groupBy: {
+            args: Prisma.AiMessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AiMessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AiMessageCountArgs<ExtArgs>
+            result: $Utils.Optional<AiMessageCountAggregateOutputType> | number
           }
         }
       }
@@ -1074,6 +1209,7 @@ export namespace Prisma {
     trip?: TripOmit
     day?: DayOmit
     activity?: ActivityOmit
+    aiMessage?: AiMessageOmit
   }
 
   /* Types for Logging */
@@ -1155,10 +1291,12 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     trips: number
+    aiMessages: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trips?: boolean | UserCountOutputTypeCountTripsArgs
+    aiMessages?: boolean | UserCountOutputTypeCountAiMessagesArgs
   }
 
   // Custom InputTypes
@@ -1179,6 +1317,13 @@ export namespace Prisma {
     where?: TripWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAiMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiMessageWhereInput
+  }
+
 
   /**
    * Count Type TripCountOutputType
@@ -1186,10 +1331,12 @@ export namespace Prisma {
 
   export type TripCountOutputType = {
     days: number
+    aiMessages: number
   }
 
   export type TripCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     days?: boolean | TripCountOutputTypeCountDaysArgs
+    aiMessages?: boolean | TripCountOutputTypeCountAiMessagesArgs
   }
 
   // Custom InputTypes
@@ -1208,6 +1355,13 @@ export namespace Prisma {
    */
   export type TripCountOutputTypeCountDaysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: DayWhereInput
+  }
+
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeCountAiMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiMessageWhereInput
   }
 
 
@@ -1453,10 +1607,27 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     trips?: boolean | User$tripsArgs<ExtArgs>
+    aiMessages?: boolean | User$aiMessagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
+  export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    username?: boolean
+    email?: boolean
+    password?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["user"]>
 
+  export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    username?: boolean
+    email?: boolean
+    password?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
@@ -1470,13 +1641,17 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trips?: boolean | User$tripsArgs<ExtArgs>
+    aiMessages?: boolean | User$aiMessagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
       trips: Prisma.$TripPayload<ExtArgs>[]
+      aiMessages: Prisma.$AiMessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1603,6 +1778,30 @@ export namespace Prisma {
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a User.
      * @param {UserDeleteArgs} args - Arguments to delete one User.
      * @example
@@ -1665,6 +1864,36 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Users and returns the data updated in the database.
+     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one User.
@@ -1826,6 +2055,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     trips<T extends User$tripsArgs<ExtArgs> = {}>(args?: Subset<T, User$tripsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiMessages<T extends User$aiMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2099,6 +2329,25 @@ export namespace Prisma {
   }
 
   /**
+   * User createManyAndReturn
+   */
+  export type UserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * The data used to create many Users.
+     */
+    data: UserCreateManyInput | UserCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
    * User update
    */
   export type UserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2128,6 +2377,32 @@ export namespace Prisma {
    * User updateMany
    */
   export type UserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyInput>
+    /**
+     * Filter which Users to update
+     */
+    where?: UserWhereInput
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * User updateManyAndReturn
+   */
+  export type UserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
     /**
      * The data used to update Users.
      */
@@ -2230,6 +2505,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TripScalarFieldEnum | TripScalarFieldEnum[]
+  }
+
+  /**
+   * User.aiMessages
+   */
+  export type User$aiMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    where?: AiMessageWhereInput
+    orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
+    cursor?: AiMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
   }
 
   /**
@@ -2486,11 +2785,36 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     days?: boolean | Trip$daysArgs<ExtArgs>
+    aiMessages?: boolean | Trip$aiMessagesArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | TripCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["trip"]>
 
+  export type TripSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tripName?: boolean
+    destination?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    tripDescription?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trip"]>
 
+  export type TripSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tripName?: boolean
+    destination?: boolean
+    startDate?: boolean
+    endDate?: boolean
+    tripDescription?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["trip"]>
 
   export type TripSelectScalar = {
     id?: boolean
@@ -2507,14 +2831,22 @@ export namespace Prisma {
   export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tripName" | "destination" | "startDate" | "endDate" | "tripDescription" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
   export type TripInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     days?: boolean | Trip$daysArgs<ExtArgs>
+    aiMessages?: boolean | Trip$aiMessagesArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | TripCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type TripIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TripIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $TripPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Trip"
     objects: {
       days: Prisma.$DayPayload<ExtArgs>[]
+      aiMessages: Prisma.$AiMessagePayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -2645,6 +2977,30 @@ export namespace Prisma {
     createMany<T extends TripCreateManyArgs>(args?: SelectSubset<T, TripCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Trips and returns the data saved in the database.
+     * @param {TripCreateManyAndReturnArgs} args - Arguments to create many Trips.
+     * @example
+     * // Create many Trips
+     * const trip = await prisma.trip.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Trips and only return the `id`
+     * const tripWithIdOnly = await prisma.trip.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TripCreateManyAndReturnArgs>(args?: SelectSubset<T, TripCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Trip.
      * @param {TripDeleteArgs} args - Arguments to delete one Trip.
      * @example
@@ -2707,6 +3063,36 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends TripUpdateManyArgs>(args: SelectSubset<T, TripUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Trips and returns the data updated in the database.
+     * @param {TripUpdateManyAndReturnArgs} args - Arguments to update many Trips.
+     * @example
+     * // Update many Trips
+     * const trip = await prisma.trip.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Trips and only return the `id`
+     * const tripWithIdOnly = await prisma.trip.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TripUpdateManyAndReturnArgs>(args: SelectSubset<T, TripUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Trip.
@@ -2868,6 +3254,7 @@ export namespace Prisma {
   export interface Prisma__TripClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     days<T extends Trip$daysArgs<ExtArgs> = {}>(args?: Subset<T, Trip$daysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    aiMessages<T extends Trip$aiMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Trip$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3145,6 +3532,29 @@ export namespace Prisma {
   }
 
   /**
+   * Trip createManyAndReturn
+   */
+  export type TripCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trip
+     */
+    select?: TripSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trip
+     */
+    omit?: TripOmit<ExtArgs> | null
+    /**
+     * The data used to create many Trips.
+     */
+    data: TripCreateManyInput | TripCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
    * Trip update
    */
   export type TripUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3186,6 +3596,36 @@ export namespace Prisma {
      * Limit how many Trips to update.
      */
     limit?: number
+  }
+
+  /**
+   * Trip updateManyAndReturn
+   */
+  export type TripUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trip
+     */
+    select?: TripSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trip
+     */
+    omit?: TripOmit<ExtArgs> | null
+    /**
+     * The data used to update Trips.
+     */
+    data: XOR<TripUpdateManyMutationInput, TripUncheckedUpdateManyInput>
+    /**
+     * Filter which Trips to update
+     */
+    where?: TripWhereInput
+    /**
+     * Limit how many Trips to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3276,6 +3716,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DayScalarFieldEnum | DayScalarFieldEnum[]
+  }
+
+  /**
+   * Trip.aiMessages
+   */
+  export type Trip$aiMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    where?: AiMessageWhereInput
+    orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
+    cursor?: AiMessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
   }
 
   /**
@@ -3524,7 +3988,27 @@ export namespace Prisma {
     _count?: boolean | DayCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["day"]>
 
+  export type DaySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    dayCount?: boolean
+    dayDate?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["day"]>
 
+  export type DaySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    dayCount?: boolean
+    dayDate?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["day"]>
 
   export type DaySelectScalar = {
     id?: boolean
@@ -3541,6 +4025,12 @@ export namespace Prisma {
     activities?: boolean | Day$activitiesArgs<ExtArgs>
     trip?: boolean | TripDefaultArgs<ExtArgs>
     _count?: boolean | DayCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DayIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type DayIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
   }
 
   export type $DayPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3675,6 +4165,30 @@ export namespace Prisma {
     createMany<T extends DayCreateManyArgs>(args?: SelectSubset<T, DayCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Days and returns the data saved in the database.
+     * @param {DayCreateManyAndReturnArgs} args - Arguments to create many Days.
+     * @example
+     * // Create many Days
+     * const day = await prisma.day.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Days and only return the `id`
+     * const dayWithIdOnly = await prisma.day.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DayCreateManyAndReturnArgs>(args?: SelectSubset<T, DayCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Day.
      * @param {DayDeleteArgs} args - Arguments to delete one Day.
      * @example
@@ -3737,6 +4251,36 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends DayUpdateManyArgs>(args: SelectSubset<T, DayUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Days and returns the data updated in the database.
+     * @param {DayUpdateManyAndReturnArgs} args - Arguments to update many Days.
+     * @example
+     * // Update many Days
+     * const day = await prisma.day.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Days and only return the `id`
+     * const dayWithIdOnly = await prisma.day.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DayUpdateManyAndReturnArgs>(args: SelectSubset<T, DayUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Day.
@@ -4173,6 +4717,29 @@ export namespace Prisma {
   }
 
   /**
+   * Day createManyAndReturn
+   */
+  export type DayCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Day
+     */
+    select?: DaySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Day
+     */
+    omit?: DayOmit<ExtArgs> | null
+    /**
+     * The data used to create many Days.
+     */
+    data: DayCreateManyInput | DayCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DayIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
    * Day update
    */
   export type DayUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4214,6 +4781,36 @@ export namespace Prisma {
      * Limit how many Days to update.
      */
     limit?: number
+  }
+
+  /**
+   * Day updateManyAndReturn
+   */
+  export type DayUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Day
+     */
+    select?: DaySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Day
+     */
+    omit?: DayOmit<ExtArgs> | null
+    /**
+     * The data used to update Days.
+     */
+    data: XOR<DayUpdateManyMutationInput, DayUncheckedUpdateManyInput>
+    /**
+     * Filter which Days to update
+     */
+    where?: DayWhereInput
+    /**
+     * Limit how many Days to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DayIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -4582,7 +5179,35 @@ export namespace Prisma {
     day?: boolean | DayDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["activity"]>
 
+  export type ActivitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dayId?: boolean
+    activityType?: boolean
+    locationName?: boolean
+    activityDate?: boolean
+    activityTime?: boolean
+    price?: boolean
+    description?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    day?: boolean | DayDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["activity"]>
 
+  export type ActivitySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    dayId?: boolean
+    activityType?: boolean
+    locationName?: boolean
+    activityDate?: boolean
+    activityTime?: boolean
+    price?: boolean
+    description?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    day?: boolean | DayDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["activity"]>
 
   export type ActivitySelectScalar = {
     id?: boolean
@@ -4600,6 +5225,12 @@ export namespace Prisma {
 
   export type ActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayId" | "activityType" | "locationName" | "activityDate" | "activityTime" | "price" | "description" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["activity"]>
   export type ActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | DayDefaultArgs<ExtArgs>
+  }
+  export type ActivityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    day?: boolean | DayDefaultArgs<ExtArgs>
+  }
+  export type ActivityIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     day?: boolean | DayDefaultArgs<ExtArgs>
   }
 
@@ -4738,6 +5369,30 @@ export namespace Prisma {
     createMany<T extends ActivityCreateManyArgs>(args?: SelectSubset<T, ActivityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
+     * Create many Activities and returns the data saved in the database.
+     * @param {ActivityCreateManyAndReturnArgs} args - Arguments to create many Activities.
+     * @example
+     * // Create many Activities
+     * const activity = await prisma.activity.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Activities and only return the `id`
+     * const activityWithIdOnly = await prisma.activity.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ActivityCreateManyAndReturnArgs>(args?: SelectSubset<T, ActivityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
      * Delete a Activity.
      * @param {ActivityDeleteArgs} args - Arguments to delete one Activity.
      * @example
@@ -4800,6 +5455,36 @@ export namespace Prisma {
      * 
      */
     updateMany<T extends ActivityUpdateManyArgs>(args: SelectSubset<T, ActivityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Activities and returns the data updated in the database.
+     * @param {ActivityUpdateManyAndReturnArgs} args - Arguments to update many Activities.
+     * @example
+     * // Update many Activities
+     * const activity = await prisma.activity.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Activities and only return the `id`
+     * const activityWithIdOnly = await prisma.activity.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ActivityUpdateManyAndReturnArgs>(args: SelectSubset<T, ActivityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
      * Create or update one Activity.
@@ -5239,6 +5924,29 @@ export namespace Prisma {
   }
 
   /**
+   * Activity createManyAndReturn
+   */
+  export type ActivityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Activity
+     */
+    select?: ActivitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Activity
+     */
+    omit?: ActivityOmit<ExtArgs> | null
+    /**
+     * The data used to create many Activities.
+     */
+    data: ActivityCreateManyInput | ActivityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
    * Activity update
    */
   export type ActivityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5280,6 +5988,36 @@ export namespace Prisma {
      * Limit how many Activities to update.
      */
     limit?: number
+  }
+
+  /**
+   * Activity updateManyAndReturn
+   */
+  export type ActivityUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Activity
+     */
+    select?: ActivitySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Activity
+     */
+    omit?: ActivityOmit<ExtArgs> | null
+    /**
+     * The data used to update Activities.
+     */
+    data: XOR<ActivityUpdateManyMutationInput, ActivityUncheckedUpdateManyInput>
+    /**
+     * Filter which Activities to update
+     */
+    where?: ActivityWhereInput
+    /**
+     * Limit how many Activities to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ActivityIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -5368,6 +6106,1177 @@ export namespace Prisma {
 
 
   /**
+   * Model AiMessage
+   */
+
+  export type AggregateAiMessage = {
+    _count: AiMessageCountAggregateOutputType | null
+    _avg: AiMessageAvgAggregateOutputType | null
+    _sum: AiMessageSumAggregateOutputType | null
+    _min: AiMessageMinAggregateOutputType | null
+    _max: AiMessageMaxAggregateOutputType | null
+  }
+
+  export type AiMessageAvgAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    tripId: number | null
+  }
+
+  export type AiMessageSumAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    tripId: number | null
+  }
+
+  export type AiMessageMinAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    tripId: number | null
+    kind: $Enums.AiMessageKind | null
+    model: string | null
+    prompt: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type AiMessageMaxAggregateOutputType = {
+    id: number | null
+    userId: number | null
+    tripId: number | null
+    kind: $Enums.AiMessageKind | null
+    model: string | null
+    prompt: string | null
+    content: string | null
+    createdAt: Date | null
+  }
+
+  export type AiMessageCountAggregateOutputType = {
+    id: number
+    userId: number
+    tripId: number
+    kind: number
+    model: number
+    prompt: number
+    content: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AiMessageAvgAggregateInputType = {
+    id?: true
+    userId?: true
+    tripId?: true
+  }
+
+  export type AiMessageSumAggregateInputType = {
+    id?: true
+    userId?: true
+    tripId?: true
+  }
+
+  export type AiMessageMinAggregateInputType = {
+    id?: true
+    userId?: true
+    tripId?: true
+    kind?: true
+    model?: true
+    prompt?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type AiMessageMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    tripId?: true
+    kind?: true
+    model?: true
+    prompt?: true
+    content?: true
+    createdAt?: true
+  }
+
+  export type AiMessageCountAggregateInputType = {
+    id?: true
+    userId?: true
+    tripId?: true
+    kind?: true
+    model?: true
+    prompt?: true
+    content?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AiMessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiMessage to aggregate.
+     */
+    where?: AiMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiMessages to fetch.
+     */
+    orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AiMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AiMessages
+    **/
+    _count?: true | AiMessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: AiMessageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: AiMessageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AiMessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AiMessageMaxAggregateInputType
+  }
+
+  export type GetAiMessageAggregateType<T extends AiMessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateAiMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAiMessage[P]>
+      : GetScalarType<T[P], AggregateAiMessage[P]>
+  }
+
+
+
+
+  export type AiMessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AiMessageWhereInput
+    orderBy?: AiMessageOrderByWithAggregationInput | AiMessageOrderByWithAggregationInput[]
+    by: AiMessageScalarFieldEnum[] | AiMessageScalarFieldEnum
+    having?: AiMessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AiMessageCountAggregateInputType | true
+    _avg?: AiMessageAvgAggregateInputType
+    _sum?: AiMessageSumAggregateInputType
+    _min?: AiMessageMinAggregateInputType
+    _max?: AiMessageMaxAggregateInputType
+  }
+
+  export type AiMessageGroupByOutputType = {
+    id: number
+    userId: number
+    tripId: number | null
+    kind: $Enums.AiMessageKind
+    model: string | null
+    prompt: string | null
+    content: string
+    createdAt: Date
+    _count: AiMessageCountAggregateOutputType | null
+    _avg: AiMessageAvgAggregateOutputType | null
+    _sum: AiMessageSumAggregateOutputType | null
+    _min: AiMessageMinAggregateOutputType | null
+    _max: AiMessageMaxAggregateOutputType | null
+  }
+
+  type GetAiMessageGroupByPayload<T extends AiMessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AiMessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AiMessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AiMessageGroupByOutputType[P]>
+            : GetScalarType<T[P], AiMessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AiMessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tripId?: boolean
+    kind?: boolean
+    model?: boolean
+    prompt?: boolean
+    content?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    trip?: boolean | AiMessage$tripArgs<ExtArgs>
+  }, ExtArgs["result"]["aiMessage"]>
+
+  export type AiMessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tripId?: boolean
+    kind?: boolean
+    model?: boolean
+    prompt?: boolean
+    content?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    trip?: boolean | AiMessage$tripArgs<ExtArgs>
+  }, ExtArgs["result"]["aiMessage"]>
+
+  export type AiMessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    tripId?: boolean
+    kind?: boolean
+    model?: boolean
+    prompt?: boolean
+    content?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    trip?: boolean | AiMessage$tripArgs<ExtArgs>
+  }, ExtArgs["result"]["aiMessage"]>
+
+  export type AiMessageSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    tripId?: boolean
+    kind?: boolean
+    model?: boolean
+    prompt?: boolean
+    content?: boolean
+    createdAt?: boolean
+  }
+
+  export type AiMessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tripId" | "kind" | "model" | "prompt" | "content" | "createdAt", ExtArgs["result"]["aiMessage"]>
+  export type AiMessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    trip?: boolean | AiMessage$tripArgs<ExtArgs>
+  }
+  export type AiMessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    trip?: boolean | AiMessage$tripArgs<ExtArgs>
+  }
+  export type AiMessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    trip?: boolean | AiMessage$tripArgs<ExtArgs>
+  }
+
+  export type $AiMessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AiMessage"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      trip: Prisma.$TripPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      userId: number
+      tripId: number | null
+      kind: $Enums.AiMessageKind
+      model: string | null
+      prompt: string | null
+      content: string
+      createdAt: Date
+    }, ExtArgs["result"]["aiMessage"]>
+    composites: {}
+  }
+
+  type AiMessageGetPayload<S extends boolean | null | undefined | AiMessageDefaultArgs> = $Result.GetResult<Prisma.$AiMessagePayload, S>
+
+  type AiMessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AiMessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AiMessageCountAggregateInputType | true
+    }
+
+  export interface AiMessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AiMessage'], meta: { name: 'AiMessage' } }
+    /**
+     * Find zero or one AiMessage that matches the filter.
+     * @param {AiMessageFindUniqueArgs} args - Arguments to find a AiMessage
+     * @example
+     * // Get one AiMessage
+     * const aiMessage = await prisma.aiMessage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AiMessageFindUniqueArgs>(args: SelectSubset<T, AiMessageFindUniqueArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AiMessage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AiMessageFindUniqueOrThrowArgs} args - Arguments to find a AiMessage
+     * @example
+     * // Get one AiMessage
+     * const aiMessage = await prisma.aiMessage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AiMessageFindUniqueOrThrowArgs>(args: SelectSubset<T, AiMessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiMessage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiMessageFindFirstArgs} args - Arguments to find a AiMessage
+     * @example
+     * // Get one AiMessage
+     * const aiMessage = await prisma.aiMessage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AiMessageFindFirstArgs>(args?: SelectSubset<T, AiMessageFindFirstArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AiMessage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiMessageFindFirstOrThrowArgs} args - Arguments to find a AiMessage
+     * @example
+     * // Get one AiMessage
+     * const aiMessage = await prisma.aiMessage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AiMessageFindFirstOrThrowArgs>(args?: SelectSubset<T, AiMessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AiMessages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiMessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AiMessages
+     * const aiMessages = await prisma.aiMessage.findMany()
+     * 
+     * // Get first 10 AiMessages
+     * const aiMessages = await prisma.aiMessage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const aiMessageWithIdOnly = await prisma.aiMessage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AiMessageFindManyArgs>(args?: SelectSubset<T, AiMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AiMessage.
+     * @param {AiMessageCreateArgs} args - Arguments to create a AiMessage.
+     * @example
+     * // Create one AiMessage
+     * const AiMessage = await prisma.aiMessage.create({
+     *   data: {
+     *     // ... data to create a AiMessage
+     *   }
+     * })
+     * 
+     */
+    create<T extends AiMessageCreateArgs>(args: SelectSubset<T, AiMessageCreateArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AiMessages.
+     * @param {AiMessageCreateManyArgs} args - Arguments to create many AiMessages.
+     * @example
+     * // Create many AiMessages
+     * const aiMessage = await prisma.aiMessage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AiMessageCreateManyArgs>(args?: SelectSubset<T, AiMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AiMessages and returns the data saved in the database.
+     * @param {AiMessageCreateManyAndReturnArgs} args - Arguments to create many AiMessages.
+     * @example
+     * // Create many AiMessages
+     * const aiMessage = await prisma.aiMessage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AiMessages and only return the `id`
+     * const aiMessageWithIdOnly = await prisma.aiMessage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AiMessageCreateManyAndReturnArgs>(args?: SelectSubset<T, AiMessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AiMessage.
+     * @param {AiMessageDeleteArgs} args - Arguments to delete one AiMessage.
+     * @example
+     * // Delete one AiMessage
+     * const AiMessage = await prisma.aiMessage.delete({
+     *   where: {
+     *     // ... filter to delete one AiMessage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AiMessageDeleteArgs>(args: SelectSubset<T, AiMessageDeleteArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AiMessage.
+     * @param {AiMessageUpdateArgs} args - Arguments to update one AiMessage.
+     * @example
+     * // Update one AiMessage
+     * const aiMessage = await prisma.aiMessage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AiMessageUpdateArgs>(args: SelectSubset<T, AiMessageUpdateArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AiMessages.
+     * @param {AiMessageDeleteManyArgs} args - Arguments to filter AiMessages to delete.
+     * @example
+     * // Delete a few AiMessages
+     * const { count } = await prisma.aiMessage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AiMessageDeleteManyArgs>(args?: SelectSubset<T, AiMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiMessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AiMessages
+     * const aiMessage = await prisma.aiMessage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AiMessageUpdateManyArgs>(args: SelectSubset<T, AiMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AiMessages and returns the data updated in the database.
+     * @param {AiMessageUpdateManyAndReturnArgs} args - Arguments to update many AiMessages.
+     * @example
+     * // Update many AiMessages
+     * const aiMessage = await prisma.aiMessage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AiMessages and only return the `id`
+     * const aiMessageWithIdOnly = await prisma.aiMessage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AiMessageUpdateManyAndReturnArgs>(args: SelectSubset<T, AiMessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AiMessage.
+     * @param {AiMessageUpsertArgs} args - Arguments to update or create a AiMessage.
+     * @example
+     * // Update or create a AiMessage
+     * const aiMessage = await prisma.aiMessage.upsert({
+     *   create: {
+     *     // ... data to create a AiMessage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AiMessage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AiMessageUpsertArgs>(args: SelectSubset<T, AiMessageUpsertArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AiMessages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiMessageCountArgs} args - Arguments to filter AiMessages to count.
+     * @example
+     * // Count the number of AiMessages
+     * const count = await prisma.aiMessage.count({
+     *   where: {
+     *     // ... the filter for the AiMessages we want to count
+     *   }
+     * })
+    **/
+    count<T extends AiMessageCountArgs>(
+      args?: Subset<T, AiMessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AiMessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AiMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiMessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AiMessageAggregateArgs>(args: Subset<T, AiMessageAggregateArgs>): Prisma.PrismaPromise<GetAiMessageAggregateType<T>>
+
+    /**
+     * Group by AiMessage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AiMessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AiMessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AiMessageGroupByArgs['orderBy'] }
+        : { orderBy?: AiMessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AiMessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAiMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AiMessage model
+   */
+  readonly fields: AiMessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AiMessage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AiMessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    trip<T extends AiMessage$tripArgs<ExtArgs> = {}>(args?: Subset<T, AiMessage$tripArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AiMessage model
+   */
+  interface AiMessageFieldRefs {
+    readonly id: FieldRef<"AiMessage", 'Int'>
+    readonly userId: FieldRef<"AiMessage", 'Int'>
+    readonly tripId: FieldRef<"AiMessage", 'Int'>
+    readonly kind: FieldRef<"AiMessage", 'AiMessageKind'>
+    readonly model: FieldRef<"AiMessage", 'String'>
+    readonly prompt: FieldRef<"AiMessage", 'String'>
+    readonly content: FieldRef<"AiMessage", 'String'>
+    readonly createdAt: FieldRef<"AiMessage", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AiMessage findUnique
+   */
+  export type AiMessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AiMessage to fetch.
+     */
+    where: AiMessageWhereUniqueInput
+  }
+
+  /**
+   * AiMessage findUniqueOrThrow
+   */
+  export type AiMessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AiMessage to fetch.
+     */
+    where: AiMessageWhereUniqueInput
+  }
+
+  /**
+   * AiMessage findFirst
+   */
+  export type AiMessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AiMessage to fetch.
+     */
+    where?: AiMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiMessages to fetch.
+     */
+    orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiMessages.
+     */
+    cursor?: AiMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiMessages.
+     */
+    distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
+  }
+
+  /**
+   * AiMessage findFirstOrThrow
+   */
+  export type AiMessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AiMessage to fetch.
+     */
+    where?: AiMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiMessages to fetch.
+     */
+    orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AiMessages.
+     */
+    cursor?: AiMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiMessages.
+     */
+    distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
+  }
+
+  /**
+   * AiMessage findMany
+   */
+  export type AiMessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * Filter, which AiMessages to fetch.
+     */
+    where?: AiMessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AiMessages to fetch.
+     */
+    orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AiMessages.
+     */
+    cursor?: AiMessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AiMessages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AiMessages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AiMessages.
+     */
+    distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
+  }
+
+  /**
+   * AiMessage create
+   */
+  export type AiMessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a AiMessage.
+     */
+    data: XOR<AiMessageCreateInput, AiMessageUncheckedCreateInput>
+  }
+
+  /**
+   * AiMessage createMany
+   */
+  export type AiMessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AiMessages.
+     */
+    data: AiMessageCreateManyInput | AiMessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AiMessage createManyAndReturn
+   */
+  export type AiMessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many AiMessages.
+     */
+    data: AiMessageCreateManyInput | AiMessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiMessage update
+   */
+  export type AiMessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a AiMessage.
+     */
+    data: XOR<AiMessageUpdateInput, AiMessageUncheckedUpdateInput>
+    /**
+     * Choose, which AiMessage to update.
+     */
+    where: AiMessageWhereUniqueInput
+  }
+
+  /**
+   * AiMessage updateMany
+   */
+  export type AiMessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AiMessages.
+     */
+    data: XOR<AiMessageUpdateManyMutationInput, AiMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which AiMessages to update
+     */
+    where?: AiMessageWhereInput
+    /**
+     * Limit how many AiMessages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiMessage updateManyAndReturn
+   */
+  export type AiMessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * The data used to update AiMessages.
+     */
+    data: XOR<AiMessageUpdateManyMutationInput, AiMessageUncheckedUpdateManyInput>
+    /**
+     * Filter which AiMessages to update
+     */
+    where?: AiMessageWhereInput
+    /**
+     * Limit how many AiMessages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * AiMessage upsert
+   */
+  export type AiMessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the AiMessage to update in case it exists.
+     */
+    where: AiMessageWhereUniqueInput
+    /**
+     * In case the AiMessage found by the `where` argument doesn't exist, create a new AiMessage with this data.
+     */
+    create: XOR<AiMessageCreateInput, AiMessageUncheckedCreateInput>
+    /**
+     * In case the AiMessage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AiMessageUpdateInput, AiMessageUncheckedUpdateInput>
+  }
+
+  /**
+   * AiMessage delete
+   */
+  export type AiMessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+    /**
+     * Filter which AiMessage to delete.
+     */
+    where: AiMessageWhereUniqueInput
+  }
+
+  /**
+   * AiMessage deleteMany
+   */
+  export type AiMessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AiMessages to delete
+     */
+    where?: AiMessageWhereInput
+    /**
+     * Limit how many AiMessages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AiMessage.trip
+   */
+  export type AiMessage$tripArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Trip
+     */
+    select?: TripSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Trip
+     */
+    omit?: TripOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripInclude<ExtArgs> | null
+    where?: TripWhereInput
+  }
+
+  /**
+   * AiMessage without action
+   */
+  export type AiMessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AiMessage
+     */
+    select?: AiMessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AiMessage
+     */
+    omit?: AiMessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: AiMessageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5438,6 +7347,20 @@ export namespace Prisma {
   export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
 
 
+  export const AiMessageScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    tripId: 'tripId',
+    kind: 'kind',
+    model: 'model',
+    prompt: 'prompt',
+    content: 'content',
+    createdAt: 'createdAt'
+  };
+
+  export type AiMessageScalarFieldEnum = (typeof AiMessageScalarFieldEnum)[keyof typeof AiMessageScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -5446,13 +7369,12 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const UserOrderByRelevanceFieldEnum: {
-    username: 'username',
-    email: 'email',
-    password: 'password'
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
   };
 
-  export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
   export const NullsOrder: {
@@ -5461,31 +7383,6 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-  export const TripOrderByRelevanceFieldEnum: {
-    tripName: 'tripName',
-    destination: 'destination',
-    tripDescription: 'tripDescription'
-  };
-
-  export type TripOrderByRelevanceFieldEnum = (typeof TripOrderByRelevanceFieldEnum)[keyof typeof TripOrderByRelevanceFieldEnum]
-
-
-  export const DayOrderByRelevanceFieldEnum: {
-    description: 'description'
-  };
-
-  export type DayOrderByRelevanceFieldEnum = (typeof DayOrderByRelevanceFieldEnum)[keyof typeof DayOrderByRelevanceFieldEnum]
-
-
-  export const ActivityOrderByRelevanceFieldEnum: {
-    locationName: 'locationName',
-    description: 'description',
-    status: 'status'
-  };
-
-  export type ActivityOrderByRelevanceFieldEnum = (typeof ActivityOrderByRelevanceFieldEnum)[keyof typeof ActivityOrderByRelevanceFieldEnum]
 
 
   /**
@@ -5501,9 +7398,23 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
     
 
 
@@ -5515,9 +7426,23 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
    * Reference to a field of type 'ActivityType'
    */
   export type EnumActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityType'>
+    
+
+
+  /**
+   * Reference to a field of type 'ActivityType[]'
+   */
+  export type ListEnumActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityType[]'>
     
 
 
@@ -5529,9 +7454,37 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AiMessageKind'
+   */
+  export type EnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'AiMessageKind[]'
+   */
+  export type ListEnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -5549,6 +7502,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     trips?: TripListRelationFilter
+    aiMessages?: AiMessageListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -5559,7 +7513,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trips?: TripOrderByRelationAggregateInput
-    _relevance?: UserOrderByRelevanceInput
+    aiMessages?: AiMessageOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -5573,6 +7527,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     trips?: TripListRelationFilter
+    aiMessages?: AiMessageListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -5615,6 +7570,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
     days?: DayListRelationFilter
+    aiMessages?: AiMessageListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -5629,8 +7585,8 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     days?: DayOrderByRelationAggregateInput
+    aiMessages?: AiMessageOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
-    _relevance?: TripOrderByRelevanceInput
   }
 
   export type TripWhereUniqueInput = Prisma.AtLeast<{
@@ -5647,6 +7603,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
     days?: DayListRelationFilter
+    aiMessages?: AiMessageListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
@@ -5707,7 +7664,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
     activities?: ActivityOrderByRelationAggregateInput
     trip?: TripOrderByWithRelationInput
-    _relevance?: DayOrderByRelevanceInput
   }
 
   export type DayWhereUniqueInput = Prisma.AtLeast<{
@@ -5784,7 +7740,6 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     day?: DayOrderByWithRelationInput
-    _relevance?: ActivityOrderByRelevanceInput
   }
 
   export type ActivityWhereUniqueInput = Prisma.AtLeast<{
@@ -5841,6 +7796,81 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
   }
 
+  export type AiMessageWhereInput = {
+    AND?: AiMessageWhereInput | AiMessageWhereInput[]
+    OR?: AiMessageWhereInput[]
+    NOT?: AiMessageWhereInput | AiMessageWhereInput[]
+    id?: IntFilter<"AiMessage"> | number
+    userId?: IntFilter<"AiMessage"> | number
+    tripId?: IntNullableFilter<"AiMessage"> | number | null
+    kind?: EnumAiMessageKindFilter<"AiMessage"> | $Enums.AiMessageKind
+    model?: StringNullableFilter<"AiMessage"> | string | null
+    prompt?: StringNullableFilter<"AiMessage"> | string | null
+    content?: StringFilter<"AiMessage"> | string
+    createdAt?: DateTimeFilter<"AiMessage"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    trip?: XOR<TripNullableScalarRelationFilter, TripWhereInput> | null
+  }
+
+  export type AiMessageOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tripId?: SortOrderInput | SortOrder
+    kind?: SortOrder
+    model?: SortOrderInput | SortOrder
+    prompt?: SortOrderInput | SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    trip?: TripOrderByWithRelationInput
+  }
+
+  export type AiMessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: AiMessageWhereInput | AiMessageWhereInput[]
+    OR?: AiMessageWhereInput[]
+    NOT?: AiMessageWhereInput | AiMessageWhereInput[]
+    userId?: IntFilter<"AiMessage"> | number
+    tripId?: IntNullableFilter<"AiMessage"> | number | null
+    kind?: EnumAiMessageKindFilter<"AiMessage"> | $Enums.AiMessageKind
+    model?: StringNullableFilter<"AiMessage"> | string | null
+    prompt?: StringNullableFilter<"AiMessage"> | string | null
+    content?: StringFilter<"AiMessage"> | string
+    createdAt?: DateTimeFilter<"AiMessage"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    trip?: XOR<TripNullableScalarRelationFilter, TripWhereInput> | null
+  }, "id">
+
+  export type AiMessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tripId?: SortOrderInput | SortOrder
+    kind?: SortOrder
+    model?: SortOrderInput | SortOrder
+    prompt?: SortOrderInput | SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+    _count?: AiMessageCountOrderByAggregateInput
+    _avg?: AiMessageAvgOrderByAggregateInput
+    _max?: AiMessageMaxOrderByAggregateInput
+    _min?: AiMessageMinOrderByAggregateInput
+    _sum?: AiMessageSumOrderByAggregateInput
+  }
+
+  export type AiMessageScalarWhereWithAggregatesInput = {
+    AND?: AiMessageScalarWhereWithAggregatesInput | AiMessageScalarWhereWithAggregatesInput[]
+    OR?: AiMessageScalarWhereWithAggregatesInput[]
+    NOT?: AiMessageScalarWhereWithAggregatesInput | AiMessageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"AiMessage"> | number
+    userId?: IntWithAggregatesFilter<"AiMessage"> | number
+    tripId?: IntNullableWithAggregatesFilter<"AiMessage"> | number | null
+    kind?: EnumAiMessageKindWithAggregatesFilter<"AiMessage"> | $Enums.AiMessageKind
+    model?: StringNullableWithAggregatesFilter<"AiMessage"> | string | null
+    prompt?: StringNullableWithAggregatesFilter<"AiMessage"> | string | null
+    content?: StringWithAggregatesFilter<"AiMessage"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"AiMessage"> | Date | string
+  }
+
   export type UserCreateInput = {
     username: string
     email: string
@@ -5848,6 +7878,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripCreateNestedManyWithoutUserInput
+    aiMessages?: AiMessageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -5858,6 +7889,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -5867,6 +7899,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUpdateManyWithoutUserNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5877,6 +7910,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5914,6 +7948,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
     user: UserCreateNestedOneWithoutTripsInput
   }
 
@@ -5928,6 +7963,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayUncheckedCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
   }
 
   export type TripUpdateInput = {
@@ -5939,6 +7975,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
     user?: UserUpdateOneRequiredWithoutTripsNestedInput
   }
 
@@ -5953,6 +7990,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
   }
 
   export type TripCreateManyInput = {
@@ -6153,10 +8191,82 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AiMessageCreateInput = {
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiMessagesInput
+    trip?: TripCreateNestedOneWithoutAiMessagesInput
+  }
+
+  export type AiMessageUncheckedCreateInput = {
+    id?: number
+    userId: number
+    tripId?: number | null
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type AiMessageUpdateInput = {
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiMessagesNestedInput
+    trip?: TripUpdateOneWithoutAiMessagesNestedInput
+  }
+
+  export type AiMessageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripId?: NullableIntFieldUpdateOperationsInput | number | null
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiMessageCreateManyInput = {
+    id?: number
+    userId: number
+    tripId?: number | null
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type AiMessageUpdateManyMutationInput = {
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiMessageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripId?: NullableIntFieldUpdateOperationsInput | number | null
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6166,8 +8276,8 @@ export namespace Prisma {
 
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6175,14 +8285,14 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
+    mode?: QueryMode
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6196,14 +8306,18 @@ export namespace Prisma {
     none?: TripWhereInput
   }
 
+  export type AiMessageListRelationFilter = {
+    every?: AiMessageWhereInput
+    some?: AiMessageWhereInput
+    none?: AiMessageWhereInput
+  }
+
   export type TripOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type UserOrderByRelevanceInput = {
-    fields: UserOrderByRelevanceFieldEnum | UserOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
+  export type AiMessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
@@ -6243,8 +8357,8 @@ export namespace Prisma {
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6259,8 +8373,8 @@ export namespace Prisma {
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6268,7 +8382,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
+    mode?: QueryMode
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
@@ -6277,8 +8391,8 @@ export namespace Prisma {
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6291,8 +8405,8 @@ export namespace Prisma {
 
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6300,14 +8414,14 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
+    mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6333,12 +8447,6 @@ export namespace Prisma {
 
   export type DayOrderByRelationAggregateInput = {
     _count?: SortOrder
-  }
-
-  export type TripOrderByRelevanceInput = {
-    fields: TripOrderByRelevanceFieldEnum | TripOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
   }
 
   export type TripCountOrderByAggregateInput = {
@@ -6389,8 +8497,8 @@ export namespace Prisma {
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6398,7 +8506,7 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
+    mode?: QueryMode
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
@@ -6407,8 +8515,8 @@ export namespace Prisma {
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6432,12 +8540,6 @@ export namespace Prisma {
 
   export type ActivityOrderByRelationAggregateInput = {
     _count?: SortOrder
-  }
-
-  export type DayOrderByRelevanceInput = {
-    fields: DayOrderByRelevanceFieldEnum | DayOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
   }
 
   export type DayCountOrderByAggregateInput = {
@@ -6484,15 +8586,15 @@ export namespace Prisma {
 
   export type EnumActivityTypeNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityType | EnumActivityTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ActivityType[] | null
-    notIn?: $Enums.ActivityType[] | null
+    in?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
     not?: NestedEnumActivityTypeNullableFilter<$PrismaModel> | $Enums.ActivityType | null
   }
 
   export type DecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
@@ -6503,12 +8605,6 @@ export namespace Prisma {
   export type DayScalarRelationFilter = {
     is?: DayWhereInput
     isNot?: DayWhereInput
-  }
-
-  export type ActivityOrderByRelevanceInput = {
-    fields: ActivityOrderByRelevanceFieldEnum | ActivityOrderByRelevanceFieldEnum[]
-    sort: SortOrder
-    search: string
   }
 
   export type ActivityCountOrderByAggregateInput = {
@@ -6567,8 +8663,8 @@ export namespace Prisma {
 
   export type EnumActivityTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityType | EnumActivityTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ActivityType[] | null
-    notIn?: $Enums.ActivityType[] | null
+    in?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
     not?: NestedEnumActivityTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ActivityType | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumActivityTypeNullableFilter<$PrismaModel>
@@ -6577,8 +8673,8 @@ export namespace Prisma {
 
   export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
@@ -6591,6 +8687,100 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EnumAiMessageKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiMessageKind | EnumAiMessageKindFieldRefInput<$PrismaModel>
+    in?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiMessageKindFilter<$PrismaModel> | $Enums.AiMessageKind
+  }
+
+  export type TripNullableScalarRelationFilter = {
+    is?: TripWhereInput | null
+    isNot?: TripWhereInput | null
+  }
+
+  export type AiMessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tripId?: SortOrder
+    kind?: SortOrder
+    model?: SortOrder
+    prompt?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AiMessageAvgOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tripId?: SortOrder
+  }
+
+  export type AiMessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tripId?: SortOrder
+    kind?: SortOrder
+    model?: SortOrder
+    prompt?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AiMessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tripId?: SortOrder
+    kind?: SortOrder
+    model?: SortOrder
+    prompt?: SortOrder
+    content?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AiMessageSumOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    tripId?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumAiMessageKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiMessageKind | EnumAiMessageKindFieldRefInput<$PrismaModel>
+    in?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiMessageKindWithAggregatesFilter<$PrismaModel> | $Enums.AiMessageKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAiMessageKindFilter<$PrismaModel>
+    _max?: NestedEnumAiMessageKindFilter<$PrismaModel>
+  }
+
   export type TripCreateNestedManyWithoutUserInput = {
     create?: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput> | TripCreateWithoutUserInput[] | TripUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
@@ -6598,11 +8788,25 @@ export namespace Prisma {
     connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
   }
 
+  export type AiMessageCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput> | AiMessageCreateWithoutUserInput[] | AiMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutUserInput | AiMessageCreateOrConnectWithoutUserInput[]
+    createMany?: AiMessageCreateManyUserInputEnvelope
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+  }
+
   export type TripUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput> | TripCreateWithoutUserInput[] | TripUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
     createMany?: TripCreateManyUserInputEnvelope
     connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+  }
+
+  export type AiMessageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput> | AiMessageCreateWithoutUserInput[] | AiMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutUserInput | AiMessageCreateOrConnectWithoutUserInput[]
+    createMany?: AiMessageCreateManyUserInputEnvelope
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -6627,6 +8831,20 @@ export namespace Prisma {
     deleteMany?: TripScalarWhereInput | TripScalarWhereInput[]
   }
 
+  export type AiMessageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput> | AiMessageCreateWithoutUserInput[] | AiMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutUserInput | AiMessageCreateOrConnectWithoutUserInput[]
+    upsert?: AiMessageUpsertWithWhereUniqueWithoutUserInput | AiMessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiMessageCreateManyUserInputEnvelope
+    set?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    disconnect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    delete?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    update?: AiMessageUpdateWithWhereUniqueWithoutUserInput | AiMessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiMessageUpdateManyWithWhereWithoutUserInput | AiMessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiMessageScalarWhereInput | AiMessageScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -6649,11 +8867,32 @@ export namespace Prisma {
     deleteMany?: TripScalarWhereInput | TripScalarWhereInput[]
   }
 
+  export type AiMessageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput> | AiMessageCreateWithoutUserInput[] | AiMessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutUserInput | AiMessageCreateOrConnectWithoutUserInput[]
+    upsert?: AiMessageUpsertWithWhereUniqueWithoutUserInput | AiMessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: AiMessageCreateManyUserInputEnvelope
+    set?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    disconnect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    delete?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    update?: AiMessageUpdateWithWhereUniqueWithoutUserInput | AiMessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: AiMessageUpdateManyWithWhereWithoutUserInput | AiMessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: AiMessageScalarWhereInput | AiMessageScalarWhereInput[]
+  }
+
   export type DayCreateNestedManyWithoutTripInput = {
     create?: XOR<DayCreateWithoutTripInput, DayUncheckedCreateWithoutTripInput> | DayCreateWithoutTripInput[] | DayUncheckedCreateWithoutTripInput[]
     connectOrCreate?: DayCreateOrConnectWithoutTripInput | DayCreateOrConnectWithoutTripInput[]
     createMany?: DayCreateManyTripInputEnvelope
     connect?: DayWhereUniqueInput | DayWhereUniqueInput[]
+  }
+
+  export type AiMessageCreateNestedManyWithoutTripInput = {
+    create?: XOR<AiMessageCreateWithoutTripInput, AiMessageUncheckedCreateWithoutTripInput> | AiMessageCreateWithoutTripInput[] | AiMessageUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutTripInput | AiMessageCreateOrConnectWithoutTripInput[]
+    createMany?: AiMessageCreateManyTripInputEnvelope
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
   }
 
   export type UserCreateNestedOneWithoutTripsInput = {
@@ -6667,6 +8906,13 @@ export namespace Prisma {
     connectOrCreate?: DayCreateOrConnectWithoutTripInput | DayCreateOrConnectWithoutTripInput[]
     createMany?: DayCreateManyTripInputEnvelope
     connect?: DayWhereUniqueInput | DayWhereUniqueInput[]
+  }
+
+  export type AiMessageUncheckedCreateNestedManyWithoutTripInput = {
+    create?: XOR<AiMessageCreateWithoutTripInput, AiMessageUncheckedCreateWithoutTripInput> | AiMessageCreateWithoutTripInput[] | AiMessageUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutTripInput | AiMessageCreateOrConnectWithoutTripInput[]
+    createMany?: AiMessageCreateManyTripInputEnvelope
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -6691,6 +8937,20 @@ export namespace Prisma {
     deleteMany?: DayScalarWhereInput | DayScalarWhereInput[]
   }
 
+  export type AiMessageUpdateManyWithoutTripNestedInput = {
+    create?: XOR<AiMessageCreateWithoutTripInput, AiMessageUncheckedCreateWithoutTripInput> | AiMessageCreateWithoutTripInput[] | AiMessageUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutTripInput | AiMessageCreateOrConnectWithoutTripInput[]
+    upsert?: AiMessageUpsertWithWhereUniqueWithoutTripInput | AiMessageUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: AiMessageCreateManyTripInputEnvelope
+    set?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    disconnect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    delete?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    update?: AiMessageUpdateWithWhereUniqueWithoutTripInput | AiMessageUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: AiMessageUpdateManyWithWhereWithoutTripInput | AiMessageUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: AiMessageScalarWhereInput | AiMessageScalarWhereInput[]
+  }
+
   export type UserUpdateOneRequiredWithoutTripsNestedInput = {
     create?: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
     connectOrCreate?: UserCreateOrConnectWithoutTripsInput
@@ -6711,6 +8971,20 @@ export namespace Prisma {
     update?: DayUpdateWithWhereUniqueWithoutTripInput | DayUpdateWithWhereUniqueWithoutTripInput[]
     updateMany?: DayUpdateManyWithWhereWithoutTripInput | DayUpdateManyWithWhereWithoutTripInput[]
     deleteMany?: DayScalarWhereInput | DayScalarWhereInput[]
+  }
+
+  export type AiMessageUncheckedUpdateManyWithoutTripNestedInput = {
+    create?: XOR<AiMessageCreateWithoutTripInput, AiMessageUncheckedCreateWithoutTripInput> | AiMessageCreateWithoutTripInput[] | AiMessageUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: AiMessageCreateOrConnectWithoutTripInput | AiMessageCreateOrConnectWithoutTripInput[]
+    upsert?: AiMessageUpsertWithWhereUniqueWithoutTripInput | AiMessageUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: AiMessageCreateManyTripInputEnvelope
+    set?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    disconnect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    delete?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    connect?: AiMessageWhereUniqueInput | AiMessageWhereUniqueInput[]
+    update?: AiMessageUpdateWithWhereUniqueWithoutTripInput | AiMessageUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: AiMessageUpdateManyWithWhereWithoutTripInput | AiMessageUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: AiMessageScalarWhereInput | AiMessageScalarWhereInput[]
   }
 
   export type ActivityCreateNestedManyWithoutDayInput = {
@@ -6795,10 +9069,52 @@ export namespace Prisma {
     update?: XOR<XOR<DayUpdateToOneWithWhereWithoutActivitiesInput, DayUpdateWithoutActivitiesInput>, DayUncheckedUpdateWithoutActivitiesInput>
   }
 
+  export type UserCreateNestedOneWithoutAiMessagesInput = {
+    create?: XOR<UserCreateWithoutAiMessagesInput, UserUncheckedCreateWithoutAiMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TripCreateNestedOneWithoutAiMessagesInput = {
+    create?: XOR<TripCreateWithoutAiMessagesInput, TripUncheckedCreateWithoutAiMessagesInput>
+    connectOrCreate?: TripCreateOrConnectWithoutAiMessagesInput
+    connect?: TripWhereUniqueInput
+  }
+
+  export type EnumAiMessageKindFieldUpdateOperationsInput = {
+    set?: $Enums.AiMessageKind
+  }
+
+  export type UserUpdateOneRequiredWithoutAiMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutAiMessagesInput, UserUncheckedCreateWithoutAiMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAiMessagesInput
+    upsert?: UserUpsertWithoutAiMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiMessagesInput, UserUpdateWithoutAiMessagesInput>, UserUncheckedUpdateWithoutAiMessagesInput>
+  }
+
+  export type TripUpdateOneWithoutAiMessagesNestedInput = {
+    create?: XOR<TripCreateWithoutAiMessagesInput, TripUncheckedCreateWithoutAiMessagesInput>
+    connectOrCreate?: TripCreateOrConnectWithoutAiMessagesInput
+    upsert?: TripUpsertWithoutAiMessagesInput
+    disconnect?: TripWhereInput | boolean
+    delete?: TripWhereInput | boolean
+    connect?: TripWhereUniqueInput
+    update?: XOR<XOR<TripUpdateToOneWithWhereWithoutAiMessagesInput, TripUpdateWithoutAiMessagesInput>, TripUncheckedUpdateWithoutAiMessagesInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type NestedIntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6808,8 +9124,8 @@ export namespace Prisma {
 
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6817,14 +9133,13 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6834,8 +9149,8 @@ export namespace Prisma {
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6850,8 +9165,8 @@ export namespace Prisma {
 
   export type NestedFloatFilter<$PrismaModel = never> = {
     equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[]
-    notIn?: number[]
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
@@ -6861,8 +9176,8 @@ export namespace Prisma {
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6870,7 +9185,6 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
     not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
@@ -6879,8 +9193,8 @@ export namespace Prisma {
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[]
-    notIn?: Date[] | string[]
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6893,8 +9207,8 @@ export namespace Prisma {
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6902,14 +9216,13 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6919,8 +9232,8 @@ export namespace Prisma {
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | null
-    notIn?: string[] | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
     lt?: string | StringFieldRefInput<$PrismaModel>
     lte?: string | StringFieldRefInput<$PrismaModel>
     gt?: string | StringFieldRefInput<$PrismaModel>
@@ -6928,7 +9241,6 @@ export namespace Prisma {
     contains?: string | StringFieldRefInput<$PrismaModel>
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
-    search?: string
     not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
@@ -6937,8 +9249,8 @@ export namespace Prisma {
 
   export type NestedIntNullableFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | null
-    notIn?: number[] | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
@@ -6948,8 +9260,8 @@ export namespace Prisma {
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | null
-    notIn?: Date[] | string[] | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
     lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -6962,15 +9274,15 @@ export namespace Prisma {
 
   export type NestedEnumActivityTypeNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityType | EnumActivityTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ActivityType[] | null
-    notIn?: $Enums.ActivityType[] | null
+    in?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
     not?: NestedEnumActivityTypeNullableFilter<$PrismaModel> | $Enums.ActivityType | null
   }
 
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
@@ -6980,8 +9292,8 @@ export namespace Prisma {
 
   export type NestedEnumActivityTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityType | EnumActivityTypeFieldRefInput<$PrismaModel> | null
-    in?: $Enums.ActivityType[] | null
-    notIn?: $Enums.ActivityType[] | null
+    in?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
     not?: NestedEnumActivityTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.ActivityType | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedEnumActivityTypeNullableFilter<$PrismaModel>
@@ -6990,8 +9302,8 @@ export namespace Prisma {
 
   export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
     lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
@@ -7004,6 +9316,50 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
+  export type NestedEnumAiMessageKindFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiMessageKind | EnumAiMessageKindFieldRefInput<$PrismaModel>
+    in?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiMessageKindFilter<$PrismaModel> | $Enums.AiMessageKind
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumAiMessageKindWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.AiMessageKind | EnumAiMessageKindFieldRefInput<$PrismaModel>
+    in?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    notIn?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
+    not?: NestedEnumAiMessageKindWithAggregatesFilter<$PrismaModel> | $Enums.AiMessageKind
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumAiMessageKindFilter<$PrismaModel>
+    _max?: NestedEnumAiMessageKindFilter<$PrismaModel>
+  }
+
   export type TripCreateWithoutUserInput = {
     tripName: string
     destination?: string | null
@@ -7013,6 +9369,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
   }
 
   export type TripUncheckedCreateWithoutUserInput = {
@@ -7025,6 +9382,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayUncheckedCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
   }
 
   export type TripCreateOrConnectWithoutUserInput = {
@@ -7034,6 +9392,35 @@ export namespace Prisma {
 
   export type TripCreateManyUserInputEnvelope = {
     data: TripCreateManyUserInput | TripCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AiMessageCreateWithoutUserInput = {
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+    trip?: TripCreateNestedOneWithoutAiMessagesInput
+  }
+
+  export type AiMessageUncheckedCreateWithoutUserInput = {
+    id?: number
+    tripId?: number | null
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type AiMessageCreateOrConnectWithoutUserInput = {
+    where: AiMessageWhereUniqueInput
+    create: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiMessageCreateManyUserInputEnvelope = {
+    data: AiMessageCreateManyUserInput | AiMessageCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -7068,6 +9455,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
   }
 
+  export type AiMessageUpsertWithWhereUniqueWithoutUserInput = {
+    where: AiMessageWhereUniqueInput
+    update: XOR<AiMessageUpdateWithoutUserInput, AiMessageUncheckedUpdateWithoutUserInput>
+    create: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type AiMessageUpdateWithWhereUniqueWithoutUserInput = {
+    where: AiMessageWhereUniqueInput
+    data: XOR<AiMessageUpdateWithoutUserInput, AiMessageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AiMessageUpdateManyWithWhereWithoutUserInput = {
+    where: AiMessageScalarWhereInput
+    data: XOR<AiMessageUpdateManyMutationInput, AiMessageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AiMessageScalarWhereInput = {
+    AND?: AiMessageScalarWhereInput | AiMessageScalarWhereInput[]
+    OR?: AiMessageScalarWhereInput[]
+    NOT?: AiMessageScalarWhereInput | AiMessageScalarWhereInput[]
+    id?: IntFilter<"AiMessage"> | number
+    userId?: IntFilter<"AiMessage"> | number
+    tripId?: IntNullableFilter<"AiMessage"> | number | null
+    kind?: EnumAiMessageKindFilter<"AiMessage"> | $Enums.AiMessageKind
+    model?: StringNullableFilter<"AiMessage"> | string | null
+    prompt?: StringNullableFilter<"AiMessage"> | string | null
+    content?: StringFilter<"AiMessage"> | string
+    createdAt?: DateTimeFilter<"AiMessage"> | Date | string
+  }
+
   export type DayCreateWithoutTripInput = {
     dayCount: number
     dayDate?: Date | string | null
@@ -7097,12 +9514,42 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AiMessageCreateWithoutTripInput = {
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutAiMessagesInput
+  }
+
+  export type AiMessageUncheckedCreateWithoutTripInput = {
+    id?: number
+    userId: number
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+  }
+
+  export type AiMessageCreateOrConnectWithoutTripInput = {
+    where: AiMessageWhereUniqueInput
+    create: XOR<AiMessageCreateWithoutTripInput, AiMessageUncheckedCreateWithoutTripInput>
+  }
+
+  export type AiMessageCreateManyTripInputEnvelope = {
+    data: AiMessageCreateManyTripInput | AiMessageCreateManyTripInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserCreateWithoutTripsInput = {
     username: string
     email: string
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiMessages?: AiMessageCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutTripsInput = {
@@ -7112,6 +9559,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutTripsInput = {
@@ -7148,6 +9596,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Day"> | Date | string
   }
 
+  export type AiMessageUpsertWithWhereUniqueWithoutTripInput = {
+    where: AiMessageWhereUniqueInput
+    update: XOR<AiMessageUpdateWithoutTripInput, AiMessageUncheckedUpdateWithoutTripInput>
+    create: XOR<AiMessageCreateWithoutTripInput, AiMessageUncheckedCreateWithoutTripInput>
+  }
+
+  export type AiMessageUpdateWithWhereUniqueWithoutTripInput = {
+    where: AiMessageWhereUniqueInput
+    data: XOR<AiMessageUpdateWithoutTripInput, AiMessageUncheckedUpdateWithoutTripInput>
+  }
+
+  export type AiMessageUpdateManyWithWhereWithoutTripInput = {
+    where: AiMessageScalarWhereInput
+    data: XOR<AiMessageUpdateManyMutationInput, AiMessageUncheckedUpdateManyWithoutTripInput>
+  }
+
   export type UserUpsertWithoutTripsInput = {
     update: XOR<UserUpdateWithoutTripsInput, UserUncheckedUpdateWithoutTripsInput>
     create: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
@@ -7165,6 +9629,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMessages?: AiMessageUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTripsInput = {
@@ -7174,6 +9639,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ActivityCreateWithoutDayInput = {
@@ -7219,6 +9685,7 @@ export namespace Prisma {
     tripDescription?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
     user: UserCreateNestedOneWithoutTripsInput
   }
 
@@ -7232,6 +9699,7 @@ export namespace Prisma {
     tripDescription?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
   }
 
   export type TripCreateOrConnectWithoutDaysInput = {
@@ -7291,6 +9759,7 @@ export namespace Prisma {
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
     user?: UserUpdateOneRequiredWithoutTripsNestedInput
   }
 
@@ -7304,6 +9773,7 @@ export namespace Prisma {
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
   }
 
   export type DayCreateWithoutActivitiesInput = {
@@ -7360,6 +9830,126 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutAiMessagesInput = {
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trips?: TripCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAiMessagesInput = {
+    id?: number
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAiMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAiMessagesInput, UserUncheckedCreateWithoutAiMessagesInput>
+  }
+
+  export type TripCreateWithoutAiMessagesInput = {
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    days?: DayCreateNestedManyWithoutTripInput
+    user: UserCreateNestedOneWithoutTripsInput
+  }
+
+  export type TripUncheckedCreateWithoutAiMessagesInput = {
+    id?: number
+    userId: number
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    days?: DayUncheckedCreateNestedManyWithoutTripInput
+  }
+
+  export type TripCreateOrConnectWithoutAiMessagesInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutAiMessagesInput, TripUncheckedCreateWithoutAiMessagesInput>
+  }
+
+  export type UserUpsertWithoutAiMessagesInput = {
+    update: XOR<UserUpdateWithoutAiMessagesInput, UserUncheckedUpdateWithoutAiMessagesInput>
+    create: XOR<UserCreateWithoutAiMessagesInput, UserUncheckedCreateWithoutAiMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAiMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAiMessagesInput, UserUncheckedUpdateWithoutAiMessagesInput>
+  }
+
+  export type UserUpdateWithoutAiMessagesInput = {
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trips?: TripUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAiMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TripUpsertWithoutAiMessagesInput = {
+    update: XOR<TripUpdateWithoutAiMessagesInput, TripUncheckedUpdateWithoutAiMessagesInput>
+    create: XOR<TripCreateWithoutAiMessagesInput, TripUncheckedCreateWithoutAiMessagesInput>
+    where?: TripWhereInput
+  }
+
+  export type TripUpdateToOneWithWhereWithoutAiMessagesInput = {
+    where?: TripWhereInput
+    data: XOR<TripUpdateWithoutAiMessagesInput, TripUncheckedUpdateWithoutAiMessagesInput>
+  }
+
+  export type TripUpdateWithoutAiMessagesInput = {
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: DayUpdateManyWithoutTripNestedInput
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutAiMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    days?: DayUncheckedUpdateManyWithoutTripNestedInput
+  }
+
   export type TripCreateManyUserInput = {
     id?: number
     tripName: string
@@ -7371,6 +9961,16 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
+  export type AiMessageCreateManyUserInput = {
+    id?: number
+    tripId?: number | null
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
+  }
+
   export type TripUpdateWithoutUserInput = {
     tripName?: StringFieldUpdateOperationsInput | string
     destination?: NullableStringFieldUpdateOperationsInput | string | null
@@ -7380,6 +9980,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
   }
 
   export type TripUncheckedUpdateWithoutUserInput = {
@@ -7392,6 +9993,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
   }
 
   export type TripUncheckedUpdateManyWithoutUserInput = {
@@ -7405,6 +10007,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type AiMessageUpdateWithoutUserInput = {
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip?: TripUpdateOneWithoutAiMessagesNestedInput
+  }
+
+  export type AiMessageUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tripId?: NullableIntFieldUpdateOperationsInput | number | null
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiMessageUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tripId?: NullableIntFieldUpdateOperationsInput | number | null
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DayCreateManyTripInput = {
     id?: number
     dayCount: number
@@ -7412,6 +10043,16 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type AiMessageCreateManyTripInput = {
+    id?: number
+    userId: number
+    kind?: $Enums.AiMessageKind
+    model?: string | null
+    prompt?: string | null
+    content: string
+    createdAt?: Date | string
   }
 
   export type DayUpdateWithoutTripInput = {
@@ -7440,6 +10081,35 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiMessageUpdateWithoutTripInput = {
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutAiMessagesNestedInput
+  }
+
+  export type AiMessageUncheckedUpdateWithoutTripInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AiMessageUncheckedUpdateManyWithoutTripInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    kind?: EnumAiMessageKindFieldUpdateOperationsInput | $Enums.AiMessageKind
+    model?: NullableStringFieldUpdateOperationsInput | string | null
+    prompt?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ActivityCreateManyDayInput = {

@@ -12,13 +12,15 @@ const DaysRoute = express.Router();
 DaysRoute.use(authCheck);
 
 // 4.1 สร้างวันใหม่
-// DaysRoute.post("/", createDay);
-DaysRoute.post("/trips/:tripId/days", authCheck, createDay);
+// POST /api/trips/:tripId/days (mounted under /api)
+DaysRoute.post("/trips/:tripId/days", createDay);
 
 // 4.2 แก้ไขข้อมูลวัน
-DaysRoute.put("/:dayId", updateDay);
+// PUT /api/days/:dayId (mounted under /api)
+DaysRoute.put("/days/:dayId", updateDay);
 
 // 4.3 ลบวัน
-DaysRoute.delete("/:dayId", deleteDay);
+// DELETE /api/days/:dayId (mounted under /api)
+DaysRoute.delete("/days/:dayId", deleteDay);
 
 export default DaysRoute;

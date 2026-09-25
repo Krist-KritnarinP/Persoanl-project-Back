@@ -165,36 +165,30 @@ exports.Prisma.ActivityScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.AiMessageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tripId: 'tripId',
+  kind: 'kind',
+  model: 'model',
+  prompt: 'prompt',
+  content: 'content',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  username: 'username',
-  email: 'email',
-  password: 'password'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.TripOrderByRelevanceFieldEnum = {
-  tripName: 'tripName',
-  destination: 'destination',
-  tripDescription: 'tripDescription'
-};
-
-exports.Prisma.DayOrderByRelevanceFieldEnum = {
-  description: 'description'
-};
-
-exports.Prisma.ActivityOrderByRelevanceFieldEnum = {
-  locationName: 'locationName',
-  description: 'description',
-  status: 'status'
 };
 exports.ActivityType = exports.$Enums.ActivityType = {
   ACCOMMODATION: 'ACCOMMODATION',
@@ -203,11 +197,18 @@ exports.ActivityType = exports.$Enums.ActivityType = {
   ATTRACTION: 'ATTRACTION'
 };
 
+exports.AiMessageKind = exports.$Enums.AiMessageKind = {
+  WEATHER: 'WEATHER',
+  PLAN: 'PLAN',
+  CHAT: 'CHAT'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Trip: 'Trip',
   Day: 'Day',
-  Activity: 'Activity'
+  Activity: 'Activity',
+  AiMessage: 'AiMessage'
 };
 
 /**
