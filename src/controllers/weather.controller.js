@@ -1,7 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 import createError from "http-errors";
 import { weatherSchema } from "../validations/schema.js";
-import { saveAiMessage, getAiHistoryService } from "../services/ai.service.js";
+import { saveAiMessage, getAiHistoryService, deleteAiMessageService } from "../services/ai.service.js";
 
 // GET /api/weather/history/:tripId — ประวัติคำตอบ AI ของทริปนี้
 export const getWeatherHistory = async (req, res, next) => {
@@ -12,6 +12,19 @@ export const getWeatherHistory = async (req, res, next) => {
       return res.status(404).json({ message: "Trip not found or unauthorized" });
     }
     res.status(200).json({ message: "Get AI history successfully", data: history });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// DELETE /api/weather/history/:messageId — ลบประวัติ AI 1 รายการ
+export const deleteWeatherHistory = async (req, res, next) => {
+  try {
+    const deleted = await deleteAiMessageService(req.params.messageId, req.user.id);
+    if (!deleted) {
+      return res.status(404).json({ message: "AI message not found or unauthorized" });
+    }
+    res.status(200).json({ message: "Delete AI message successfully" });
   } catch (error) {
     next(error);
   }
@@ -70,7 +83,7 @@ export const predictTripWeather = async (req, res, next) => {
       - รายการกิจกรรม/เวลา: ${acts}
 
       พยากรณ์เฉพาะสภาพอากาศที่คาดว่าจะเจอในแต่ละช่วงเวลาของวันของแต่ละสถานที่เท่านั้น สรุปเป็นช่วงวัน เช้ากลางวันและเย็น ไม่ต้องใส่คำแนะนำอะไรเพิ่มแค่สรุปสภาพอากาศเท่านั้น
-      แบบย่่อที่สุดไม่เกิน 20 คำ
+      
     `;
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });

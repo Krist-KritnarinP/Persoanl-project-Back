@@ -28,6 +28,16 @@ export const saveAiMessage = async ({ userId, tripId, kind, model, prompt, conte
   });
 };
 
+// ลบประวัติ AI 1 รายการ (ต้องเป็นของ user เอง)
+export const deleteAiMessageService = async (messageId, userId) => {
+  const msg = await prisma.aiMessage.findFirst({
+    where: { id: Number(messageId), userId: Number(userId) },
+    select: { id: true },
+  });
+  if (!msg) return null;
+  return await prisma.aiMessage.delete({ where: { id: Number(messageId) } });
+};
+
 // ดึงประวัติ AI ของทริป (ใหม่สุดก่อน)
 export const getAiHistoryService = async (tripId, userId, limit = 20) => {
   const trip = await prisma.trip.findFirst({
