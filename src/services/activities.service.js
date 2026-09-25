@@ -18,8 +18,8 @@ export const createActivityService = async (userId, activityData) => {
     price,
     description,
     status,
+    latitude, longitude,
   } = activityData;
-
   const targetDayId = Number(dayId || day_id);
   const targetLocation = locationName || location_name;
   const rawType = (activityType || activity_type)?.toUpperCase();
@@ -46,6 +46,8 @@ export const createActivityService = async (userId, activityData) => {
 
   const inputDate = activityDate || activity_date;
   const inputTime = activityTime || activity_time;
+  const lat = latitude !== undefined && latitude !== "" && latitude !== null ? Number(latitude) : null;
+  const lng = longitude !== undefined && longitude !== "" && longitude !== null ? Number(longitude) : null;
 
   return await prisma.activity.create({
     data: {
@@ -57,6 +59,8 @@ export const createActivityService = async (userId, activityData) => {
       price: price !== undefined ? price : 0.0,
       description: description || null,
       status: status || "planned",
+      latitude: lat !== null && !isNaN(lat) ? lat : null,
+      longitude: lng !== null && !isNaN(lng) ? lng : null,
     },
   });
 };
@@ -71,6 +75,7 @@ export const updateActivityService = async (activityId, userId, updateData) => {
     price,
     description,
     status,
+    latitude, longitude,
   } = updateData;
 
   // Check Activity
@@ -102,6 +107,14 @@ export const updateActivityService = async (activityId, userId, updateData) => {
   if (price !== undefined) dataToUpdate.price = price;
   if (description !== undefined) dataToUpdate.description = description;
   if (status !== undefined) dataToUpdate.status = status;
+  if (latitude !== undefined) {
+    const v = latitude === "" || latitude === null ? null : Number(latitude);
+    dataToUpdate.latitude = v !== null && !isNaN(v) ? v : null;
+  }
+  if (longitude !== undefined) {
+    const v = longitude === "" || longitude === null ? null : Number(longitude);
+    dataToUpdate.longitude = v !== null && !isNaN(v) ? v : null;
+  }
 
   return await prisma.activity.update({
     where: { id: Number(activityId) },

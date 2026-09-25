@@ -4951,12 +4951,16 @@ export namespace Prisma {
     id: number | null
     dayId: number | null
     price: Decimal | null
+    latitude: number | null
+    longitude: number | null
   }
 
   export type ActivitySumAggregateOutputType = {
     id: number | null
     dayId: number | null
     price: Decimal | null
+    latitude: number | null
+    longitude: number | null
   }
 
   export type ActivityMinAggregateOutputType = {
@@ -4969,6 +4973,8 @@ export namespace Prisma {
     price: Decimal | null
     description: string | null
     status: string | null
+    latitude: number | null
+    longitude: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4983,6 +4989,8 @@ export namespace Prisma {
     price: Decimal | null
     description: string | null
     status: string | null
+    latitude: number | null
+    longitude: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -4997,6 +5005,8 @@ export namespace Prisma {
     price: number
     description: number
     status: number
+    latitude: number
+    longitude: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -5007,12 +5017,16 @@ export namespace Prisma {
     id?: true
     dayId?: true
     price?: true
+    latitude?: true
+    longitude?: true
   }
 
   export type ActivitySumAggregateInputType = {
     id?: true
     dayId?: true
     price?: true
+    latitude?: true
+    longitude?: true
   }
 
   export type ActivityMinAggregateInputType = {
@@ -5025,6 +5039,8 @@ export namespace Prisma {
     price?: true
     description?: true
     status?: true
+    latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5039,6 +5055,8 @@ export namespace Prisma {
     price?: true
     description?: true
     status?: true
+    latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -5053,6 +5071,8 @@ export namespace Prisma {
     price?: true
     description?: true
     status?: true
+    latitude?: true
+    longitude?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -5154,6 +5174,8 @@ export namespace Prisma {
     price: Decimal | null
     description: string | null
     status: string | null
+    latitude: number | null
+    longitude: number | null
     createdAt: Date
     updatedAt: Date
     _count: ActivityCountAggregateOutputType | null
@@ -5187,6 +5209,8 @@ export namespace Prisma {
     price?: boolean
     description?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     day?: boolean | DayDefaultArgs<ExtArgs>
@@ -5202,6 +5226,8 @@ export namespace Prisma {
     price?: boolean
     description?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     day?: boolean | DayDefaultArgs<ExtArgs>
@@ -5217,6 +5243,8 @@ export namespace Prisma {
     price?: boolean
     description?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     day?: boolean | DayDefaultArgs<ExtArgs>
@@ -5232,11 +5260,13 @@ export namespace Prisma {
     price?: boolean
     description?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayId" | "activityType" | "locationName" | "activityDate" | "activityTime" | "price" | "description" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["activity"]>
+  export type ActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayId" | "activityType" | "locationName" | "activityDate" | "activityTime" | "price" | "description" | "status" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["activity"]>
   export type ActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     day?: boolean | DayDefaultArgs<ExtArgs>
   }
@@ -5262,6 +5292,8 @@ export namespace Prisma {
       price: Prisma.Decimal | null
       description: string | null
       status: string | null
+      latitude: number | null
+      longitude: number | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["activity"]>
@@ -5697,6 +5729,8 @@ export namespace Prisma {
     readonly price: FieldRef<"Activity", 'Decimal'>
     readonly description: FieldRef<"Activity", 'String'>
     readonly status: FieldRef<"Activity", 'String'>
+    readonly latitude: FieldRef<"Activity", 'Float'>
+    readonly longitude: FieldRef<"Activity", 'Float'>
     readonly createdAt: FieldRef<"Activity", 'DateTime'>
     readonly updatedAt: FieldRef<"Activity", 'DateTime'>
   }
@@ -7354,6 +7388,8 @@ export namespace Prisma {
     price: 'price',
     description: 'description',
     status: 'status',
+    latitude: 'latitude',
+    longitude: 'longitude',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7475,20 +7511,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'AiMessageKind'
-   */
-  export type EnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind'>
-    
-
-
-  /**
-   * Reference to a field of type 'AiMessageKind[]'
-   */
-  export type ListEnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -7499,6 +7521,20 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'AiMessageKind'
+   */
+  export type EnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind'>
+    
+
+
+  /**
+   * Reference to a field of type 'AiMessageKind[]'
+   */
+  export type ListEnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind[]'>
     
   /**
    * Deep Input Types
@@ -7741,6 +7777,8 @@ export namespace Prisma {
     price?: DecimalNullableFilter<"Activity"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableFilter<"Activity"> | string | null
     status?: StringNullableFilter<"Activity"> | string | null
+    latitude?: FloatNullableFilter<"Activity"> | number | null
+    longitude?: FloatNullableFilter<"Activity"> | number | null
     createdAt?: DateTimeFilter<"Activity"> | Date | string
     updatedAt?: DateTimeFilter<"Activity"> | Date | string
     day?: XOR<DayScalarRelationFilter, DayWhereInput>
@@ -7756,6 +7794,8 @@ export namespace Prisma {
     price?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     day?: DayOrderByWithRelationInput
@@ -7774,6 +7814,8 @@ export namespace Prisma {
     price?: DecimalNullableFilter<"Activity"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableFilter<"Activity"> | string | null
     status?: StringNullableFilter<"Activity"> | string | null
+    latitude?: FloatNullableFilter<"Activity"> | number | null
+    longitude?: FloatNullableFilter<"Activity"> | number | null
     createdAt?: DateTimeFilter<"Activity"> | Date | string
     updatedAt?: DateTimeFilter<"Activity"> | Date | string
     day?: XOR<DayScalarRelationFilter, DayWhereInput>
@@ -7789,6 +7831,8 @@ export namespace Prisma {
     price?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: ActivityCountOrderByAggregateInput
@@ -7811,6 +7855,8 @@ export namespace Prisma {
     price?: DecimalNullableWithAggregatesFilter<"Activity"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableWithAggregatesFilter<"Activity"> | string | null
     status?: StringNullableWithAggregatesFilter<"Activity"> | string | null
+    latitude?: FloatNullableWithAggregatesFilter<"Activity"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"Activity"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
   }
@@ -8131,6 +8177,8 @@ export namespace Prisma {
     price?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     status?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     day: DayCreateNestedOneWithoutActivitiesInput
@@ -8146,6 +8194,8 @@ export namespace Prisma {
     price?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     status?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8158,6 +8208,8 @@ export namespace Prisma {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     day?: DayUpdateOneRequiredWithoutActivitiesNestedInput
@@ -8173,6 +8225,8 @@ export namespace Prisma {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8187,6 +8241,8 @@ export namespace Prisma {
     price?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     status?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8199,6 +8255,8 @@ export namespace Prisma {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8213,6 +8271,8 @@ export namespace Prisma {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8631,6 +8691,17 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type DayScalarRelationFilter = {
     is?: DayWhereInput
     isNot?: DayWhereInput
@@ -8646,6 +8717,8 @@ export namespace Prisma {
     price?: SortOrder
     description?: SortOrder
     status?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8654,6 +8727,8 @@ export namespace Prisma {
     id?: SortOrder
     dayId?: SortOrder
     price?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type ActivityMaxOrderByAggregateInput = {
@@ -8666,6 +8741,8 @@ export namespace Prisma {
     price?: SortOrder
     description?: SortOrder
     status?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8680,6 +8757,8 @@ export namespace Prisma {
     price?: SortOrder
     description?: SortOrder
     status?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8688,6 +8767,8 @@ export namespace Prisma {
     id?: SortOrder
     dayId?: SortOrder
     price?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type EnumActivityTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -8714,6 +8795,22 @@ export namespace Prisma {
     _sum?: NestedDecimalNullableFilter<$PrismaModel>
     _min?: NestedDecimalNullableFilter<$PrismaModel>
     _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -9090,6 +9187,14 @@ export namespace Prisma {
     divide?: Decimal | DecimalJsLike | number | string
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type DayUpdateOneRequiredWithoutActivitiesNestedInput = {
     create?: XOR<DayCreateWithoutActivitiesInput, DayUncheckedCreateWithoutActivitiesInput>
     connectOrCreate?: DayCreateOrConnectWithoutActivitiesInput
@@ -9319,6 +9424,17 @@ export namespace Prisma {
     not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumActivityTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityType | EnumActivityTypeFieldRefInput<$PrismaModel> | null
     in?: $Enums.ActivityType[] | ListEnumActivityTypeFieldRefInput<$PrismaModel> | null
@@ -9345,6 +9461,22 @@ export namespace Prisma {
     _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumAiMessageKindFilter<$PrismaModel = never> = {
     equals?: $Enums.AiMessageKind | EnumAiMessageKindFieldRefInput<$PrismaModel>
     in?: $Enums.AiMessageKind[] | ListEnumAiMessageKindFieldRefInput<$PrismaModel>
@@ -9366,17 +9498,6 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumAiMessageKindWithAggregatesFilter<$PrismaModel = never> = {
@@ -9682,6 +9803,8 @@ export namespace Prisma {
     price?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     status?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9695,6 +9818,8 @@ export namespace Prisma {
     price?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     status?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9770,6 +9895,8 @@ export namespace Prisma {
     price?: DecimalNullableFilter<"Activity"> | Decimal | DecimalJsLike | number | string | null
     description?: StringNullableFilter<"Activity"> | string | null
     status?: StringNullableFilter<"Activity"> | string | null
+    latitude?: FloatNullableFilter<"Activity"> | number | null
+    longitude?: FloatNullableFilter<"Activity"> | number | null
     createdAt?: DateTimeFilter<"Activity"> | Date | string
     updatedAt?: DateTimeFilter<"Activity"> | Date | string
   }
@@ -10165,6 +10292,8 @@ export namespace Prisma {
     price?: Decimal | DecimalJsLike | number | string | null
     description?: string | null
     status?: string | null
+    latitude?: number | null
+    longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -10177,6 +10306,8 @@ export namespace Prisma {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10190,6 +10321,8 @@ export namespace Prisma {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10203,6 +10336,8 @@ export namespace Prisma {
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

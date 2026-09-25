@@ -162,6 +162,8 @@ exports.Prisma.ActivityScalarFieldEnum = {
   price: 'price',
   description: 'description',
   status: 'status',
+  latitude: 'latitude',
+  longitude: 'longitude',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

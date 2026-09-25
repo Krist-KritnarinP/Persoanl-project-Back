@@ -188,6 +188,8 @@ export const getSharedTripService = async (token) => {
               price: true,
               description: true,
               status: true,
+              latitude: true,
+              longitude: true,
             },
           },
         },
