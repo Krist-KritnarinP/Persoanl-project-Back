@@ -34,9 +34,14 @@ const sanitize = (v, max = 200) =>
   String(v ?? "").replace(/[\r\n]+/g, " ").slice(0, max);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// หมายเหตุ: ห้าม retry 429 (โควต้าหมด — retry ยิ่งเผาโควต้าเปล่า)
 const isRetryable = (err) => {
   const code = err?.status || err?.code;
-  return code === 429 || code === 500 || code === 502 || code === 503;
+  return code === 500 || code === 502 || code === 503;
+};
+const isQuotaError = (err) => {
+  const code = err?.status || err?.code;
+  return code === 429 || String(err?.message || "").includes("quota");
 };
 
 // โมเดลที่ใช้งานได้จริง (ทดสอบแล้ว): gemini-3.8-flash
@@ -96,6 +101,10 @@ export const predictTripWeather = async (req, res, next) => {
       if (msg.includes("404") || msg.includes("no longer available")) {
         console.error("Gemini model retired:", model);
         return next(createError(502, `AI model ${model} is retired, please update GEMINI_MODEL`));
+      }
+      if (isQuotaError(err)) {
+        console.error("Gemini quota exceeded");
+        return next(createError(429, "AI ใช้งานครบโควต้าฟรีแล้ว กรุณารอโควต้ารีเซ็ตหรืออัปเกรดแพ็กเกจแล้วลองใหม่"));
       }
       throw err;
     }
