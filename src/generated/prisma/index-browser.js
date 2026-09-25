@@ -137,6 +137,7 @@ exports.Prisma.TripScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   tripDescription: 'tripDescription',
+  shareToken: 'shareToken',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import authRoute from "./routes/auth.route.js";
 import UsersRoute from "./routes/users.route.js";
 import TripsRoute from "./routes/trips.routes.js";
+import SharedRoute from "./routes/shared.route.js";
 import DaysRoute from "./routes/days.routes.js";
 import ActivitiesRoute from "./routes/activities.route.js";
 import { pathNotfound } from "./middlewares/pathNotfound.middleware.js";
@@ -33,9 +34,11 @@ app.get("/check", (req, res) => {
   res.send("Hello");
 });
 
-// main app routes 
+// main app routes
+// ⚠️ ลำดับสำคัญ: /api/shared ต้องมาก่อน "/api" (DaysRoute มี authCheck ดักทุก path ใต้ /api)
 app.use("/api/auth", authLimiter, authRoute);
 app.use("/api/users", UsersRoute);
+app.use("/api/shared", SharedRoute); // 👈 public: ดูทริปผ่านลิงก์แชร์ (ไม่ต้อง auth)
 app.use("/api/trips", TripsRoute);
 // DaysRoute อยู่ใต้ /api: POST /api/trips/:tripId/days, PUT/DELETE /api/days/:dayId
 app.use("/api", DaysRoute);

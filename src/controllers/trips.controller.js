@@ -4,6 +4,9 @@ import {
   getTripByIdService,
   updateTripService,
   deleteTripService,
+  createShareService,
+  revokeShareService,
+  getSharedTripService,
 } from "../services/trips.service.js";
 
 // 3.1 GET /trips - ดึงทริปทั้งหมดของผู้ใช้ (สำหรับหน้า Dashboard)
@@ -102,6 +105,51 @@ export const deleteTrip = async (req, res, next) => {
 
     res.status(200).json({
       message: "Delete trip successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 3.5 POST /trips/:tripId/share - เปิดแชร์ลิงก์ดูได้อย่างเดียว
+export const createShare = async (req, res, next) => {
+  try {
+    const shared = await createShareService(req.params.tripId, req.user.id);
+    if (!shared) {
+      return res.status(404).json({ message: "Trip not found or unauthorized" });
+    }
+    res.status(200).json({
+      message: "Share link created",
+      data: { shareToken: shared.shareToken },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 3.6 DELETE /trips/:tripId/share - ปิดแชร์ลิงก์
+export const revokeShare = async (req, res, next) => {
+  try {
+    const revoked = await revokeShareService(req.params.tripId, req.user.id);
+    if (!revoked) {
+      return res.status(404).json({ message: "Trip not found or unauthorized" });
+    }
+    res.status(200).json({ message: "Share link revoked" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+// 3.7 GET /shared/:token - ดูทริปผ่านลิงก์ (public)
+export const getSharedTrip = async (req, res, next) => {
+  try {
+    const trip = await getSharedTripService(req.params.token);
+    if (!trip) {
+      return res.status(404).json({ message: "Shared trip not found or link revoked" });
+    }
+    res.status(200).json({
+      message: "Get shared trip successfully",
+      data: trip,
     });
   } catch (error) {
     next(error);

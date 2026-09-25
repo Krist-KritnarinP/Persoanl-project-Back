@@ -1,4 +1,5 @@
 import { prisma } from "../lib/prisma.js";
+import crypto from "crypto";
 
 // 3.1 ดึงทริปทั้งหมดของผู้ใช้ (สำหรับหน้า Dashboard พร้อมสรุปวันที่และจำนวนวัน)
 export const getAllTripsService = async (userId) => {
@@ -126,7 +127,86 @@ export const updateTripService = async (tripId, userId, tripData) => {
   });
 };
 
-// 3.5 ลบทริป
+// 3.5 เปิดแชร์ลิงก์ดูได้อย่างเดียว (คืน token เดิมถ้ามีอยู่แล้ว)
+export const createShareService = async (tripId, userId) => {
+  const existingTrip = await prisma.trip.findFirst({
+    where: { id: Number(tripId), userId: Number(userId) },
+    select: { id: true, shareToken: true },
+  });
+  if (!existingTrip) return null;
+  if (existingTrip.shareToken) return existingTrip;
+
+  return await prisma.trip.update({
+    where: { id: Number(tripId) },
+    data: { shareToken: crypto.randomBytes(32).toString("base64url") },
+    select: { id: true, shareToken: true },
+  });
+};
+
+// 3.6 ปิดแชร์ลิงก์
+export const revokeShareService = async (tripId, userId) => {
+  const existingTrip = await prisma.trip.findFirst({
+    where: { id: Number(tripId), userId: Number(userId) },
+    select: { id: true },
+  });
+  if (!existingTrip) return null;
+  return await prisma.trip.update({
+    where: { id: Number(tripId) },
+    data: { shareToken: null },
+    select: { id: true },
+  });
+};
+
+// 3.7 ดึงทริปผ่าน shareToken (public — ไม่ต้อง auth, ไม่คืนข้อมูล user)
+export const getSharedTripService = async (token) => {
+  if (!token || typeof token !== "string" || token.length > 64) return null;
+  const trip = await prisma.trip.findUnique({
+    where: { shareToken: token },
+    select: {
+      id: true,
+      tripName: true,
+      destination: true,
+      startDate: true,
+      endDate: true,
+      tripDescription: true,
+      user: { select: { username: true } },
+      days: {
+        orderBy: { dayCount: "asc" },
+        select: {
+          id: true,
+          dayCount: true,
+          dayDate: true,
+          description: true,
+          activities: {
+            orderBy: [{ activityDate: "asc" }, { activityTime: "asc" }],
+            select: {
+              id: true,
+              activityType: true,
+              locationName: true,
+              activityDate: true,
+              activityTime: true,
+              price: true,
+              description: true,
+              status: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  if (!trip) return null;
+  const days = trip.days;
+  const totalDays = days.length;
+  return {
+    ...trip,
+    sharedBy: trip.user?.username || null,
+    user: undefined,
+    startDate: trip.startDate ?? (totalDays > 0 ? days[0].dayDate : null),
+    endDate: trip.endDate ?? (totalDays > 0 ? days[totalDays - 1].dayDate : null),
+    totalDays,
+  };
+};
+// 3.8 ลบทริป
 export const deleteTripService = async (tripId, userId) => {
   const existingTrip = await prisma.trip.findFirst({
     where: {

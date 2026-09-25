@@ -2580,6 +2580,7 @@ export namespace Prisma {
     startDate: Date | null
     endDate: Date | null
     tripDescription: string | null
+    shareToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2592,6 +2593,7 @@ export namespace Prisma {
     startDate: Date | null
     endDate: Date | null
     tripDescription: string | null
+    shareToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2604,6 +2606,7 @@ export namespace Prisma {
     startDate: number
     endDate: number
     tripDescription: number
+    shareToken: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2628,6 +2631,7 @@ export namespace Prisma {
     startDate?: true
     endDate?: true
     tripDescription?: true
+    shareToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2640,6 +2644,7 @@ export namespace Prisma {
     startDate?: true
     endDate?: true
     tripDescription?: true
+    shareToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2652,6 +2657,7 @@ export namespace Prisma {
     startDate?: true
     endDate?: true
     tripDescription?: true
+    shareToken?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2751,6 +2757,7 @@ export namespace Prisma {
     startDate: Date | null
     endDate: Date | null
     tripDescription: string | null
+    shareToken: string | null
     createdAt: Date
     updatedAt: Date
     _count: TripCountAggregateOutputType | null
@@ -2782,6 +2789,7 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     tripDescription?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     days?: boolean | Trip$daysArgs<ExtArgs>
@@ -2798,6 +2806,7 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     tripDescription?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2811,6 +2820,7 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     tripDescription?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -2824,11 +2834,12 @@ export namespace Prisma {
     startDate?: boolean
     endDate?: boolean
     tripDescription?: boolean
+    shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tripName" | "destination" | "startDate" | "endDate" | "tripDescription" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
+  export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tripName" | "destination" | "startDate" | "endDate" | "tripDescription" | "shareToken" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
   export type TripInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     days?: boolean | Trip$daysArgs<ExtArgs>
     aiMessages?: boolean | Trip$aiMessagesArgs<ExtArgs>
@@ -2857,6 +2868,7 @@ export namespace Prisma {
       startDate: Date | null
       endDate: Date | null
       tripDescription: string | null
+      shareToken: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["trip"]>
@@ -3292,6 +3304,7 @@ export namespace Prisma {
     readonly startDate: FieldRef<"Trip", 'DateTime'>
     readonly endDate: FieldRef<"Trip", 'DateTime'>
     readonly tripDescription: FieldRef<"Trip", 'String'>
+    readonly shareToken: FieldRef<"Trip", 'String'>
     readonly createdAt: FieldRef<"Trip", 'DateTime'>
     readonly updatedAt: FieldRef<"Trip", 'DateTime'>
   }
@@ -7310,6 +7323,7 @@ export namespace Prisma {
     startDate: 'startDate',
     endDate: 'endDate',
     tripDescription: 'tripDescription',
+    shareToken: 'shareToken',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -7567,6 +7581,7 @@ export namespace Prisma {
     startDate?: DateTimeNullableFilter<"Trip"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Trip"> | Date | string | null
     tripDescription?: StringNullableFilter<"Trip"> | string | null
+    shareToken?: StringNullableFilter<"Trip"> | string | null
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
     days?: DayListRelationFilter
@@ -7582,6 +7597,7 @@ export namespace Prisma {
     startDate?: SortOrderInput | SortOrder
     endDate?: SortOrderInput | SortOrder
     tripDescription?: SortOrderInput | SortOrder
+    shareToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     days?: DayOrderByRelationAggregateInput
@@ -7591,6 +7607,7 @@ export namespace Prisma {
 
   export type TripWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    shareToken?: string
     AND?: TripWhereInput | TripWhereInput[]
     OR?: TripWhereInput[]
     NOT?: TripWhereInput | TripWhereInput[]
@@ -7605,7 +7622,7 @@ export namespace Prisma {
     days?: DayListRelationFilter
     aiMessages?: AiMessageListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-  }, "id">
+  }, "id" | "shareToken">
 
   export type TripOrderByWithAggregationInput = {
     id?: SortOrder
@@ -7615,6 +7632,7 @@ export namespace Prisma {
     startDate?: SortOrderInput | SortOrder
     endDate?: SortOrderInput | SortOrder
     tripDescription?: SortOrderInput | SortOrder
+    shareToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TripCountOrderByAggregateInput
@@ -7635,6 +7653,7 @@ export namespace Prisma {
     startDate?: DateTimeNullableWithAggregatesFilter<"Trip"> | Date | string | null
     endDate?: DateTimeNullableWithAggregatesFilter<"Trip"> | Date | string | null
     tripDescription?: StringNullableWithAggregatesFilter<"Trip"> | string | null
+    shareToken?: StringNullableWithAggregatesFilter<"Trip"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
   }
@@ -7945,6 +7964,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayCreateNestedManyWithoutTripInput
@@ -7960,6 +7980,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayUncheckedCreateNestedManyWithoutTripInput
@@ -7972,6 +7993,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUpdateManyWithoutTripNestedInput
@@ -7987,6 +8009,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
@@ -8001,6 +8024,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8011,6 +8035,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8023,6 +8048,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -8457,6 +8483,7 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     tripDescription?: SortOrder
+    shareToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8474,6 +8501,7 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     tripDescription?: SortOrder
+    shareToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -8486,6 +8514,7 @@ export namespace Prisma {
     startDate?: SortOrder
     endDate?: SortOrder
     tripDescription?: SortOrder
+    shareToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -9366,6 +9395,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayCreateNestedManyWithoutTripInput
@@ -9379,6 +9409,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayUncheckedCreateNestedManyWithoutTripInput
@@ -9451,6 +9482,7 @@ export namespace Prisma {
     startDate?: DateTimeNullableFilter<"Trip"> | Date | string | null
     endDate?: DateTimeNullableFilter<"Trip"> | Date | string | null
     tripDescription?: StringNullableFilter<"Trip"> | string | null
+    shareToken?: StringNullableFilter<"Trip"> | string | null
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
   }
@@ -9683,6 +9715,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     aiMessages?: AiMessageCreateNestedManyWithoutTripInput
@@ -9697,6 +9730,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
@@ -9757,6 +9791,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
@@ -9771,6 +9806,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
@@ -9860,6 +9896,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayCreateNestedManyWithoutTripInput
@@ -9874,6 +9911,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     days?: DayUncheckedCreateNestedManyWithoutTripInput
@@ -9931,6 +9969,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUpdateManyWithoutTripNestedInput
@@ -9945,6 +9984,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
@@ -9957,6 +9997,7 @@ export namespace Prisma {
     startDate?: Date | string | null
     endDate?: Date | string | null
     tripDescription?: string | null
+    shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9977,6 +10018,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUpdateManyWithoutTripNestedInput
@@ -9990,6 +10032,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
@@ -10003,6 +10046,7 @@ export namespace Prisma {
     startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -35,6 +35,7 @@ model Trip {
   startDate       DateTime? @map("start_date") @db.Date
   endDate         DateTime? @map("end_date") @db.Date
   tripDescription String?   @map("trip_description") @db.Text
+  shareToken      String?   @unique @map("share_token") @db.VarChar(64)
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
 

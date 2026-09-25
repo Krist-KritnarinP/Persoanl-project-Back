@@ -4,7 +4,9 @@ import {
   createTrip,
   getTripById,
   updateTrip,
-  deleteTrip
+  deleteTrip,
+  createShare,
+  revokeShare
 } from '../controllers/trips.controller.js';
 import authCheck from '../middlewares/auth.middleware.js'; // ดักตรวจ Token ก่อนเข้าถึง Controller
 
@@ -27,5 +29,9 @@ TripsRoute.put('/:tripId', updateTrip);
 
 // 3.5 ลบข้อมูลทริป
 TripsRoute.delete('/:tripId', deleteTrip);
+
+// แชร์ลิงก์ดูได้อย่างเดียว
+TripsRoute.post('/:tripId/share', createShare);
+TripsRoute.delete('/:tripId/share', revokeShare);
 
 export default TripsRoute;
