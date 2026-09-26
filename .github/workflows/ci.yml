@@ -1,0 +1,39 @@
+name: API checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: app_test
+          POSTGRES_PASSWORD: ephemeral-ci-only
+          POSTGRES_DB: ailhoung_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U app_test -d ailhoung_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://app_test:ephemeral-ci-only@localhost:5432/ailhoung_test
+      DIRECT_URL: postgresql://app_test:ephemeral-ci-only@localhost:5432/ailhoung_test
+      JWT_SECRET: ephemeral-ci-only-signing-key-not-used-in-production
+      FRONTEND_URL: http://localhost:5173
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npx prisma validate && npx prisma generate && npx prisma db push
+      - run: npm test
+      - run: npm run migrate:security && npm run migrate:phase0 && npm run migrate:phase0 && npm run migrate:auth && npm run migrate:auth
+      - run: npm run test:security:integration
+      - run: npm run test:phase0:integration
+      - run: npm run test:auth:integration

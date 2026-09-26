@@ -1,3 +1,4 @@
+import { clearRefreshCookie } from '../security/refresh-session.js';
 import bcrypt from 'bcrypt';
 import createError from 'http-errors';
 import { prisma } from '../lib/prisma.js';
@@ -21,6 +22,7 @@ export async function editMe(req, res, next) {
     // Conditional update prevents an old credential check winning a concurrent password change.
     const result = await prisma.user.updateMany({ where: { id: req.user.id, tokenVersion: req.user.tokenVersion }, data });
     if (!result.count) throw createError(401, 'Session expired, please sign in again');
+    if (password) clearRefreshCookie(res);
     res.json({ message: password ? 'Password updated. Please sign in again.' : 'Profile updated',
       reauthenticate: Boolean(password), user: { id: req.user.id, username: username ?? req.user.username, email: req.user.email } });
   } catch (error) { next(error); }
@@ -28,6 +30,7 @@ export async function editMe(req, res, next) {
 export async function logout(req, res, next) {
   try {
     await prisma.user.updateMany({ where: { id: req.user.id, tokenVersion: req.user.tokenVersion }, data: { tokenVersion: { increment: 1 } } });
+    clearRefreshCookie(res);
     res.sendStatus(204);
   } catch (error) { next(error); }
 }

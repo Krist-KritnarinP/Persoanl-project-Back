@@ -12,6 +12,8 @@ import { pathNotfound } from "./middlewares/pathNotfound.middleware.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import weatherRoutes from "./routes/weather.route.js";
 
+import { healthHandlers } from "./ops/health.js";
+
 const app = express();
 app.set("trust proxy", Number(process.env.TRUST_PROXY_HOPS || 0));
 
@@ -21,11 +23,14 @@ const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 app.use(cors({
   origin: [frontendUrl],
   methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: false, // Bearer auth; no cross-site cookies
+  credentials: true, // Access JWT + HttpOnly refresh cookie; origin is explicit
 }));
 
 app.use("/api", rateLimit({ windowMs: 60000, limit: 180, standardHeaders: true, legacyHeaders: false }));
 app.use((req, res, next) => { res.set("Cache-Control", "no-store"); next(); });
+const health = healthHandlers();
+app.get("/health/live", health.live);
+app.get("/health/ready", health.ready);
 app.use(express.json({ limit: "100kb" }));
 
 // กัน brute-force ที่ auth + weather (เรียก AI มีค่าใช้จ่าย)

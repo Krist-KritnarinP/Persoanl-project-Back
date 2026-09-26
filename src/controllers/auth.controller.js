@@ -1,3 +1,4 @@
+import { isTrustedOrigin, issueRefreshSession, setRefreshCookie } from "../security/refresh-session.js";
 import bcrypt from "bcrypt";
 import { prisma } from "../lib/prisma.js";
 import { createUser, findUserByEmail } from "../services/user.service.js";
@@ -33,13 +34,13 @@ export async function register(req, res, next) {
 export async function login(req, res, next) {
   try {
     const { email, password } = loginSchema.parse(req.body);
-    
+
     // 1. Validate ข้อมูลด้วย Zod
 
 
     // 2. ค้นหา User ตาม Email
     const user = await findUserByEmail(email);
-    
+
     // 3. เช็กว่าพบ User หรือไม่ก่อน (ถ้าไม่พบ ให้หยุดและส่ง Error ทันที)
     if (!user) {
       return next(createError(401, "Invalid email or password")); // ✅ ใส่ return
@@ -52,8 +53,13 @@ export async function login(req, res, next) {
     }
 
     // 5. สร้าง Token และส่ง Response กลับ
+    if (req.headers.origin && !isTrustedOrigin(req)) return next(createError(403, "Untrusted origin"));
     const token = await createToken(user);
-    
+    if (isTrustedOrigin(req)) {
+      const session = await issueRefreshSession(user);
+      setRefreshCookie(res, session.token, session.expiresAt);
+    }
+
     return res.status(200).json({
       message: "Login successfully",
       token: token,

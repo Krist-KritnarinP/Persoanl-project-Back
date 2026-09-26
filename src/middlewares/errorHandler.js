@@ -1,4 +1,5 @@
 import z from 'zod';
+import { reportServerError } from '../ops/monitoring.js';
 import { randomUUID } from 'node:crypto';
 export default function errorHandler(err, req, res, next) {
   if (res.headersSent) return next(err);
@@ -10,5 +11,6 @@ export default function errorHandler(err, req, res, next) {
   const messages = { 400: 'Invalid request', 401: 'Unauthorized', 403: 'Forbidden', 404: 'Not found', 409: 'Record conflicts with existing data', 413: 'Request too large', 429: 'Too many requests. Please try again later.' };
   // Never log request bodies, Prisma queries, tokens, or upstream error messages.
   console.error(JSON.stringify({ requestId, status, method: req.method, code: prismaStatus ? err.code : 'REQUEST_FAILED' }));
+  if (status >= 500) reportServerError(status, requestId);
   res.status(status).json({ status: 'Error', message: status >= 500 ? 'Service temporarily unavailable' : messages[status] || 'Request failed', requestId });
 }

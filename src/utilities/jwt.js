@@ -10,7 +10,7 @@ export const createToken = async (user) => {
     }
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: 'HS256',
-        expiresIn: '1h'
+        expiresIn: '15m'
     })
     return token
 }

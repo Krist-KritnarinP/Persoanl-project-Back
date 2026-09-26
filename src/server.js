@@ -2,9 +2,11 @@ import 'dotenv/config';
 import app from './app.js';
 import { validateConfig } from './security/config.js';
 import { prisma } from './lib/prisma.js';
+import { initMonitoring, flushMonitoring } from './ops/monitoring.js';
 validateConfig();
+initMonitoring();
 const server = app.listen(process.env.PORT || 8899, () => console.log('API listening'));
 for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => {
-  server.close(async () => { await prisma.$disconnect(); process.exit(0); });
+  server.close(async () => { await flushMonitoring(); await prisma.$disconnect(); process.exit(0); });
   setTimeout(() => process.exit(1), 10000).unref();
 });

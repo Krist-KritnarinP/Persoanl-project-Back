@@ -3,7 +3,7 @@ import { randomBytes } from 'node:crypto';
 import assert from 'node:assert/strict';
 import bcrypt from 'bcrypt';
 import { prisma } from '../src/lib/prisma.js';
-import { registerSchema, activityCreateSchema, activityUpdateSchema, tripCreateSchema, dayCreateSchema } from '../src/validations/schema.js';
+import { registerSchema, activityCreateSchema, activityUpdateSchema, tripCreateSchema, dayCreateSchema, forgotPasswordSchema, resetPasswordSchema, googleLoginSchema } from '../src/validations/schema.js';
 import { createToken } from '../src/utilities/jwt.js';
 import authCheck from '../src/middlewares/auth.middleware.js';
 import { editMe, logout } from '../src/controllers/users.controller.js';
@@ -15,7 +15,7 @@ import { updateActivityService } from '../src/services/activities.service.js';
 import { predictTripWeather } from '../src/controllers/weather.controller.js';
 // Unit tests use a disposable signing key and mocked database methods.
 process.env.JWT_SECRET = randomBytes(48).toString("hex");
-const response = () => ({ statusCode: 200, status(n) { this.statusCode = n; return this; }, json(v) { this.body = v; return this; }, sendStatus(n) { this.statusCode = n; } });
+const response = () => ({ statusCode: 200, clearCookie() {}, status(n) { this.statusCode = n; return this; }, json(v) { this.body = v; return this; }, sendStatus(n) { this.statusCode = n; } });
 const user = { id: 41, email: 'test@example.invalid', username: 'Test', tokenVersion: 0, password: await bcrypt.hash('existing password', 4) };
 
 test('reject weak passwords, oversized UTF-8 and malformed activity/date inputs', () => {
@@ -93,5 +93,22 @@ test('public share explicitly excludes password and email', async () => {
 test('production refuses weak secret and HTTP frontend', () => {
   assert.throws(() => validateConfig({ NODE_ENV: 'production', DATABASE_URL: 'test', JWT_SECRET: 'short', FRONTEND_URL: 'https://example.com' }));
   assert.throws(() => validateConfig({ NODE_ENV: 'production', DATABASE_URL: 'test', JWT_SECRET: 'x'.repeat(64), FRONTEND_URL: 'http://example.com' }));
+});
+test('auth recovery schemas normalize email and enforce one-time token and password bounds', () => {
+  assert.equal(forgotPasswordSchema.parse({ email: '  PERSON@Example.com ' }).email, 'person@example.com');
+  assert.equal(resetPasswordSchema.safeParse({ token: 'a'.repeat(43), password: 'a sufficiently long password' }).success, true);
+  assert.equal(resetPasswordSchema.safeParse({ token: 'short', password: 'a sufficiently long password' }).success, false);
+  assert.equal(resetPasswordSchema.safeParse({ token: 'a'.repeat(43), password: 'short' }).success, false);
+  assert.equal(resetPasswordSchema.safeParse({ token: 'a'.repeat(43), password: 'ก'.repeat(25) }).success, false);
+  assert.equal(googleLoginSchema.safeParse({ credential: 'x'.repeat(100) }).success, true);
+  assert.equal(googleLoginSchema.safeParse({ credential: 'x'.repeat(10_000) }).success, false);
+});
+test('SMTP config is optional but must be complete and use a valid port', () => {
+  const base = { DATABASE_URL: 'postgres://test', JWT_SECRET: 'test' };
+  assert.doesNotThrow(() => validateConfig(base));
+  assert.throws(() => validateConfig({ ...base, SMTP_HOST: 'smtp.example.test' }), /Configure all SMTP/);
+  const smtp = { SMTP_HOST: 'smtp.example.test', SMTP_PORT: '587', SMTP_USER: 'user', SMTP_PASS: 'pass', SMTP_FROM: 'noreply@example.test' };
+  assert.doesNotThrow(() => validateConfig({ ...base, ...smtp }));
+  assert.throws(() => validateConfig({ ...base, ...smtp, SMTP_PORT: '70000' }), /Invalid SMTP_PORT/);
 });
 test.after(async () => { await prisma.$disconnect(); });

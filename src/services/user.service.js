@@ -1,8 +1,8 @@
 import { prisma } from "../lib/prisma.js";
 
 export const findUserByEmail = async (email) => {
-    const user = await prisma.user.findUnique({
-        where: { email: email }
+    const user = await prisma.user.findFirst({
+        where: { email: { equals: email.trim(), mode: 'insensitive' } }
     })
     return user
 }
@@ -22,7 +22,7 @@ export const createUser = async (username,email,hashPassword) => {
         {
     data: {
       username,
-      email,
+      email: email.trim().toLowerCase(),
       password: hashPassword
     }
   }

@@ -2,9 +2,15 @@ import z from 'zod';
 export const idSchema = z.coerce.number().int().positive().max(2147483647);
 const password = z.string().min(15, 'Use at least 15 characters').refine(v => Buffer.byteLength(v, 'utf8') <= 72, 'Password must not exceed 72 UTF-8 bytes');
 const username = z.string().trim().min(4).max(50);
-const email = z.string().trim().email().max(100);
+const email = z.string().trim().email().max(100).transform(value => value.toLowerCase());
 export const registerSchema = z.object({ username, email, password }).strict();
 export const loginSchema = z.object({ email, password: z.string().min(1).max(100) }).strict();
+export const forgotPasswordSchema = z.object({ email }).strict();
+export const resetPasswordSchema = z.object({
+  token: z.string().regex(/^[A-Za-z0-9_-]{43}$/),
+  password,
+}).strict();
+export const googleLoginSchema = z.object({ credential: z.string().min(100).max(8192), currentPassword: z.string().min(1).max(100).optional() }).strict();
 export const profileSchema = z.object({ username: username.optional(), password: password.optional(), currentPassword: z.string().max(100).optional() }).strict()
   .refine(v => v.username !== undefined || v.password !== undefined, 'No changes supplied');
 const date = z.string().max(40).refine(v => /^\d{4}-\d{2}-\d{2}(T.*)?$/.test(v) && Number.isFinite(Date.parse(v)) && new Date(v).toISOString().slice(0,10) === v.slice(0,10), 'Invalid date');

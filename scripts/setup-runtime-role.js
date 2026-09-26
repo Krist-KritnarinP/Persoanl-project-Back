@@ -14,7 +14,7 @@ try {
   await admin.query('BEGIN');
   await admin.query(`CREATE ROLE ${role} LOGIN PASSWORD '${password}' NOSUPERUSER NOCREATEDB NOCREATEROLE NOINHERIT NOBYPASSRLS`);
   await admin.query(`GRANT USAGE ON SCHEMA public TO ${role}`);
-  for (const table of ['users', 'trips', 'days', 'activities', 'ai_messages', 'ai_usage']) {
+  for (const table of ['users', 'trips', 'days', 'activities', 'ai_messages', 'ai_usage', 'refresh_sessions', 'password_reset_tokens']) {
     await admin.query(`GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE public.${table} TO ${role}`);
     // Trusted backend role; per-user isolation remains in the API's ownership checks.
     // This does not grant anon/authenticated Supabase API roles any access.

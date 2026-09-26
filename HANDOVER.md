@@ -1,3 +1,23 @@
+# Handover — Phase 0 + Google/Forgot Password ใน API เดิม (2026-09-26)
+
+ทำงานใน `PersonalProject_API` คู่กับ `PersonalProject_Front`; ไม่แก้ repo backup ไม่ deploy/push
+
+- เพิ่ม refresh sessions, account export/delete, health/monitoring/env checks, AI fallback โดยคง compact weather prompt เดิม
+- Google verify ID token ฝั่ง server; password-confirmed linking ป้องกันรวมบัญชีเดิมโดยไม่มีหลักฐาน
+- Forgot/reset ผ่าน Nodemailer, hash token อายุ 30 นาที ใช้ครั้งเดียว; lock user และ tokenVersion กัน race/stale reset; reset ยกเลิก sessions เดิม
+- ใช้ stable packages จาก npm latest: Nodemailer 10.0.10, google-auth-library 11.1.0, @sentry/node 11.0.0 พร้อม lockfile
+- สำรอง public schema/data ไว้นอก Git และใช้ additive migrations กับ DB เดิมแล้ว; จำนวนแถวเดิมไม่เปลี่ยนและ runtime role อ่าน schema ใหม่ได้
+- API unit 20 ผ่าน; integration security/Phase0/auth ผ่าน PostgreSQL 17 แยกพร้อม limited runtime role ไม่ใช้ข้อมูลจริงในการ smoke tests
+- ยังไม่มี Google Client ID/SMTP ใน local env จึงต้องตั้งค่าก่อน login Google/รับเมลจริง; ปุ่ม frontend ยังแสดงได้เสมอ
+- Checklist ผู้ใช้: [docs/AUTH_SETUP.md](docs/AUTH_SETUP.md)
+- สถานะฐานข้อมูล, backup, ข้อจำกัด และ Phase 0 งานค้าง: [docs/PHASE0_OPERATIONS.md](docs/PHASE0_OPERATIONS.md)
+- เริ่ม API: `npm run dev` ในโฟลเดอร์นี้ (8899); frontend แยก terminal ใน `PersonalProject_Front` (5173)
+- ตรวจ readiness และ generated Prisma client กับฐานข้อมูลเดิมผ่าน แบบอ่านอย่างเดียว
+- Git commit รอบนี้บันทึก source/tests/docs รวมกัน; secrets และ backup ไม่เข้า Git ไม่มี push
+
+---
+## บันทึกรอบก่อน (ประวัติ ไม่ใช่สถานะล่าสุด)
+
 # Handover — กลับมาใช้ API เดิมก่อน setup deploy
 
 - ใช้ `PersonalProject_API` คู่กับ `PersonalProject_Front` ตามคำขอผู้ใช้ให้ย้อนงาน setup deploy
