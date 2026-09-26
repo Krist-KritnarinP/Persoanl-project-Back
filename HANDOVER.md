@@ -1,3 +1,13 @@
+# Handover — อัปเดตเส้นทาง Login หลังเพิ่ม Landing (2026-09-26)
+
+- Frontend มี Landing ที่ `/`; หน้า Google Login/Forgot Password เดิมเปิดที่ `/login`
+- อัปเดต docs/AUTH_SETUP.md ให้ผู้ใช้เปิดถูกหน้า; FRONTEND_URL ยังเป็น origin http://localhost:5173 เหมือนเดิม ไม่เติม /login ใน env
+- API logic, DB, dependencies และ secrets ไม่เปลี่ยนในรอบ Landing นี้; ไม่มี deploy/push
+- Export PDF พักไว้ตามคำสั่งผู้ใช้ ไม่มี PDF implementation ใน API
+
+---
+## บันทึกรอบก่อน
+
 # Handover — Phase 0 + Google/Forgot Password ใน API เดิม (2026-09-26)
 
 ทำงานใน `PersonalProject_API` คู่กับ `PersonalProject_Front`; ไม่แก้ repo backup ไม่ deploy/push
