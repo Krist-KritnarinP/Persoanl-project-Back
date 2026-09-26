@@ -89,37 +89,44 @@ export const predictTripWeather = async (req, res, next) => {
     await reserveAiQuota(req.user.id);
 
     const targetLocation = sanitize(location || "ไม่ระบุสถานที่", 200) || "ไม่ระบุสถานที่";
-    const start = sanitize(startDate || "ไม่ระบุวันเริ่มต้น", 50) || "ไม่ระบุวันเริ่มต้น";
-    const end = sanitize(endDate || "ไม่ระบุวันสิ้นสุด", 50) || "ไม่ระบุวันสิ้นสุด";
-    const acts = Array.isArray(activities) && activities.length > 0
-      ? JSON.stringify(activities.slice(0, 50))
-      : "ไม่มีกิจกรรมระบุไว้";
 
-    // รายวันแบบ "Day N (วันที่): ที่1, ที่2" ให้ AI สรุปอากาศรายที่ได้ตรงจุด
+    // ฟอร์แมตประหยัด token: วันที่แบบ MM-DD, เวลาแบบ HH:MM, ที่นอนต่อท้าย (นอน)
+    // ตัวอย่าง: "D2 10-18: TG954(00:05), FI319(13:50), Muli(นอน), Hallgrimskirkja(18:00)"
+    const fmtD = (v) => {
+      if (!v) return "";
+      const d = new Date(v);
+      return isNaN(d.getTime()) ? "" : d.toISOString().slice(5, 10);
+    };
+    const fmtT = (v) => {
+      if (!v) return "";
+      if (typeof v === "string" && /^\d{2}:\d{2}/.test(v)) return v.slice(0, 5);
+      const d = new Date(v); // Prisma ส่ง Time กลับมาเป็น Date object
+      return isNaN(d.getTime()) ? "" : d.toISOString().slice(11, 16);
+    };
     const dayLines = (trip.days || []).map((day) => {
-      const places = (day.activities || []).map((a) => a.locationName).filter(Boolean);
-      const d = day.dayDate ? new Date(day.dayDate).toISOString().slice(0, 10) : "ไม่ระบุวันที่";
-      return `- Day ${day.dayCount} (${d}): ${places.length ? places.join(", ") : "ไม่มีกิจกรรม"}`;
+      const places = (day.activities || []).map((a) => {
+        const name = (a.locationName || "").trim();
+        if (!name) return "";
+        const tm = fmtT(a.activityTime);
+        const night = a.activityType === "ACCOMMODATION" ? "(นอน)" : "";
+        return tm ? `${name}(${tm})${night}` : `${name}${night}`;
+      }).filter(Boolean);
+      return `D${day.dayCount} ${fmtD(day.dayDate) || "?"}: ${places.length ? places.join(", ") : "-"}`;
     }).join("\n");
+    const range = `${fmtD(startDate) || "?"}→${fmtD(endDate) || "?"}`;
 
-    const prompt = `
-      คุณคือผู้ช่วยวิเคราะห์สภาพอากาศสำหรับทริปท่องเที่ยว ตอบเป็นภาษาไทยเท่านั้น
-      แบ่งคำตอบเป็น 2 ส่วน คั่นด้วยบรรทัด ---DETAILS--- เป๊ะๆ เพียงบรรทัดเดียว (ห้ามขาด ห้ามเกิน):
-      ส่วนที่ 1 — สรุปไฮไลต์ภาพรวมทั้งทริป ไม่เกิน 6 บรรทัด (อากาศเด่นๆ ของทริปนี้คืออะไร)
-      ---DETAILS---
-      ส่วนที่ 2 — รายละเอียดรายวัน: ทุกวันให้ขึ้นต้นด้วย "Day N (วันที่)" แล้วลิสต์สถานที่ที่จะไปในวันนั้นทีละที่ แต่ละที่สรุปสั้นๆ บรรทัดเดียวว่าเช้า/กลางวัน/เย็นเจออากาศแบบไหน สถานที่ย่อยเอาแค่ไฮไลต์ ห้ามแนะนำการแต่งตัวหรือกิจกรรมเพิ่ม
-      ข้อมูลทริป:
-      - จุดหมายหลัก: ${targetLocation}
-      - ช่วงวันที่: ${start} ถึง ${end}
-      - รายวัน:
-      ${dayLines || "- ไม่มีข้อมูลรายวัน"}
-      - รายการกิจกรรม/เวลา (อ้างอิง): ${acts}
-    `;
+    // หมายเหตุ: ตัด JSON กิจกรรมดิบทั้งก้อนทิ้ง (ซ้ำกับรายวัน ประหยัด ~65%) —
+    // ไฮไลต์ปิดท้ายให้ AI เลือกเองตามทริป (แสงเหนือ/พายุ/ฝน แล้วแต่ทริปนั้น)
+    const prompt = `พยากรณ์อากาศทริป "${targetLocation}" ${range} ตอบภาษาไทย แบ่ง 2 ส่วนคั่นด้วยบรรทัด ---DETAILS--- เป๊ะๆ บรรทัดเดียว:
+ส่วนที่ 1 — ไฮไลต์ ≤4 บรรทัด ปิดท้ายด้วย ★ + ปัจจัยอากาศที่กระทบแผนทริปนี้มากสุด 1 อย่าง
+---DETAILS---
+ส่วนที่ 2 — รายวันขึ้นต้น "DN: " ทุกวัน แต่ละที่ 1 บรรทัดว่าเช้า/กลางวัน/เย็นเจออะไร ที่ย่อยสั้นๆ ห้ามแนะนำเพิ่ม
+${dayLines || "- ไม่มีข้อมูลรายวัน"}`;
 
     // Log ข้อมูลที่ส่งออกไปหา AI (ดูใน terminal ของ backend — ไม่มี API key อยู่ในนี้)
     console.log("[AI weather] outgoing:", JSON.stringify({
       model: process.env.GEMINI_MODEL || DEFAULT_MODEL,
-      tripId, location: targetLocation, start, end,
+      tripId, location: targetLocation, range,
       days: (trip.days || []).length,
       activities: Array.isArray(activities) ? activities.length : 0,
       promptChars: prompt.length,
