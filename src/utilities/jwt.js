@@ -4,12 +4,13 @@ import 'dotenv/config'
 export const createToken = async (user) => {
     const payload = {
         id: user.id,
+        version: user.tokenVersion,
         username: user.username,
        
     }
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
         algorithm: 'HS256',
-        expiresIn: '1d'
+        expiresIn: '1h'
     })
     return token
 }

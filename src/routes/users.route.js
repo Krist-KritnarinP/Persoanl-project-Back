@@ -1,5 +1,5 @@
 import express from 'express'
-import { editMe, getMe } from '../controllers/users.controller.js';
+import { editMe, getMe, logout } from '../controllers/users.controller.js';
 import authCheck from '../middlewares/auth.middleware.js';
 
 const UsersRoute = express.Router()
@@ -10,4 +10,5 @@ UsersRoute.get('/me', authCheck, getMe);
 // แก้ไขข้อมูลส่วนตัว (Username, Email)
 UsersRoute.put('/me', authCheck,editMe );
 
+UsersRoute.post('/logout', authCheck, logout);
 export default UsersRoute

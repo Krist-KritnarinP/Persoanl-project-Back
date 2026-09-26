@@ -49,6 +49,6 @@ export const getAiHistoryService = async (tripId, userId, limit = 20) => {
   return await prisma.aiMessage.findMany({
     where: { tripId: Number(tripId), userId: Number(userId) },
     orderBy: { createdAt: "desc" },
-    take: Math.min(Math.max(Number(limit) || 20, 1), 100),
+    take: Math.min(Math.max(Math.floor(Number(limit)) || 20, 1), 100),
   });
 };

@@ -1,3 +1,5 @@
+import { prisma } from "../lib/prisma.js";
+import { reserveAiQuota } from "../security/quotas.js";
 import { GoogleGenAI } from "@google/genai";
 import createError from "http-errors";
 import { weatherSchema } from "../validations/schema.js";
@@ -48,11 +50,11 @@ const isQuotaError = (err) => {
 // รุ่น 1.5/2.x-flash ถูก Google ปลดแล้ว (404) — อย่าเปลี่ยนกลับโดยไม่เทส
 const DEFAULT_MODEL = "gemini-3.8-flash";
 
-async function generateWithRetry(ai, model, contents, tries = 3) {
+async function generateWithRetry(ai, model, contents, tries = 1) {
   let lastErr;
   for (let i = 1; i <= tries; i++) {
     try {
-      return await ai.models.generateContent({ model, contents });
+      return await ai.models.generateContent({ model, contents, config: { maxOutputTokens: 1500, httpOptions: { timeout: 25000 } } });
     } catch (err) {
       lastErr = err;
       if (!isRetryable(err) || i === tries) throw err;
@@ -72,7 +74,19 @@ export const predictTripWeather = async (req, res, next) => {
       return next(createError(400, "Invalid weather request payload"));
     }
 
-    const { location, startDate, endDate, activities, tripId } = parsed.data;
+    const { tripId } = parsed.data;
+    const trip = await prisma.trip.findFirst({ where: { id: tripId, userId: req.user.id }, include: { days: { include: { activities: true } } } });
+    if (!trip) return next(createError(404, "Trip not found"));
+    // Build the prompt from owned DB data; request text cannot substitute another trip.
+    const { destination: location, startDate, endDate } = trip;
+    const activities = trip.days.flatMap(day => day.activities.map(a => ({ date: day.dayDate, location: a.locationName, time: a.activityTime, type: a.activityType })));
+    const recent = await prisma.aiMessage.findFirst({ where: { userId: req.user.id, tripId, kind: 'WEATHER', createdAt: { gte: new Date(Date.now() - 6 * 3600000) } }, orderBy: { createdAt: 'desc' } });
+    // Cache only when the owned itinerary matches the request used to generate it.
+    const fingerprint = JSON.stringify([location, startDate, endDate, activities]);
+    const { createHash } = await import('node:crypto');
+    const cacheKey = createHash('sha256').update(fingerprint).digest('hex');
+    if (recent?.prompt === cacheKey) return res.json({ success: true, prediction: recent.content, model: recent.model, messageId: recent.id, cached: true });
+    await reserveAiQuota(req.user.id);
 
     const targetLocation = sanitize(location || "ไม่ระบุสถานที่", 200) || "ไม่ระบุสถานที่";
     const start = sanitize(startDate || "ไม่ระบุวันเริ่มต้น", 50) || "ไม่ระบุวันเริ่มต้น";
@@ -120,12 +134,12 @@ export const predictTripWeather = async (req, res, next) => {
           tripId: Number(tripId),
           kind: "WEATHER",
           model,
-          prompt: prompt.slice(0, 2000),
+          prompt: cacheKey,
           content: prediction || "",
         });
         messageId = saved?.id ?? null;
       } catch (e) {
-        console.error("Save AI message failed:", e?.message || e);
+        console.error("Save AI message failed");
       }
     }
 
@@ -136,7 +150,8 @@ export const predictTripWeather = async (req, res, next) => {
       messageId,
     });
   } catch (error) {
-    console.error("Gemini Weather Error:", error?.message || error);
+    console.error("Gemini request failed");
+    if (error.status === 429 || error.status === 404 || error.status === 503) return next(error);
     next(createError(502, "Failed to get weather prediction, please try again"));
   }
 };

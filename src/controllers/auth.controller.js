@@ -13,7 +13,7 @@ export async function register(req, res, next) {
     if (user) {
         return next(createError(400, "Email already exist"))
     }
-    const hashPassword = await bcrypt.hash(password, 10);
+    const hashPassword = await bcrypt.hash(password, 12);
     const newUser = await createUser(username, email, hashPassword)
 
     res.status(201).json({
@@ -32,10 +32,10 @@ export async function register(req, res, next) {
 
 export async function login(req, res, next) {
   try {
-    const { email, password } = req.body;
+    const { email, password } = loginSchema.parse(req.body);
     
     // 1. Validate ข้อมูลด้วย Zod
-    const result = loginSchema.parse(req.body);
+
 
     // 2. ค้นหา User ตาม Email
     const user = await findUserByEmail(email);

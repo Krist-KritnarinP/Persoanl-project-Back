@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch src/server.js"
+    "test": "node --test",
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "migrate:security": "node scripts/migrate-security.js",
+    "security:runtime-role": "node scripts/setup-runtime-role.js",
+    "test:security:integration": "node scripts/security-smoke.js"
   },
   "keywords": [],
   "author": "",
@@ -13,8 +17,8 @@
   "type": "module",
   "dependencies": {
     "@google/genai": "^2.17.1",
-    "@prisma/adapter-pg": "^7.9.1",
-    "@prisma/client": "^7.9.1",
+    "@prisma/adapter-pg": "7.10.0",
+    "@prisma/client": "7.10.0",
     "pg": "^8.13.1",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
@@ -28,6 +32,14 @@
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
-    "prisma": "^7.9.1"
+    "prisma": "7.10.0"
+  },
+  "overrides": {
+    "@prisma/config": {
+      "deepmerge-ts": "8.0.0"
+    },
+    "prisma": {
+      "mysql2": "3.24.4"
+    }
   }
 }

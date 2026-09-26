@@ -1,3 +1,4 @@
+import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import { prisma } from "../lib/prisma.js";
 
 const ALLOWED_ACTIVITY_TYPES = [
@@ -9,6 +10,7 @@ const ALLOWED_ACTIVITY_TYPES = [
 
 // 5.1 สร้างกิจกรรมใหม่
 export const createActivityService = async (userId, activityData) => {
+  return withCreationLimit(userId, async tx => {
   const {
     dayId, day_id,
     activityType, activity_type,
@@ -35,7 +37,7 @@ export const createActivityService = async (userId, activityData) => {
   }
 
   // Check Day ownership
-  const day = await prisma.day.findFirst({
+  const day = await tx.day.findFirst({
     where: {
       id: targetDayId,
       trip: { userId: Number(userId) },
@@ -49,7 +51,8 @@ export const createActivityService = async (userId, activityData) => {
   const lat = latitude !== undefined && latitude !== "" && latitude !== null ? Number(latitude) : null;
   const lng = longitude !== undefined && longitude !== "" && longitude !== null ? Number(longitude) : null;
 
-  return await prisma.activity.create({
+  enforceLimit(await tx.activity.count({ where: { dayId: targetDayId } }), 100);
+  return await tx.activity.create({
     data: {
       dayId: targetDayId,
       activityType: rawType || null,
@@ -62,6 +65,7 @@ export const createActivityService = async (userId, activityData) => {
       latitude: lat !== null && !isNaN(lat) ? lat : null,
       longitude: lng !== null && !isNaN(lng) ? lng : null,
     },
+  });
   });
 };
 

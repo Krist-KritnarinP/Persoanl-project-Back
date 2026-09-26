@@ -13,11 +13,14 @@ import {
 export const getAllTrips = async (req, res, next) => {
   try {
     const userId = req.user.id;
-    const trips = await getAllTripsService(userId);
+    const page = Number(req.query.page || 1);
+    if (!Number.isInteger(page) || page < 1 || page > 1000) return res.status(400).json({ message: "Invalid page" });
+    const trips = await getAllTripsService(userId, page);
 
     res.status(200).json({
       message: "Get all trips successfully",
       data: trips,
+      nextPage: trips.length === 100 ? page + 1 : null,
     });
   } catch (error) {
     next(error);

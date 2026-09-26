@@ -1,14 +1,18 @@
+import { withCreationLimit, enforceLimit } from "../security/quotas.js";
+import createError from "http-errors";
 import { prisma } from "../lib/prisma.js";
 import crypto from "crypto";
 
 // 3.1 ดึงทริปทั้งหมดของผู้ใช้ (สำหรับหน้า Dashboard พร้อมสรุปวันที่และจำนวนวัน)
-export const getAllTripsService = async (userId) => {
+export const getAllTripsService = async (userId, page = 1) => {
   const trips = await prisma.trip.findMany({
+    take: 100, skip: (page - 1) * 100,
     where: {
       userId: Number(userId),
     },
     include: {
       days: {
+        select: { dayCount: true, dayDate: true },
         orderBy: {
           dayCount: "asc",
         },
@@ -41,7 +45,9 @@ export const getAllTripsService = async (userId) => {
 export const createTripService = async (userId, tripData) => {
   const { tripName, destination, startDate, endDate, tripDescription } = tripData;
 
-  return await prisma.trip.create({
+  return withCreationLimit(userId, async tx => {
+    enforceLimit(await tx.trip.count({ where: { userId: Number(userId) } }), 100);
+    return tx.trip.create({
     data: {
       tripName,
       destination,
@@ -50,6 +56,7 @@ export const createTripService = async (userId, tripData) => {
       tripDescription: tripDescription || null,
       userId: Number(userId),
     },
+  });
   });
 };
 
@@ -112,7 +119,9 @@ export const updateTripService = async (tripId, userId, tripData) => {
   });
 
   if (!existingTrip) return null;
-
+  const start = startDate !== undefined ? startDate : existingTrip.startDate;
+  const end = endDate !== undefined ? endDate : existingTrip.endDate;
+  if (start && end && new Date(start) > new Date(end)) throw createError(400, "Invalid date range");
   return await prisma.trip.update({
     where: {
       id: Number(tripId),

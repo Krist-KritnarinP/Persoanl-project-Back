@@ -1,35 +1,33 @@
-import bcrypt from 'bcrypt'
-import createError from "http-errors"
-import { editUser } from "../services/user.service.js"
-
-
-// Get me  คือ  การ getข้อมูล ของเรา มาดูfetchข้อมูลuser มาดู
-export function getMe (req,res){
-    const {id,username,email} = req.user
-    res.status(200).json({ id,username,email})
-
+import bcrypt from 'bcrypt';
+import createError from 'http-errors';
+import { prisma } from '../lib/prisma.js';
+import { profileSchema } from '../validations/schema.js';
+export function getMe(req, res) {
+  const { id, username, email } = req.user;
+  res.json({ id, username, email });
 }
-
 export async function editMe(req, res, next) {
-    try {
-        const { email } = req.user
-        const { username, password } = req.body ?? {}
-        if (username === undefined && password === undefined) {
-            return next(createError(400, "username or password is required"))
-        }
-        if (username !== undefined && (typeof username !== "string" || username.trim().length < 4)) {
-            return next(createError(400, "username minimum 4 letters"))
-        }
-        if (password !== undefined && (typeof password !== "string" || password.length < 4)) {
-            return next(createError(400, "password minimum 4 letters"))
-        }
-        const hashPassword = password ? await bcrypt.hash(password, 10) : undefined
-        const updated = await editUser(email, username?.trim(), hashPassword)
-        res.status(200).json({
-            message: "Profile updated",
-            user: { id: updated.id, username: updated.username, email: updated.email },
-        })
-    } catch (err) {
-        next(err)
+  try {
+    const { username, password, currentPassword } = profileSchema.parse(req.body);
+    const data = {};
+    if (username !== undefined) data.username = username;
+    if (password !== undefined) {
+      if (!currentPassword || !await bcrypt.compare(currentPassword, req.user.password)) {
+        throw createError(400, 'Current password is incorrect');
+      }
+      data.password = await bcrypt.hash(password, 12);
+      data.tokenVersion = { increment: 1 };
     }
+    // Conditional update prevents an old credential check winning a concurrent password change.
+    const result = await prisma.user.updateMany({ where: { id: req.user.id, tokenVersion: req.user.tokenVersion }, data });
+    if (!result.count) throw createError(401, 'Session expired, please sign in again');
+    res.json({ message: password ? 'Password updated. Please sign in again.' : 'Profile updated',
+      reauthenticate: Boolean(password), user: { id: req.user.id, username: username ?? req.user.username, email: req.user.email } });
+  } catch (error) { next(error); }
+}
+export async function logout(req, res, next) {
+  try {
+    await prisma.user.updateMany({ where: { id: req.user.id, tokenVersion: req.user.tokenVersion }, data: { tokenVersion: { increment: 1 } } });
+    res.sendStatus(204);
+  } catch (error) { next(error); }
 }

@@ -18,7 +18,7 @@ async function authCheck(req, res, next) {
       return next(createError(401, "Unauthorized: invalid token payload"));
     }
     const user = await findUserById(Number(payload.id));
-    if (!user) {
+    if (!user || !Number.isInteger(payload.version) || payload.version !== user.tokenVersion) {
       return next(createError(401, "Unauthorized"));
     }
     req.user = user;

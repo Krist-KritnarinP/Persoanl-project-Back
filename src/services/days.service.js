@@ -1,7 +1,9 @@
+import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import { prisma } from "../lib/prisma.js";
 
 // 4.1 สร้างวันใหม่ (Create Day)
 export const createDayService = async (userId, dayData) => {
+  return withCreationLimit(userId, async tx => {
   const { 
     tripId, trip_id, 
     dayDate, day_date, daydate, 
@@ -15,7 +17,7 @@ export const createDayService = async (userId, dayData) => {
   }
 
   // 1. ตรวจสอบสิทธิ์ทริป และดึงวันล่าสุด (Day ล่าสุด) ของทริปนี้มาดู
-  const trip = await prisma.trip.findFirst({
+  const trip = await tx.trip.findFirst({
     where: {
       id: targetTripId,
       userId: Number(userId),
@@ -59,13 +61,15 @@ export const createDayService = async (userId, dayData) => {
   }
 
   // 2. บันทึกข้อมูล Day ใหม่ลง Database
-  return await prisma.day.create({
+  enforceLimit(await tx.day.count({ where: { tripId: targetTripId } }), 60);
+  return await tx.day.create({
     data: {
       tripId: targetTripId,
       dayCount: nextDayCount,
       dayDate: nextDayDate,
       description: description || `Day ${nextDayCount}`,
     },
+  });
   });
 };
 

@@ -11,7 +11,8 @@ export const findUserById = async (id) => {
     if (!numericId || Number.isNaN(numericId)) return null
     // ตั้งตามตัวแปรSchema 
     const user = await prisma.user.findUnique({
-        where: { id: numericId }
+        where: { id: numericId },
+        select: { id: true, username: true, email: true, password: true, tokenVersion: true }
     })
     return user
 }
