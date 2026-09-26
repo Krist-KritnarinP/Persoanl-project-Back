@@ -95,15 +95,35 @@ export const predictTripWeather = async (req, res, next) => {
       ? JSON.stringify(activities.slice(0, 50))
       : "ไม่มีกิจกรรมระบุไว้";
 
-    const prompt = `
-      ช่วยประเมินสภาพอากาศและพยากรณ์อากาศล่วงหน้าสำหรับทริปท่องเที่ยว:
-      - สถานที่: ${targetLocation}
-      - ช่วงวันที่: ${start} ถึง ${end}
-      - รายการกิจกรรม/เวลา: ${acts}
+    // รายวันแบบ "Day N (วันที่): ที่1, ที่2" ให้ AI สรุปอากาศรายที่ได้ตรงจุด
+    const dayLines = (trip.days || []).map((day) => {
+      const places = (day.activities || []).map((a) => a.locationName).filter(Boolean);
+      const d = day.dayDate ? new Date(day.dayDate).toISOString().slice(0, 10) : "ไม่ระบุวันที่";
+      return `- Day ${day.dayCount} (${d}): ${places.length ? places.join(", ") : "ไม่มีกิจกรรม"}`;
+    }).join("\n");
 
-      พยากรณ์เฉพาะสภาพอากาศที่คาดว่าจะเจอในแต่ละช่วงเวลาของวันของแต่ละสถานที่เท่านั้น สรุปเป็นช่วงวัน เช้ากลางวันและเย็น ไม่ต้องใส่คำแนะนำอะไรเพิ่มแค่สรุปสภาพอากาศเท่านั้น
-      
+    const prompt = `
+      คุณคือผู้ช่วยวิเคราะห์สภาพอากาศสำหรับทริปท่องเที่ยว ตอบเป็นภาษาไทยเท่านั้น
+      แบ่งคำตอบเป็น 2 ส่วน คั่นด้วยบรรทัด ---DETAILS--- เป๊ะๆ เพียงบรรทัดเดียว (ห้ามขาด ห้ามเกิน):
+      ส่วนที่ 1 — สรุปไฮไลต์ภาพรวมทั้งทริป ไม่เกิน 6 บรรทัด (อากาศเด่นๆ ของทริปนี้คืออะไร)
+      ---DETAILS---
+      ส่วนที่ 2 — รายละเอียดรายวัน: ทุกวันให้ขึ้นต้นด้วย "Day N (วันที่)" แล้วลิสต์สถานที่ที่จะไปในวันนั้นทีละที่ แต่ละที่สรุปสั้นๆ บรรทัดเดียวว่าเช้า/กลางวัน/เย็นเจออากาศแบบไหน สถานที่ย่อยเอาแค่ไฮไลต์ ห้ามแนะนำการแต่งตัวหรือกิจกรรมเพิ่ม
+      ข้อมูลทริป:
+      - จุดหมายหลัก: ${targetLocation}
+      - ช่วงวันที่: ${start} ถึง ${end}
+      - รายวัน:
+      ${dayLines || "- ไม่มีข้อมูลรายวัน"}
+      - รายการกิจกรรม/เวลา (อ้างอิง): ${acts}
     `;
+
+    // Log ข้อมูลที่ส่งออกไปหา AI (ดูใน terminal ของ backend — ไม่มี API key อยู่ในนี้)
+    console.log("[AI weather] outgoing:", JSON.stringify({
+      model: process.env.GEMINI_MODEL || DEFAULT_MODEL,
+      tripId, location: targetLocation, start, end,
+      days: (trip.days || []).length,
+      activities: Array.isArray(activities) ? activities.length : 0,
+      promptChars: prompt.length,
+    }));
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const model = process.env.GEMINI_MODEL || DEFAULT_MODEL;
