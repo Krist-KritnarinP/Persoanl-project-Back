@@ -38,7 +38,7 @@ export const updateActivity = async (req, res, next) => {
     const updatedActivity = await updateActivityService(
       activityId,
       userId,
-      req.body
+      req.body,
     );
 
     if (!updatedActivity) {

@@ -3,7 +3,14 @@ import { prisma } from "../lib/prisma.js";
 const ALLOWED_KINDS = ["WEATHER", "PLAN", "CHAT"];
 
 // บันทึกข้อความตอบกลับจาก AI (ownership: trip ต้องเป็นของ user)
-export const saveAiMessage = async ({ userId, tripId, kind, model, prompt, content }) => {
+export const saveAiMessage = async ({
+  userId,
+  tripId,
+  kind,
+  model,
+  prompt,
+  content,
+}) => {
   const safeKind = ALLOWED_KINDS.includes(kind) ? kind : "WEATHER";
 
   if (tripId) {

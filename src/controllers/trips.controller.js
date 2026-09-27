@@ -14,7 +14,8 @@ export const getAllTrips = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const page = Number(req.query.page || 1);
-    if (!Number.isInteger(page) || page < 1 || page > 1000) return res.status(400).json({ message: "Invalid page" });
+    if (!Number.isInteger(page) || page < 1 || page > 1000)
+      return res.status(400).json({ message: "Invalid page" });
     const trips = await getAllTripsService(userId, page);
 
     res.status(200).json({
@@ -45,23 +46,15 @@ export const createTrip = async (req, res, next) => {
 // 3.3 GET /trips/:tripId
 export const getTripById = async (req, res, next) => {
   try {
-    
-    // console.log("=== DEBUG GET TRIP BY ID ===");
-    // console.log("1. req.params:", req.params);
-    // console.log("2. req.user:", req.user);
-
-   
     const tripId = req.params.tripId || req.params.id;
     const userId = req.user?.id || req.user?.userId; // เผื่อ key ใน req.user ต่างกัน
-
-    // console.log("3. Parsed tripId:", Number(tripId));
-    // console.log("4. Parsed userId:", Number(userId));
-    // console.log("============================");
 
     const trip = await getTripByIdService(tripId, userId);
 
     if (!trip) {
-      return res.status(404).json({ message: "Trip not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ message: "Trip not found or unauthorized" });
     }
 
     res.status(200).json({
@@ -82,7 +75,9 @@ export const updateTrip = async (req, res, next) => {
     const updatedTrip = await updateTripService(tripId, userId, req.body);
 
     if (!updatedTrip) {
-      return res.status(404).json({ message: "Trip not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ message: "Trip not found or unauthorized" });
     }
 
     res.status(200).json({
@@ -103,7 +98,9 @@ export const deleteTrip = async (req, res, next) => {
     const deletedTrip = await deleteTripService(tripId, userId);
 
     if (!deletedTrip) {
-      return res.status(404).json({ message: "Trip not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ message: "Trip not found or unauthorized" });
     }
 
     res.status(200).json({
@@ -119,7 +116,9 @@ export const createShare = async (req, res, next) => {
   try {
     const shared = await createShareService(req.params.tripId, req.user.id);
     if (!shared) {
-      return res.status(404).json({ message: "Trip not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ message: "Trip not found or unauthorized" });
     }
     res.status(200).json({
       message: "Share link created",
@@ -135,7 +134,9 @@ export const revokeShare = async (req, res, next) => {
   try {
     const revoked = await revokeShareService(req.params.tripId, req.user.id);
     if (!revoked) {
-      return res.status(404).json({ message: "Trip not found or unauthorized" });
+      return res
+        .status(404)
+        .json({ message: "Trip not found or unauthorized" });
     }
     res.status(200).json({ message: "Share link revoked" });
   } catch (error) {
@@ -148,7 +149,9 @@ export const getSharedTrip = async (req, res, next) => {
   try {
     const trip = await getSharedTripService(req.params.token);
     if (!trip) {
-      return res.status(404).json({ message: "Shared trip not found or link revoked" });
+      return res
+        .status(404)
+        .json({ message: "Shared trip not found or link revoked" });
     }
     res.status(200).json({
       message: "Get shared trip successfully",

@@ -1,8 +1,12 @@
-import { isTrustedOrigin, issueRefreshSession, setRefreshCookie } from "../security/refresh-session.js";
+import {
+  isTrustedOrigin,
+  issueRefreshSession,
+  setRefreshCookie,
+} from "../security/refresh-session.js";
 import bcrypt from "bcrypt";
 import { prisma } from "../lib/prisma.js";
 import { createUser, findUserByEmail } from "../services/user.service.js";
-import createError from 'http-errors'
+import createError from "http-errors";
 import { createToken } from "../utilities/jwt.js";
 import { loginSchema, registerSchema } from "../validations/schema.js";
 
@@ -10,12 +14,12 @@ export async function register(req, res, next) {
   try {
     const { username, email, password } = registerSchema.parse(req.body);
 
-    const user = await findUserByEmail(email)
+    const user = await findUserByEmail(email);
     if (user) {
-        return next(createError(400, "Email already exist"))
+      return next(createError(400, "Email already exist"));
     }
     const hashPassword = await bcrypt.hash(password, 12);
-    const newUser = await createUser(username, email, hashPassword)
+    const newUser = await createUser(username, email, hashPassword);
 
     res.status(201).json({
       message: "Register Successfully",
@@ -30,13 +34,11 @@ export async function register(req, res, next) {
   }
 }
 
-
 export async function login(req, res, next) {
   try {
     const { email, password } = loginSchema.parse(req.body);
 
     // 1. Validate ข้อมูลด้วย Zod
-
 
     // 2. ค้นหา User ตาม Email
     const user = await findUserByEmail(email);
@@ -53,7 +55,8 @@ export async function login(req, res, next) {
     }
 
     // 5. สร้าง Token และส่ง Response กลับ
-    if (req.headers.origin && !isTrustedOrigin(req)) return next(createError(403, "Untrusted origin"));
+    if (req.headers.origin && !isTrustedOrigin(req))
+      return next(createError(403, "Untrusted origin"));
     const token = await createToken(user);
     if (isTrustedOrigin(req)) {
       const session = await issueRefreshSession(user);
@@ -67,9 +70,8 @@ export async function login(req, res, next) {
         id: user.id,
         username: user.username,
         email: user.email,
-      }
+      },
     });
-
   } catch (err) {
     next(err); // ให้ Zod validation error หรือ error อื่นๆ หลุดไปเข้า Error Handler
   }

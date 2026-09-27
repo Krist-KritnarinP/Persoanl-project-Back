@@ -23,12 +23,12 @@ export const createDay = async (req, res, next) => {
       return res.status(404).json({ message: error.message });
     }
     if (
-      error.message === "tripId is required" || 
+      error.message === "tripId is required" ||
       error.message === "dayDate is required for Day 1"
     ) {
       return res.status(400).json({ message: error.message });
     }
-    
+
     next(error);
   }
 };

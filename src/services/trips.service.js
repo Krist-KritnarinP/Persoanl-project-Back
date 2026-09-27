@@ -1,3 +1,4 @@
+import { summarizeTrip } from "./trip-summary.js";
 import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import createError from "http-errors";
 import { prisma } from "../lib/prisma.js";
@@ -6,7 +7,8 @@ import crypto from "crypto";
 // 3.1 ดึงทริปทั้งหมดของผู้ใช้ (สำหรับหน้า Dashboard พร้อมสรุปวันที่และจำนวนวัน)
 export const getAllTripsService = async (userId, page = 1) => {
   const trips = await prisma.trip.findMany({
-    take: 100, skip: (page - 1) * 100,
+    take: 100,
+    skip: (page - 1) * 100,
     where: {
       userId: Number(userId),
     },
@@ -25,45 +27,35 @@ export const getAllTripsService = async (userId, page = 1) => {
 
   // คำนวณ totalDays จาก Day; เก็บ startDate/endDate ที่ user กรอกเป็นหลัก
   // ใช้ dayDate เป็น fallback เฉพาะกรณี trip ยังไม่มีวันที่
-  return trips.map((trip) => {
-    const days = trip.days;
-    const totalDays = days.length;
-
-    const startDate = trip.startDate ?? (totalDays > 0 ? days[0].dayDate : null);
-    const endDate = trip.endDate ?? (totalDays > 0 ? days[totalDays - 1].dayDate : null);
-
-    return {
-      ...trip,
-      startDate,
-      endDate,
-      totalDays,
-    };
-  });
+  return trips.map(summarizeTrip);
 };
 
 // 3.2 สร้างทริปใหม่ (ไม่บังคับส่ง startDate / endDate)
 export const createTripService = async (userId, tripData) => {
-  const { tripName, destination, startDate, endDate, tripDescription } = tripData;
+  const { tripName, destination, startDate, endDate, tripDescription } =
+    tripData;
 
-  return withCreationLimit(userId, async tx => {
-    enforceLimit(await tx.trip.count({ where: { userId: Number(userId) } }), 100);
+  return withCreationLimit(userId, async (tx) => {
+    enforceLimit(
+      await tx.trip.count({ where: { userId: Number(userId) } }),
+      100,
+    );
     return tx.trip.create({
-    data: {
-      tripName,
-      destination,
-      startDate: startDate ? new Date(startDate) : null,
-      endDate: endDate ? new Date(endDate) : null,
-      tripDescription: tripDescription || null,
-      userId: Number(userId),
-    },
-  });
+      data: {
+        tripName,
+        destination,
+        startDate: startDate ? new Date(startDate) : null,
+        endDate: endDate ? new Date(endDate) : null,
+        tripDescription: tripDescription || null,
+        userId: Number(userId),
+      },
+    });
   });
 };
 
 // 3.3 ดึงข้อมูลทริปหน้า Timeline
 export const getTripByIdService = async (tripId, userId) => {
   const targetId = Number(tripId);
-
 
   if (!targetId || isNaN(targetId)) {
     return null;
@@ -92,23 +84,13 @@ export const getTripByIdService = async (tripId, userId) => {
 
   if (!trip) return null;
 
-  const days = trip.days;
-  const totalDays = days.length;
-  // เก็บวันที่ของ trip เป็นหลัก, fallback ไป dayDate เฉพาะตอน trip ไม่มีวันที่
-  const startDate = trip.startDate ?? (totalDays > 0 ? days[0].dayDate : null);
-  const endDate = trip.endDate ?? (totalDays > 0 ? days[totalDays - 1].dayDate : null);
-
-  return {
-    ...trip,
-    startDate,
-    endDate,
-    totalDays,
-  };
+  return summarizeTrip(trip);
 };
 
 // 3.4 แก้ไขข้อมูลทริป
 export const updateTripService = async (tripId, userId, tripData) => {
-  const { tripName, destination, startDate, endDate, tripDescription } = tripData;
+  const { tripName, destination, startDate, endDate, tripDescription } =
+    tripData;
 
   // ตรวจสอบก่อนว่าทริปนี้เป็นของผู้ใช้นี้จริงไหม
   const existingTrip = await prisma.trip.findFirst({
@@ -121,7 +103,8 @@ export const updateTripService = async (tripId, userId, tripData) => {
   if (!existingTrip) return null;
   const start = startDate !== undefined ? startDate : existingTrip.startDate;
   const end = endDate !== undefined ? endDate : existingTrip.endDate;
-  if (start && end && new Date(start) > new Date(end)) throw createError(400, "Invalid date range");
+  if (start && end && new Date(start) > new Date(end))
+    throw createError(400, "Invalid date range");
   return await prisma.trip.update({
     where: {
       id: Number(tripId),
@@ -129,8 +112,12 @@ export const updateTripService = async (tripId, userId, tripData) => {
     data: {
       ...(tripName && { tripName }),
       ...(destination && { destination }),
-      ...(startDate !== undefined && { startDate: startDate ? new Date(startDate) : null }),
-      ...(endDate !== undefined && { endDate: endDate ? new Date(endDate) : null }),
+      ...(startDate !== undefined && {
+        startDate: startDate ? new Date(startDate) : null,
+      }),
+      ...(endDate !== undefined && {
+        endDate: endDate ? new Date(endDate) : null,
+      }),
       ...(tripDescription !== undefined && { tripDescription }),
     },
   });
@@ -213,7 +200,8 @@ export const getSharedTripService = async (token) => {
     sharedBy: trip.user?.username || null,
     user: undefined,
     startDate: trip.startDate ?? (totalDays > 0 ? days[0].dayDate : null),
-    endDate: trip.endDate ?? (totalDays > 0 ? days[totalDays - 1].dayDate : null),
+    endDate:
+      trip.endDate ?? (totalDays > 0 ? days[totalDays - 1].dayDate : null),
     totalDays,
   };
 };
