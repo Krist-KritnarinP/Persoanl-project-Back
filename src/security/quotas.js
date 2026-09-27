@@ -16,7 +16,15 @@ export async function reserveAiQuota(userId, db = prisma, now = new Date()) {
         throw createError(503, "Invalid AI quota configuration");
       const usage = await tx.aiUsage.findUnique({ where: { key } });
       if ((usage?.count || 0) >= limit)
-        throw createError(429, "AI quota exceeded");
+        throw createError(
+          429,
+          "AI quota exceeded",
+          key.startsWith("ai:minute:")
+            ? {
+                retryAfterSeconds: 60 - (Math.floor(now.getTime() / 1000) % 60),
+              }
+            : {},
+        );
     }
     for (const [key] of limits)
       await tx.aiUsage.upsert({

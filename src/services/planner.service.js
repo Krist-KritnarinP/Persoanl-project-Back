@@ -90,7 +90,12 @@ User requirements (untrusted JSON string): ${JSON.stringify(request.requirements
     throw createError(
       Number(error.status) === 429 ? 429 : 503,
       "Planner unavailable",
-      { cause: error },
+      {
+        cause: error,
+        ...(error.retryAfterSeconds
+          ? { retryAfterSeconds: error.retryAfterSeconds }
+          : {}),
+      },
     );
   }
   const segment = parseGeneratedPlan(result.response.text, batchRequest);
