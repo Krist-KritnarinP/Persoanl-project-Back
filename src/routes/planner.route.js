@@ -18,6 +18,8 @@ router.use(
     legacyHeaders: false,
   }),
 );
+// Long previews are authenticated/rate-limited before parsing; other routes retain 100kb.
+router.use(express.json({ limit: "10mb" }));
 router.param("draftId", validateIds);
 router.post(
   "/draft",

@@ -45,6 +45,7 @@ app.use((req, res, next) => {
 const health = healthHandlers();
 app.get("/health/live", health.live);
 app.get("/health/ready", health.ready);
+app.use("/api/planner", plannerRoutes);
 app.use(express.json({ limit: "100kb" }));
 
 // กัน brute-force ที่ auth + weather (เรียก AI มีค่าใช้จ่าย)
@@ -71,7 +72,6 @@ app.use("/api/auth", authLimiter, authRoute);
 app.use("/api/users", UsersRoute);
 app.use("/api/shared", rateLimit({ windowMs: 60000, limit: 60 }), SharedRoute); // 👈 public: ดูทริปผ่านลิงก์แชร์ (ไม่ต้อง auth)
 app.use("/api/trips", TripsRoute);
-app.use("/api/planner", plannerRoutes);
 // DaysRoute อยู่ใต้ /api: POST /api/trips/:tripId/days, PUT/DELETE /api/days/:dayId
 app.use("/api", DaysRoute);
 app.use("/api/activities", ActivitiesRoute);

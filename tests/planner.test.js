@@ -9,6 +9,7 @@ import {
   parseGeneratedPlan,
   planTripData,
   confirmPlan,
+  draftPlan,
 } from "../src/services/planner.service.js";
 
 const request = {
@@ -38,12 +39,15 @@ const fixture = () => ({
   ],
 });
 
-test("planner accepts real dates only, ordered ranges and at most seven days", () => {
+test("planner accepts real dates only, ordered ranges without a seven-day cap", () => {
   assert.ok(plannerRequestSchema.safeParse(request).success);
+  assert.ok(
+    plannerRequestSchema.safeParse({ ...request, endDate: "2027-12-10" })
+      .success,
+  );
   for (const dates of [
     { startDate: "2026-02-30", endDate: "2026-03-01" },
     { endDate: "2026-12-09" },
-    { endDate: "2026-12-17" },
   ])
     assert.equal(
       plannerRequestSchema.safeParse({ ...request, ...dates }).success,
@@ -108,4 +112,61 @@ test("confirmation refuses other owners and returns an existing receipt without 
     work({ aiMessage: { findFirst: async () => ({ tripId: 88 }) } }),
   );
   assert.deepEqual(result, { id: 88, replayed: true });
+});
+
+test("long drafts resume after a quota failure, preserve days and report successful tokens", async () => {
+  const oldKey = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = "test-only-key";
+  let stored = null,
+    calls = 0;
+  const db = {
+    aiMessage: {
+      findFirst: async () => stored,
+      create: async ({ data }) => (stored = { id: 81, ...data }),
+      update: async ({ data }) => (stored = { ...stored, ...data }),
+    },
+  };
+  const longRequest = { ...request, endDate: "2026-12-18" };
+  const deps = {
+    db,
+    transact: (_, fn) => fn(db),
+    reserve: async () => {},
+    generate: async () => {
+      calls++;
+      if (calls === 2) throw Object.assign(new Error("quota"), { status: 429 });
+      const dates = calls === 1 ? [10, 11, 12, 13, 14, 15, 16] : [17, 18];
+      return {
+        model: "stub",
+        response: {
+          text: JSON.stringify({
+            ...fixture(),
+            days: dates.map((d) => ({
+              ...fixture().days[0],
+              date: `2026-12-${d}`,
+            })),
+          }),
+          usageMetadata: { totalTokenCount: 100 },
+        },
+      };
+    },
+  };
+  try {
+    const partial = await draftPlan(1, longRequest, deps);
+    assert.equal(partial.complete, false);
+    assert.equal(partial.plan.days.length, 7);
+    await assert.rejects(draftPlan(1, longRequest, deps), { status: 429 });
+    assert.equal(JSON.parse(stored.content).plan.days.length, 7);
+    const full = await draftPlan(1, longRequest, deps);
+    assert.equal(full.complete, true);
+    assert.equal(full.plan.days.length, 9);
+    assert.equal(full.tokens, 200);
+    assert.equal(full.draftId, partial.draftId);
+    assert.ok(validatePlanDates(full.plan, longRequest));
+    const cached = await draftPlan(1, longRequest, deps);
+    assert.equal(cached.cached, true);
+    assert.equal(calls, 3);
+  } finally {
+    if (oldKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = oldKey;
+  }
 });

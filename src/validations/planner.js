@@ -11,7 +11,7 @@ const date = z
   );
 export function tripDates(start, end) {
   const count = (Date.parse(end) - Date.parse(start)) / 86400000 + 1;
-  if (!Number.isInteger(count) || count < 1 || count > 7) return [];
+  if (!Number.isInteger(count) || count < 1) return [];
   return Array.from({ length: count }, (_, i) =>
     new Date(Date.parse(start) + i * 86400000).toISOString().slice(0, 10),
   );
@@ -25,7 +25,7 @@ export const plannerRequestSchema = z
   .strict()
   .refine(
     (v) => tripDates(v.startDate, v.endDate).length > 0,
-    "Choose 1–7 days",
+    "End date must follow start date",
   );
 
 const activity = z
@@ -59,8 +59,7 @@ export const planSchema = z
           })
           .strict(),
       )
-      .min(1)
-      .max(7),
+      .min(1),
   })
   .strict();
 export const confirmPlanSchema = z.object({ plan: planSchema }).strict();
