@@ -1,4 +1,5 @@
 import express from "express";
+import plannerRoutes from "./routes/planner.route.js";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
@@ -70,6 +71,7 @@ app.use("/api/auth", authLimiter, authRoute);
 app.use("/api/users", UsersRoute);
 app.use("/api/shared", rateLimit({ windowMs: 60000, limit: 60 }), SharedRoute); // 👈 public: ดูทริปผ่านลิงก์แชร์ (ไม่ต้อง auth)
 app.use("/api/trips", TripsRoute);
+app.use("/api/planner", plannerRoutes);
 // DaysRoute อยู่ใต้ /api: POST /api/trips/:tripId/days, PUT/DELETE /api/days/:dayId
 app.use("/api", DaysRoute);
 app.use("/api/activities", ActivitiesRoute);

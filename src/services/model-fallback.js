@@ -9,10 +9,15 @@ export function configuredModels(env = process.env) {
 
 // Each provider attempt consumes durable quota, including the fallback.
 // Never retry authentication, permission, quota, timeout or invalid-input errors.
-export async function generateWeather(
+export async function generateAiContent(
   ai,
   contents,
-  { models = configuredModels(), reserve, now = Date.now } = {},
+  {
+    models = configuredModels(),
+    reserve,
+    now = Date.now,
+    generationConfig = {},
+  } = {},
 ) {
   const deadline = now() + 25000;
   for (let i = 0; i < models.length; i++) {
@@ -24,6 +29,7 @@ export async function generateWeather(
         contents,
         config: {
           maxOutputTokens: 1500,
+          ...generationConfig,
           httpOptions: { timeout: Math.max(1, deadline - now()) },
         },
       });
@@ -36,3 +42,6 @@ export async function generateWeather(
     }
   }
 }
+
+// Existing weather callers retain the same defaults and fallback behavior.
+export const generateWeather = generateAiContent;

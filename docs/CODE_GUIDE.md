@@ -38,3 +38,6 @@ npm test ใช้ unit/stubs; scripts/*-smoke.js เป็น integration ท�
 รอบ refactor ไม่แก้ schema/migration/.env/dependencies หรือข้อมูลจริง; ไม่ต้องรัน migration เพื่อรับโค้ดรอบนี้
 อ่าน AUTH_SETUP.md สำหรับ Google/SMTP และ PHASE0_OPERATIONS.md สำหรับงานเปิดใช้งานจริงที่ยังค้าง
 อ่าน [AGENT_HANDOFF.md](AGENT_HANDOFF.md) ก่อนทำ refactor ต่อ
+
+## AI Trip Planner
+ร่างแผนจากข้อความและปฏิทินที่ `/trips/ai`; ดู [AI_PLANNER.md](AI_PLANNER.md) สำหรับ flow, API, ข้อจำกัด และวิธีทดสอบ

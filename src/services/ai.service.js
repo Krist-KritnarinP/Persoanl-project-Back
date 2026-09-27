@@ -38,7 +38,7 @@ export const saveAiMessage = async ({
 // ลบประวัติ AI 1 รายการ (ต้องเป็นของ user เอง)
 export const deleteAiMessageService = async (messageId, userId) => {
   const msg = await prisma.aiMessage.findFirst({
-    where: { id: Number(messageId), userId: Number(userId) },
+    where: { id: Number(messageId), userId: Number(userId), kind: "WEATHER" },
     select: { id: true },
   });
   if (!msg) return null;
@@ -54,7 +54,7 @@ export const getAiHistoryService = async (tripId, userId, limit = 20) => {
   if (!trip) return null;
 
   return await prisma.aiMessage.findMany({
-    where: { tripId: Number(tripId), userId: Number(userId) },
+    where: { tripId: Number(tripId), userId: Number(userId), kind: "WEATHER" },
     orderBy: { createdAt: "desc" },
     take: Math.min(Math.max(Math.floor(Number(limit)) || 20, 1), 100),
   });
