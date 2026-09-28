@@ -80,7 +80,11 @@ export const predictTripWeather = async (req, res, next) => {
     const fingerprint = `weather:v3:${prompt}`;
     const { createHash } = await import("node:crypto");
     const cacheKey = createHash("sha256").update(fingerprint).digest("hex");
-    if (recent?.prompt === cacheKey)
+    const debugWeather =
+      process.env.NODE_ENV !== "production" &&
+      (process.env.NODE_ENV === "development" || process.env.npm_lifecycle_event === "dev");
+    if (recent?.prompt === cacheKey) {
+      if (debugWeather) console.log("[Weather cache] Reusing saved report; no AI request", { tripId, language });
       return res.json({
         success: true,
         prediction: recent.content,
@@ -88,10 +92,15 @@ export const predictTripWeather = async (req, res, next) => {
         messageId: recent.id,
         cached: true,
       });
+    }
 
     if (!process.env.GEMINI_API_KEY)
       return next(createError(503, "Weather AI is not configured"));
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    if (debugWeather) {
+      console.log("[Weather → AI]", { tripId, language, maxOutputTokens, promptCharacters: prompt.length });
+      console.log(prompt);
+    }
     const { response, model } = await generateWeather(ai, prompt, {
       reserve: () => reserveAiQuota(req.user.id),
       generationConfig: { maxOutputTokens },
