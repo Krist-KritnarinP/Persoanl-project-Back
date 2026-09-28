@@ -1,3 +1,4 @@
+import { getTravelOverview } from "../controllers/travel-overview.controller.js";
 import {
   validateBody,
   validateIds,
@@ -25,6 +26,7 @@ TripsRoute.use(authCheck);
 
 // 3.1 ดึงทริปทั้งหมดของผู้ใช้
 TripsRoute.get("/", getAllTrips);
+TripsRoute.get("/overview", getTravelOverview);
 
 // 3.2 สร้างทริปใหม่
 TripsRoute.post("/", validateBody(tripCreateSchema), createTrip);
