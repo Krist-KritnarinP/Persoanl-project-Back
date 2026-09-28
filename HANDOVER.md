@@ -1,3 +1,14 @@
+# Handover — Short weather prompt (2026-09-28)
+
+- ปรับตามรูปแบบผู้ใช้: Task / Constraints / Itinerary Data และ D<number> YYYY-MM-DD + เช้า/กลางวัน/เย็น บรรทัดละสั้น ๆ
+- ตัด overview, advice, uncertainty รายวัน และ marker ที่ไม่จำเป็น; UI รองรับข้อความไม่มี marker อยู่แล้ว
+- อนุญาตช่วงอุณหภูมิโดยประมาณตามฤดูกาลเมื่อมีพื้นฐานรองรับ; แสงเหนือเฉพาะช่วงเย็นในพื้นที่ที่เกี่ยวข้อง ไม่แต่งเปอร์เซ็นต์หรือยืนยันว่าจะเห็น
+- คง 4 ภาษา, itinerary compact, quota/output budget เดิม; prompt เปลี่ยนทำให้ fingerprint cache เปลี่ยนอัตโนมัติ
+- พิกัดใน DB ยังไม่ได้แก้; prompt ให้ระบุความไม่แน่นอนเมื่อพิกัดขัดกับชื่อสถานที่
+- ตรวจ weather prompt tests ผ่าน; ไม่เรียก Gemini ไม่แก้ข้อมูล DB หรือ frontend รอบนี้
+
+---
+
 # Handover — Weather development logs (2026-09-28)
 
 - Front dev Console แสดง [Weather → API] พร้อม tripId/language

@@ -35,9 +35,14 @@ test("compact weather prompt deduplicates places and preserves dates, periods an
   assert.ok(prompt.indexOf("D1 2027-01-01") < prompt.indexOf("D2 2027-01-02"));
   assert.match(prompt, /09:00 visit P1/);
   assert.match(prompt, /15:00-17:30 travel P1/);
-  assert.match(prompt, /morning, afternoon and evening/);
-  assert.match(prompt, /NOT a live forecast/);
-  assert.doesNotMatch(prompt, /private note|123456/);
+  assert.match(prompt, /Morning: \[place\/area\]/);
+  assert.match(prompt, /Afternoon: \[place\/area\]/);
+  assert.match(prompt, /Evening: \[place\/area\]/);
+  assert.match(prompt, /not live forecast/);
+  assert.doesNotMatch(prompt, /private note|123456|---DETAILS---/);
+  assert.match(prompt, /approximate seasonal temperature range/);
+  assert.match(prompt, /not a predicted probability/);
+  assert.match(buildWeatherPrompt(trip, "th").prompt, /เช้า:.*\nกลางวัน:.*\nเย็น:/);
   assert.ok(prompt.length < 2200);
   assert.equal(maxOutputTokens, 1800);
 });
