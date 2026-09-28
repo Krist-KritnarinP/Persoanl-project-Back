@@ -11,6 +11,8 @@ export const saveAiMessage = async ({
   prompt,
   content,
 }) => {
+  if (String(content ?? "").length > 64000)
+    throw new Error("AI response exceeds storage limit");
   const safeKind = ALLOWED_KINDS.includes(kind) ? kind : "WEATHER";
 
   if (tripId) {
@@ -30,7 +32,7 @@ export const saveAiMessage = async ({
       kind: safeKind,
       model: model ? String(model).slice(0, 100) : null,
       prompt: prompt ? String(prompt).slice(0, 8000) : null,
-      content: String(content ?? "").slice(0, 8000),
+      content: String(content ?? ""),
     },
   });
 };

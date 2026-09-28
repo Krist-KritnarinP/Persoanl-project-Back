@@ -1,3 +1,4 @@
+import { buildWeatherPrompt } from "../services/weather-prompt.js";
 import { prisma } from "../lib/prisma.js";
 import { generateWeather } from "../services/model-fallback.js";
 import { reserveAiQuota } from "../security/quotas.js";
@@ -50,11 +51,6 @@ export const deleteWeatherHistory = async (req, res, next) => {
   }
 };
 
-const sanitize = (v, max = 200) =>
-  String(v ?? "")
-    .replace(/[\r\n]+/g, " ")
-    .slice(0, max);
-
 export const predictTripWeather = async (req, res, next) => {
   try {
     if (process.env.AI_ENABLED === "false")
@@ -70,16 +66,7 @@ export const predictTripWeather = async (req, res, next) => {
       include: { days: { include: { activities: true } } },
     });
     if (!trip) return next(createError(404, "Trip not found"));
-    // Build the prompt from owned DB data; request text cannot substitute another trip.
-    const { destination: location, startDate, endDate } = trip;
-    const activities = trip.days.flatMap((day) =>
-      day.activities.map((a) => ({
-        date: day.dayDate,
-        location: a.locationName,
-        time: a.activityTime,
-        type: a.activityType,
-      })),
-    );
+    const { prompt, maxOutputTokens } = buildWeatherPrompt(trip, language);
     const recent = await prisma.aiMessage.findFirst({
       where: {
         userId: req.user.id,
@@ -90,13 +77,7 @@ export const predictTripWeather = async (req, res, next) => {
       orderBy: { createdAt: "desc" },
     });
     // Cache only when the owned itinerary matches the request used to generate it.
-    const fingerprint = JSON.stringify([
-      language,
-      location,
-      startDate,
-      endDate,
-      activities,
-    ]);
+    const fingerprint = `weather:v3:${prompt}`;
     const { createHash } = await import("node:crypto");
     const cacheKey = createHash("sha256").update(fingerprint).digest("hex");
     if (recent?.prompt === cacheKey)
@@ -108,64 +89,20 @@ export const predictTripWeather = async (req, res, next) => {
         cached: true,
       });
 
-    const targetLocation =
-      sanitize(location || "ไม่ระบุสถานที่", 200) || "ไม่ระบุสถานที่";
-
-    // ฟอร์แมตประหยัด token: "D2 10-18: TG954(00:05-07:25), Muli(นอน)"
-    // เวลาลงจอด (ถ้ามีในคำอธิบาย เช่น "00:05–07:25") ดึงมาต่อท้ายให้ AI รู้ช่วงบิน
-    const fmtD = (v) => {
-      if (!v) return "";
-      const d = new Date(v);
-      return isNaN(d.getTime()) ? "" : d.toISOString().slice(5, 10);
-    };
-    const fmtT = (v) => {
-      if (!v) return "";
-      if (typeof v === "string" && /^\d{2}:\d{2}/.test(v)) return v.slice(0, 5);
-      const d = new Date(v); // Prisma ส่ง Time กลับมาเป็น Date object
-      return isNaN(d.getTime()) ? "" : d.toISOString().slice(11, 16);
-    };
-    const arrivalOf = (desc, dep) => {
-      if (!desc || !dep) return "";
-      const m = String(desc).match(/(\d{2}:\d{2})\s*[–-]\s*(\d{2}:\d{2})/);
-      return m && m[1] === dep ? `-${m[2]}` : "";
-    };
-    const dayLines = (trip.days || [])
-      .map((day) => {
-        const places = (day.activities || [])
-          .map((a) => {
-            const name = (a.locationName || "").trim();
-            if (!name) return "";
-            const tm = fmtT(a.activityTime);
-            const when = tm ? `(${tm}${arrivalOf(a.description, tm)})` : "";
-            const night = a.activityType === "ACCOMMODATION" ? "(นอน)" : "";
-            return `${name}${when}${night}`;
-          })
-          .filter(Boolean);
-        return `D${day.dayCount} ${fmtD(day.dayDate) || "?"}: ${places.length ? places.join(", ") : "-"}`;
-      })
-      .join("\n");
-    const range = `${fmtD(startDate) || "?"}→${fmtD(endDate) || "?"}`;
-
-    // หมายเหตุ: ตัด JSON กิจกรรมดิบทั้งก้อนทิ้ง (ซ้ำกับรายวัน) —
-    // บรรทัด ⚠️ ให้ AI เลือกวันที่เสี่ยงสุดของทริปนั้นเอง (พายุ/ถนนปิด/ฝน แล้วแต่ทริป)
-    const prompt = `พยากรณ์อากาศทริป "${targetLocation}" ${range} ตอบภาษา ${{ th: "ไทย", en: "อังกฤษ", zh: "จีนตัวย่อ", ko: "เกาหลี" }[language]} เท่านั้น (แปลหัวข้อและข้อความตัวอย่างทั้งหมดเป็นภาษานี้) แบ่งคำตอบเป็น 2 ส่วน คั่นด้วยบรรทัด ---DETAILS--- เป๊ะๆ บรรทัดเดียว (ต้องมีทุกครั้ง ห้ามขาด):
-ส่วนที่ 1 — ภาพรวมทั้งทริปไม่เกิน 4 บรรทัด อ่าน 10 วินาทีรู้เรื่อง ปิดท้ายด้วย "⚠️ วันที่เสี่ยงสุด: DN ...เพราะ..." (พายุ/ถนนปิด/ปัจจัยที่ทำทริปล่มได้)
----DETAILS---
-ส่วนที่ 2 — รายวันขึ้นต้น "DN: " ทุกวัน แต่ละที่ 1 บรรทัดบอกเช้า/กลางวัน/เย็นเจออะไร ที่ละ 1-2 ประโยค ห้ามแนะนำเพิ่ม
-ตัวอย่าง:
-⚠️ วันที่เสี่ยงสุด: D5 ลมแรง ถนนหมายเลข 1 เสี่ยงปิด
----DETAILS---
-D2: Hallgrimskirkja — เช้าหนาวฟ้าใส กลางวันเมฆมาก เย็นลมแรงฝนปรอย
-ข้อมูลทริป:
-${dayLines || "- ไม่มีข้อมูลรายวัน"}`;
-
     if (!process.env.GEMINI_API_KEY)
       return next(createError(503, "Weather AI is not configured"));
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
     const { response, model } = await generateWeather(ai, prompt, {
       reserve: () => reserveAiQuota(req.user.id),
+      generationConfig: { maxOutputTokens },
     });
 
+    if (
+      response.candidates?.some(
+        (candidate) => candidate.finishReason === "MAX_TOKENS",
+      )
+    )
+      throw createError(502, "Weather response incomplete");
     const prediction = response.text;
 
     // เก็บประวัติคำตอบ AI (ถ้ามี tripId และเป็นทริปของ user)
@@ -194,8 +131,7 @@ ${dayLines || "- ไม่มีข้อมูลรายวัน"}`;
     });
   } catch (error) {
     console.error("Gemini request failed");
-    if (error.status === 429 || error.status === 404 || error.status === 503)
-      return next(error);
+    if ([400, 413, 429, 404, 503].includes(error.status)) return next(error);
     next(
       createError(502, "Failed to get weather prediction, please try again"),
     );
