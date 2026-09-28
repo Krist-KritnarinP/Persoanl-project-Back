@@ -1,3 +1,14 @@
+# Handover — Import weather supplied by user (2026-09-28)
+
+- ตามคำสั่งผู้ใช้ เพิ่มข้อความ seasonal weather ครบ D1–D9 ลง Trip #2 เป็น AiMessage kind WEATHER, message id 8
+- เก็บข้อความผู้ใช้ 2,635 characters โดยไม่แก้เนื้อหา; model=manual-user-import แยกจากคำตอบ Gemini และไม่ปลอม cache fingerprint
+- อ่านกลับตรวจตรงกับต้นฉบับสำเร็จ; คง history เดิม ไม่เปลี่ยน itinerary/พิกัด ไม่เรียก AI และไม่ใช้ quota
+- ดูผ่านหน้า Trip #2 > Weather history > รายการล่าสุด; reload แล้วเปิด modal อ่านได้
+- ข้อความกล่าวถึงแหล่งอากาศตามต้นฉบับผู้ใช้ ไม่ได้ตรวจสอบแหล่งข้อมูลหรือความถูกต้องของรายงานรอบนี้
+- Commit นี้บันทึก handover เท่านั้น ข้อมูล DB ไม่ได้อยู่ใน Git
+
+---
+
 # Handover — Short weather prompt (2026-09-28)
 
 - ปรับตามรูปแบบผู้ใช้: Task / Constraints / Itinerary Data และ D<number> YYYY-MM-DD + เช้า/กลางวัน/เย็น บรรทัดละสั้น ๆ
