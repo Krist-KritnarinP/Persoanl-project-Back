@@ -31,6 +31,35 @@ export async function exportAccount(req, res, next) {
             startDate: true,
             endDate: true,
             tripDescription: true,
+            members: {
+              select: { id: true, name: true, active: true, version: true },
+            },
+            bills: {
+              select: {
+                id: true,
+                title: true,
+                date: true,
+                currency: true,
+                total: true,
+                data: true,
+                voided: true,
+                version: true,
+                createdAt: true,
+              },
+            },
+            settlements: {
+              select: {
+                id: true,
+                fromId: true,
+                toId: true,
+                amount: true,
+                date: true,
+                allocations: true,
+                reversed: true,
+                version: true,
+                createdAt: true,
+              },
+            },
             days: {
               select: {
                 id: true,

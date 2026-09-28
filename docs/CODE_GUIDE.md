@@ -44,3 +44,6 @@ npm test ใช้ unit/stubs; scripts/*-smoke.js เป็น integration ท�
 
 ## Travel overview
 แดชบอร์ดแผนที่/ปฏิทิน/ค่าใช้จ่ายที่ `/travel-overview`; ดู [TRAVEL_OVERVIEW.md](TRAVEL_OVERVIEW.md) สำหรับ data flow และความหมายของสถานะ/ยอดเงิน
+
+## Trip billing
+`src/billing/` แยกสูตรเงิน/ledger/transaction service; route ใต้ owned trip ดู [BILLING.md](BILLING.md) ก่อนแก้สูตรหรือ migration

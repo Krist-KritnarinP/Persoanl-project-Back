@@ -204,9 +204,65 @@ exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TripMemberScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  name: 'name',
+  active: 'active',
+  version: 'version'
+};
+
+exports.Prisma.SplitBillScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  title: 'title',
+  date: 'date',
+  activityId: 'activityId',
+  currency: 'currency',
+  total: 'total',
+  data: 'data',
+  voided: 'voided',
+  version: 'version',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SplitSettlementScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  fromId: 'fromId',
+  toId: 'toId',
+  amount: 'amount',
+  date: 'date',
+  allocations: 'allocations',
+  reversed: 'reversed',
+  version: 'version',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BillingEventScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  actorId: 'actorId',
+  requestId: 'requestId',
+  fingerprint: 'fingerprint',
+  action: 'action',
+  before: 'before',
+  result: 'result',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.JsonNullValueInput = {
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -217,6 +273,12 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
 };
 exports.ActivityType = exports.$Enums.ActivityType = {
   ACCOMMODATION: 'ACCOMMODATION',
@@ -239,7 +301,11 @@ exports.Prisma.ModelName = {
   AiMessage: 'AiMessage',
   AiUsage: 'AiUsage',
   RefreshSession: 'RefreshSession',
-  PasswordResetToken: 'PasswordResetToken'
+  PasswordResetToken: 'PasswordResetToken',
+  TripMember: 'TripMember',
+  SplitBill: 'SplitBill',
+  SplitSettlement: 'SplitSettlement',
+  BillingEvent: 'BillingEvent'
 };
 
 /**

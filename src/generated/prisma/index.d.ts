@@ -15,44 +15,64 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 /**
  * Model User
- *
+ * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
  * Model Trip
- *
+ * 
  */
 export type Trip = $Result.DefaultSelection<Prisma.$TripPayload>
 /**
  * Model Day
- *
+ * 
  */
 export type Day = $Result.DefaultSelection<Prisma.$DayPayload>
 /**
  * Model Activity
- *
+ * 
  */
 export type Activity = $Result.DefaultSelection<Prisma.$ActivityPayload>
 /**
  * Model AiMessage
- *
+ * 
  */
 export type AiMessage = $Result.DefaultSelection<Prisma.$AiMessagePayload>
 /**
  * Model AiUsage
- *
+ * 
  */
 export type AiUsage = $Result.DefaultSelection<Prisma.$AiUsagePayload>
 /**
  * Model RefreshSession
- *
+ * 
  */
 export type RefreshSession = $Result.DefaultSelection<Prisma.$RefreshSessionPayload>
 /**
  * Model PasswordResetToken
- *
+ * 
  */
 export type PasswordResetToken = $Result.DefaultSelection<Prisma.$PasswordResetTokenPayload>
+/**
+ * Model TripMember
+ * 
+ */
+export type TripMember = $Result.DefaultSelection<Prisma.$TripMemberPayload>
+/**
+ * Model SplitBill
+ * 
+ */
+export type SplitBill = $Result.DefaultSelection<Prisma.$SplitBillPayload>
+/**
+ * Model SplitSettlement
+ * 
+ */
+export type SplitSettlement = $Result.DefaultSelection<Prisma.$SplitSettlementPayload>
+/**
+ * Model BillingEvent
+ * 
+ */
+export type BillingEvent = $Result.DefaultSelection<Prisma.$BillingEventPayload>
 
 /**
  * Enums
@@ -196,7 +216,7 @@ export class PrismaClient<
    *   prisma.user.create({ data: { name: 'Alice' } }),
    * ])
    * ```
-   *
+   * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
@@ -286,6 +306,46 @@ export class PrismaClient<
     * ```
     */
   get passwordResetToken(): Prisma.PasswordResetTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tripMember`: Exposes CRUD operations for the **TripMember** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TripMembers
+    * const tripMembers = await prisma.tripMember.findMany()
+    * ```
+    */
+  get tripMember(): Prisma.TripMemberDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.splitBill`: Exposes CRUD operations for the **SplitBill** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SplitBills
+    * const splitBills = await prisma.splitBill.findMany()
+    * ```
+    */
+  get splitBill(): Prisma.SplitBillDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.splitSettlement`: Exposes CRUD operations for the **SplitSettlement** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SplitSettlements
+    * const splitSettlements = await prisma.splitSettlement.findMany()
+    * ```
+    */
+  get splitSettlement(): Prisma.SplitSettlementDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.billingEvent`: Exposes CRUD operations for the **BillingEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BillingEvents
+    * const billingEvents = await prisma.billingEvent.findMany()
+    * ```
+    */
+  get billingEvent(): Prisma.BillingEventDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -740,7 +800,11 @@ export namespace Prisma {
     AiMessage: 'AiMessage',
     AiUsage: 'AiUsage',
     RefreshSession: 'RefreshSession',
-    PasswordResetToken: 'PasswordResetToken'
+    PasswordResetToken: 'PasswordResetToken',
+    TripMember: 'TripMember',
+    SplitBill: 'SplitBill',
+    SplitSettlement: 'SplitSettlement',
+    BillingEvent: 'BillingEvent'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -756,7 +820,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trip" | "day" | "activity" | "aiMessage" | "aiUsage" | "refreshSession" | "passwordResetToken"
+      modelProps: "user" | "trip" | "day" | "activity" | "aiMessage" | "aiUsage" | "refreshSession" | "passwordResetToken" | "tripMember" | "splitBill" | "splitSettlement" | "billingEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1352,6 +1416,302 @@ export namespace Prisma {
           }
         }
       }
+      TripMember: {
+        payload: Prisma.$TripMemberPayload<ExtArgs>
+        fields: Prisma.TripMemberFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TripMemberFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TripMemberFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>
+          }
+          findFirst: {
+            args: Prisma.TripMemberFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TripMemberFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>
+          }
+          findMany: {
+            args: Prisma.TripMemberFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>[]
+          }
+          create: {
+            args: Prisma.TripMemberCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>
+          }
+          createMany: {
+            args: Prisma.TripMemberCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TripMemberCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>[]
+          }
+          delete: {
+            args: Prisma.TripMemberDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>
+          }
+          update: {
+            args: Prisma.TripMemberUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>
+          }
+          deleteMany: {
+            args: Prisma.TripMemberDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TripMemberUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TripMemberUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>[]
+          }
+          upsert: {
+            args: Prisma.TripMemberUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripMemberPayload>
+          }
+          aggregate: {
+            args: Prisma.TripMemberAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTripMember>
+          }
+          groupBy: {
+            args: Prisma.TripMemberGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TripMemberGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TripMemberCountArgs<ExtArgs>
+            result: $Utils.Optional<TripMemberCountAggregateOutputType> | number
+          }
+        }
+      }
+      SplitBill: {
+        payload: Prisma.$SplitBillPayload<ExtArgs>
+        fields: Prisma.SplitBillFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SplitBillFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SplitBillFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>
+          }
+          findFirst: {
+            args: Prisma.SplitBillFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SplitBillFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>
+          }
+          findMany: {
+            args: Prisma.SplitBillFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>[]
+          }
+          create: {
+            args: Prisma.SplitBillCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>
+          }
+          createMany: {
+            args: Prisma.SplitBillCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SplitBillCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>[]
+          }
+          delete: {
+            args: Prisma.SplitBillDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>
+          }
+          update: {
+            args: Prisma.SplitBillUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>
+          }
+          deleteMany: {
+            args: Prisma.SplitBillDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SplitBillUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SplitBillUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>[]
+          }
+          upsert: {
+            args: Prisma.SplitBillUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitBillPayload>
+          }
+          aggregate: {
+            args: Prisma.SplitBillAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSplitBill>
+          }
+          groupBy: {
+            args: Prisma.SplitBillGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SplitBillGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SplitBillCountArgs<ExtArgs>
+            result: $Utils.Optional<SplitBillCountAggregateOutputType> | number
+          }
+        }
+      }
+      SplitSettlement: {
+        payload: Prisma.$SplitSettlementPayload<ExtArgs>
+        fields: Prisma.SplitSettlementFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SplitSettlementFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SplitSettlementFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>
+          }
+          findFirst: {
+            args: Prisma.SplitSettlementFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SplitSettlementFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>
+          }
+          findMany: {
+            args: Prisma.SplitSettlementFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>[]
+          }
+          create: {
+            args: Prisma.SplitSettlementCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>
+          }
+          createMany: {
+            args: Prisma.SplitSettlementCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SplitSettlementCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>[]
+          }
+          delete: {
+            args: Prisma.SplitSettlementDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>
+          }
+          update: {
+            args: Prisma.SplitSettlementUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>
+          }
+          deleteMany: {
+            args: Prisma.SplitSettlementDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SplitSettlementUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SplitSettlementUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>[]
+          }
+          upsert: {
+            args: Prisma.SplitSettlementUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SplitSettlementPayload>
+          }
+          aggregate: {
+            args: Prisma.SplitSettlementAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSplitSettlement>
+          }
+          groupBy: {
+            args: Prisma.SplitSettlementGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SplitSettlementGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SplitSettlementCountArgs<ExtArgs>
+            result: $Utils.Optional<SplitSettlementCountAggregateOutputType> | number
+          }
+        }
+      }
+      BillingEvent: {
+        payload: Prisma.$BillingEventPayload<ExtArgs>
+        fields: Prisma.BillingEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BillingEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BillingEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>
+          }
+          findFirst: {
+            args: Prisma.BillingEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BillingEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>
+          }
+          findMany: {
+            args: Prisma.BillingEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>[]
+          }
+          create: {
+            args: Prisma.BillingEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>
+          }
+          createMany: {
+            args: Prisma.BillingEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BillingEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>[]
+          }
+          delete: {
+            args: Prisma.BillingEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>
+          }
+          update: {
+            args: Prisma.BillingEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.BillingEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BillingEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BillingEventUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>[]
+          }
+          upsert: {
+            args: Prisma.BillingEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BillingEventPayload>
+          }
+          aggregate: {
+            args: Prisma.BillingEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBillingEvent>
+          }
+          groupBy: {
+            args: Prisma.BillingEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BillingEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BillingEventCountArgs<ExtArgs>
+            result: $Utils.Optional<BillingEventCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1389,7 +1749,7 @@ export namespace Prisma {
      * ```
      * // Shorthand for `emit: 'stdout'`
      * log: ['query', 'info', 'warn', 'error']
-     *
+     * 
      * // Emit as events only
      * log: [
      *   { emit: 'event', level: 'query' },
@@ -1397,14 +1757,14 @@ export namespace Prisma {
      *   { emit: 'event', level: 'warn' }
      *   { emit: 'event', level: 'error' }
      * ]
-     *
+     * 
      * / Emit as events and log to stdout
      * og: [
      *  { emit: 'stdout', level: 'query' },
      *  { emit: 'stdout', level: 'info' },
      *  { emit: 'stdout', level: 'warn' }
      *  { emit: 'stdout', level: 'error' }
-     *
+     * 
      * ```
      * Read more in our [docs](https://pris.ly/d/logging).
      */
@@ -1421,16 +1781,16 @@ export namespace Prisma {
     }
     /**
      * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
-     *
+     * 
      * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
-     *
+     * 
      * Learn more: https://pris.ly/d/driver-adapters
-     *
+     * 
      * @example
      * ```ts
      * import { PrismaPg } from '@prisma/adapter-pg'
      * import { PrismaClient } from './generated/prisma/client'
-     *
+     * 
      * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
      * const prisma = new PrismaClient({ adapter })
      * ```
@@ -1438,13 +1798,13 @@ export namespace Prisma {
     adapter?: runtime.SqlDriverAdapterFactory
     /**
      * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
-     *
+     * 
      * Learn more: https://pris.ly/d/accelerate
      */
     accelerateUrl?: string
     /**
      * Global configuration for omitting model fields by default.
-     *
+     * 
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -1460,7 +1820,7 @@ export namespace Prisma {
     /**
      * SQL commenter plugins that add metadata to SQL queries as comments.
      * Comments follow the sqlcommenter format: https://google.github.io/sqlcommenter/
-     *
+     * 
      * @example
      * ```
      * const prisma = new PrismaClient({
@@ -1483,6 +1843,10 @@ export namespace Prisma {
     aiUsage?: AiUsageOmit
     refreshSession?: RefreshSessionOmit
     passwordResetToken?: PasswordResetTokenOmit
+    tripMember?: TripMemberOmit
+    splitBill?: SplitBillOmit
+    splitSettlement?: SplitSettlementOmit
+    billingEvent?: BillingEventOmit
   }
 
   /* Types for Logging */
@@ -1621,11 +1985,19 @@ export namespace Prisma {
    */
 
   export type TripCountOutputType = {
+    members: number
+    bills: number
+    settlements: number
+    billingEvents: number
     days: number
     aiMessages: number
   }
 
   export type TripCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | TripCountOutputTypeCountMembersArgs
+    bills?: boolean | TripCountOutputTypeCountBillsArgs
+    settlements?: boolean | TripCountOutputTypeCountSettlementsArgs
+    billingEvents?: boolean | TripCountOutputTypeCountBillingEventsArgs
     days?: boolean | TripCountOutputTypeCountDaysArgs
     aiMessages?: boolean | TripCountOutputTypeCountAiMessagesArgs
   }
@@ -1639,6 +2011,34 @@ export namespace Prisma {
      * Select specific fields to fetch from the TripCountOutputType
      */
     select?: TripCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TripMemberWhereInput
+  }
+
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeCountBillsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SplitBillWhereInput
+  }
+
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeCountSettlementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SplitSettlementWhereInput
+  }
+
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeCountBillingEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BillingEventWhereInput
   }
 
   /**
@@ -1799,55 +2199,55 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Users
     **/
     _count?: true | UserCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: UserAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: UserSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: UserMaxAggregateInputType
@@ -2064,13 +2464,13 @@ export namespace Prisma {
      * @example
      * // Get all Users
      * const users = await prisma.user.findMany()
-     *
+     * 
      * // Get first 10 Users
      * const users = await prisma.user.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends UserFindManyArgs>(args?: SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -2084,7 +2484,7 @@ export namespace Prisma {
      *     // ... data to create a User
      *   }
      * })
-     *
+     * 
      */
     create<T extends UserCreateArgs>(args: SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2098,7 +2498,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends UserCreateManyArgs>(args?: SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2112,7 +2512,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Users and only return the `id`
      * const userWithIdOnly = await prisma.user.createManyAndReturn({
      *   select: { id: true },
@@ -2122,7 +2522,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -2136,7 +2536,7 @@ export namespace Prisma {
      *     // ... filter to delete one User
      *   }
      * })
-     *
+     * 
      */
     delete<T extends UserDeleteArgs>(args: SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2153,7 +2553,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends UserUpdateArgs>(args: SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -2167,7 +2567,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends UserDeleteManyArgs>(args?: SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2186,7 +2586,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends UserUpdateManyArgs>(args: SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -2203,7 +2603,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Users and only return the `id`
      * const userWithIdOnly = await prisma.user.updateManyAndReturn({
      *   select: { id: true },
@@ -2216,7 +2616,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -2305,7 +2705,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends UserGroupByArgs,
@@ -2421,7 +2821,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -2490,31 +2890,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -2542,31 +2942,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -2594,31 +2994,31 @@ export namespace Prisma {
     where?: UserWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Users to fetch.
      */
     orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Users.
      */
     cursor?: UserWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Users from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Users.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Users.
      */
     distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
@@ -3047,55 +3447,55 @@ export namespace Prisma {
     where?: TripWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Trips to fetch.
      */
     orderBy?: TripOrderByWithRelationInput | TripOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: TripWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Trips from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Trips.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Trips
     **/
     _count?: true | TripCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: TripAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: TripSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: TripMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: TripMaxAggregateInputType
@@ -3169,6 +3569,10 @@ export namespace Prisma {
     shareToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    members?: boolean | Trip$membersArgs<ExtArgs>
+    bills?: boolean | Trip$billsArgs<ExtArgs>
+    settlements?: boolean | Trip$settlementsArgs<ExtArgs>
+    billingEvents?: boolean | Trip$billingEventsArgs<ExtArgs>
     days?: boolean | Trip$daysArgs<ExtArgs>
     aiMessages?: boolean | Trip$aiMessagesArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3218,6 +3622,10 @@ export namespace Prisma {
 
   export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tripName" | "destination" | "startDate" | "endDate" | "tripDescription" | "shareToken" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
   export type TripInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | Trip$membersArgs<ExtArgs>
+    bills?: boolean | Trip$billsArgs<ExtArgs>
+    settlements?: boolean | Trip$settlementsArgs<ExtArgs>
+    billingEvents?: boolean | Trip$billingEventsArgs<ExtArgs>
     days?: boolean | Trip$daysArgs<ExtArgs>
     aiMessages?: boolean | Trip$aiMessagesArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3233,6 +3641,10 @@ export namespace Prisma {
   export type $TripPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Trip"
     objects: {
+      members: Prisma.$TripMemberPayload<ExtArgs>[]
+      bills: Prisma.$SplitBillPayload<ExtArgs>[]
+      settlements: Prisma.$SplitSettlementPayload<ExtArgs>[]
+      billingEvents: Prisma.$BillingEventPayload<ExtArgs>[]
       days: Prisma.$DayPayload<ExtArgs>[]
       aiMessages: Prisma.$AiMessagePayload<ExtArgs>[]
       user: Prisma.$UserPayload<ExtArgs>
@@ -3327,13 +3739,13 @@ export namespace Prisma {
      * @example
      * // Get all Trips
      * const trips = await prisma.trip.findMany()
-     *
+     * 
      * // Get first 10 Trips
      * const trips = await prisma.trip.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const tripWithIdOnly = await prisma.trip.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends TripFindManyArgs>(args?: SelectSubset<T, TripFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -3347,7 +3759,7 @@ export namespace Prisma {
      *     // ... data to create a Trip
      *   }
      * })
-     *
+     * 
      */
     create<T extends TripCreateArgs>(args: SelectSubset<T, TripCreateArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3361,7 +3773,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends TripCreateManyArgs>(args?: SelectSubset<T, TripCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3375,7 +3787,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Trips and only return the `id`
      * const tripWithIdOnly = await prisma.trip.createManyAndReturn({
      *   select: { id: true },
@@ -3385,7 +3797,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends TripCreateManyAndReturnArgs>(args?: SelectSubset<T, TripCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -3399,7 +3811,7 @@ export namespace Prisma {
      *     // ... filter to delete one Trip
      *   }
      * })
-     *
+     * 
      */
     delete<T extends TripDeleteArgs>(args: SelectSubset<T, TripDeleteArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3416,7 +3828,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends TripUpdateArgs>(args: SelectSubset<T, TripUpdateArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -3430,7 +3842,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends TripDeleteManyArgs>(args?: SelectSubset<T, TripDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3449,7 +3861,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends TripUpdateManyArgs>(args: SelectSubset<T, TripUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -3466,7 +3878,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Trips and only return the `id`
      * const tripWithIdOnly = await prisma.trip.updateManyAndReturn({
      *   select: { id: true },
@@ -3479,7 +3891,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends TripUpdateManyAndReturnArgs>(args: SelectSubset<T, TripUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -3568,7 +3980,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends TripGroupByArgs,
@@ -3642,6 +4054,10 @@ export namespace Prisma {
    */
   export interface Prisma__TripClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    members<T extends Trip$membersArgs<ExtArgs> = {}>(args?: Subset<T, Trip$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    bills<T extends Trip$billsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$billsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    settlements<T extends Trip$settlementsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$settlementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    billingEvents<T extends Trip$billingEventsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$billingEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     days<T extends Trip$daysArgs<ExtArgs> = {}>(args?: Subset<T, Trip$daysArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     aiMessages<T extends Trip$aiMessagesArgs<ExtArgs> = {}>(args?: Subset<T, Trip$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -3685,7 +4101,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Trip", 'DateTime'>
     readonly updatedAt: FieldRef<"Trip", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -3754,31 +4170,31 @@ export namespace Prisma {
     where?: TripWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Trips to fetch.
      */
     orderBy?: TripOrderByWithRelationInput | TripOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Trips.
      */
     cursor?: TripWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Trips from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Trips.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Trips.
      */
     distinct?: TripScalarFieldEnum | TripScalarFieldEnum[]
@@ -3806,31 +4222,31 @@ export namespace Prisma {
     where?: TripWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Trips to fetch.
      */
     orderBy?: TripOrderByWithRelationInput | TripOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Trips.
      */
     cursor?: TripWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Trips from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Trips.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Trips.
      */
     distinct?: TripScalarFieldEnum | TripScalarFieldEnum[]
@@ -3858,31 +4274,31 @@ export namespace Prisma {
     where?: TripWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Trips to fetch.
      */
     orderBy?: TripOrderByWithRelationInput | TripOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Trips.
      */
     cursor?: TripWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Trips from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Trips.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Trips.
      */
     distinct?: TripScalarFieldEnum | TripScalarFieldEnum[]
@@ -4085,6 +4501,102 @@ export namespace Prisma {
   }
 
   /**
+   * Trip.members
+   */
+  export type Trip$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    where?: TripMemberWhereInput
+    orderBy?: TripMemberOrderByWithRelationInput | TripMemberOrderByWithRelationInput[]
+    cursor?: TripMemberWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TripMemberScalarFieldEnum | TripMemberScalarFieldEnum[]
+  }
+
+  /**
+   * Trip.bills
+   */
+  export type Trip$billsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    where?: SplitBillWhereInput
+    orderBy?: SplitBillOrderByWithRelationInput | SplitBillOrderByWithRelationInput[]
+    cursor?: SplitBillWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SplitBillScalarFieldEnum | SplitBillScalarFieldEnum[]
+  }
+
+  /**
+   * Trip.settlements
+   */
+  export type Trip$settlementsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    where?: SplitSettlementWhereInput
+    orderBy?: SplitSettlementOrderByWithRelationInput | SplitSettlementOrderByWithRelationInput[]
+    cursor?: SplitSettlementWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SplitSettlementScalarFieldEnum | SplitSettlementScalarFieldEnum[]
+  }
+
+  /**
+   * Trip.billingEvents
+   */
+  export type Trip$billingEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    where?: BillingEventWhereInput
+    orderBy?: BillingEventOrderByWithRelationInput | BillingEventOrderByWithRelationInput[]
+    cursor?: BillingEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BillingEventScalarFieldEnum | BillingEventScalarFieldEnum[]
+  }
+
+  /**
    * Trip.days
    */
   export type Trip$daysArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4257,55 +4769,55 @@ export namespace Prisma {
     where?: DayWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Days to fetch.
      */
     orderBy?: DayOrderByWithRelationInput | DayOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: DayWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Days from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Days.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Days
     **/
     _count?: true | DayCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: DayAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: DaySumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: DayMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: DayMaxAggregateInputType
@@ -4516,13 +5028,13 @@ export namespace Prisma {
      * @example
      * // Get all Days
      * const days = await prisma.day.findMany()
-     *
+     * 
      * // Get first 10 Days
      * const days = await prisma.day.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const dayWithIdOnly = await prisma.day.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends DayFindManyArgs>(args?: SelectSubset<T, DayFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -4536,7 +5048,7 @@ export namespace Prisma {
      *     // ... data to create a Day
      *   }
      * })
-     *
+     * 
      */
     create<T extends DayCreateArgs>(args: SelectSubset<T, DayCreateArgs<ExtArgs>>): Prisma__DayClient<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4550,7 +5062,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends DayCreateManyArgs>(args?: SelectSubset<T, DayCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4564,7 +5076,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Days and only return the `id`
      * const dayWithIdOnly = await prisma.day.createManyAndReturn({
      *   select: { id: true },
@@ -4574,7 +5086,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends DayCreateManyAndReturnArgs>(args?: SelectSubset<T, DayCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -4588,7 +5100,7 @@ export namespace Prisma {
      *     // ... filter to delete one Day
      *   }
      * })
-     *
+     * 
      */
     delete<T extends DayDeleteArgs>(args: SelectSubset<T, DayDeleteArgs<ExtArgs>>): Prisma__DayClient<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4605,7 +5117,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends DayUpdateArgs>(args: SelectSubset<T, DayUpdateArgs<ExtArgs>>): Prisma__DayClient<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -4619,7 +5131,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends DayDeleteManyArgs>(args?: SelectSubset<T, DayDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4638,7 +5150,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends DayUpdateManyArgs>(args: SelectSubset<T, DayUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -4655,7 +5167,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Days and only return the `id`
      * const dayWithIdOnly = await prisma.day.updateManyAndReturn({
      *   select: { id: true },
@@ -4668,7 +5180,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends DayUpdateManyAndReturnArgs>(args: SelectSubset<T, DayUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DayPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -4757,7 +5269,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends DayGroupByArgs,
@@ -4870,7 +5382,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Day", 'DateTime'>
     readonly updatedAt: FieldRef<"Day", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -4939,31 +5451,31 @@ export namespace Prisma {
     where?: DayWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Days to fetch.
      */
     orderBy?: DayOrderByWithRelationInput | DayOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Days.
      */
     cursor?: DayWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Days from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Days.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Days.
      */
     distinct?: DayScalarFieldEnum | DayScalarFieldEnum[]
@@ -4991,31 +5503,31 @@ export namespace Prisma {
     where?: DayWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Days to fetch.
      */
     orderBy?: DayOrderByWithRelationInput | DayOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Days.
      */
     cursor?: DayWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Days from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Days.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Days.
      */
     distinct?: DayScalarFieldEnum | DayScalarFieldEnum[]
@@ -5043,31 +5555,31 @@ export namespace Prisma {
     where?: DayWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Days to fetch.
      */
     orderBy?: DayOrderByWithRelationInput | DayOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Days.
      */
     cursor?: DayWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Days from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Days.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Days.
      */
     distinct?: DayScalarFieldEnum | DayScalarFieldEnum[]
@@ -5462,55 +5974,55 @@ export namespace Prisma {
     where?: ActivityWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Activities to fetch.
      */
     orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: ActivityWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Activities from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Activities.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned Activities
     **/
     _count?: true | ActivityCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: ActivityAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: ActivitySumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ActivityMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: ActivityMaxAggregateInputType
@@ -5752,13 +6264,13 @@ export namespace Prisma {
      * @example
      * // Get all Activities
      * const activities = await prisma.activity.findMany()
-     *
+     * 
      * // Get first 10 Activities
      * const activities = await prisma.activity.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const activityWithIdOnly = await prisma.activity.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends ActivityFindManyArgs>(args?: SelectSubset<T, ActivityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -5772,7 +6284,7 @@ export namespace Prisma {
      *     // ... data to create a Activity
      *   }
      * })
-     *
+     * 
      */
     create<T extends ActivityCreateArgs>(args: SelectSubset<T, ActivityCreateArgs<ExtArgs>>): Prisma__ActivityClient<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5786,7 +6298,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends ActivityCreateManyArgs>(args?: SelectSubset<T, ActivityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5800,7 +6312,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many Activities and only return the `id`
      * const activityWithIdOnly = await prisma.activity.createManyAndReturn({
      *   select: { id: true },
@@ -5810,7 +6322,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends ActivityCreateManyAndReturnArgs>(args?: SelectSubset<T, ActivityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -5824,7 +6336,7 @@ export namespace Prisma {
      *     // ... filter to delete one Activity
      *   }
      * })
-     *
+     * 
      */
     delete<T extends ActivityDeleteArgs>(args: SelectSubset<T, ActivityDeleteArgs<ExtArgs>>): Prisma__ActivityClient<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5841,7 +6353,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends ActivityUpdateArgs>(args: SelectSubset<T, ActivityUpdateArgs<ExtArgs>>): Prisma__ActivityClient<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -5855,7 +6367,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends ActivityDeleteManyArgs>(args?: SelectSubset<T, ActivityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5874,7 +6386,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends ActivityUpdateManyArgs>(args: SelectSubset<T, ActivityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -5891,7 +6403,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more Activities and only return the `id`
      * const activityWithIdOnly = await prisma.activity.updateManyAndReturn({
      *   select: { id: true },
@@ -5904,7 +6416,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends ActivityUpdateManyAndReturnArgs>(args: SelectSubset<T, ActivityUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ActivityPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -5993,7 +6505,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends ActivityGroupByArgs,
@@ -6111,7 +6623,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Activity", 'DateTime'>
     readonly updatedAt: FieldRef<"Activity", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -6180,31 +6692,31 @@ export namespace Prisma {
     where?: ActivityWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Activities to fetch.
      */
     orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Activities.
      */
     cursor?: ActivityWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Activities from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Activities.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Activities.
      */
     distinct?: ActivityScalarFieldEnum | ActivityScalarFieldEnum[]
@@ -6232,31 +6744,31 @@ export namespace Prisma {
     where?: ActivityWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Activities to fetch.
      */
     orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for Activities.
      */
     cursor?: ActivityWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Activities from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Activities.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Activities.
      */
     distinct?: ActivityScalarFieldEnum | ActivityScalarFieldEnum[]
@@ -6284,31 +6796,31 @@ export namespace Prisma {
     where?: ActivityWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of Activities to fetch.
      */
     orderBy?: ActivityOrderByWithRelationInput | ActivityOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing Activities.
      */
     cursor?: ActivityWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` Activities from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` Activities.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of Activities.
      */
     distinct?: ActivityScalarFieldEnum | ActivityScalarFieldEnum[]
@@ -6641,55 +7153,55 @@ export namespace Prisma {
     where?: AiMessageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiMessages to fetch.
      */
     orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: AiMessageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiMessages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiMessages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned AiMessages
     **/
     _count?: true | AiMessageCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: AiMessageAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: AiMessageSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: AiMessageMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: AiMessageMaxAggregateInputType
@@ -6908,13 +7420,13 @@ export namespace Prisma {
      * @example
      * // Get all AiMessages
      * const aiMessages = await prisma.aiMessage.findMany()
-     *
+     * 
      * // Get first 10 AiMessages
      * const aiMessages = await prisma.aiMessage.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `id`
      * const aiMessageWithIdOnly = await prisma.aiMessage.findMany({ select: { id: true } })
-     *
+     * 
      */
     findMany<T extends AiMessageFindManyArgs>(args?: SelectSubset<T, AiMessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -6928,7 +7440,7 @@ export namespace Prisma {
      *     // ... data to create a AiMessage
      *   }
      * })
-     *
+     * 
      */
     create<T extends AiMessageCreateArgs>(args: SelectSubset<T, AiMessageCreateArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6942,7 +7454,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends AiMessageCreateManyArgs>(args?: SelectSubset<T, AiMessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -6956,7 +7468,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many AiMessages and only return the `id`
      * const aiMessageWithIdOnly = await prisma.aiMessage.createManyAndReturn({
      *   select: { id: true },
@@ -6966,7 +7478,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends AiMessageCreateManyAndReturnArgs>(args?: SelectSubset<T, AiMessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -6980,7 +7492,7 @@ export namespace Prisma {
      *     // ... filter to delete one AiMessage
      *   }
      * })
-     *
+     * 
      */
     delete<T extends AiMessageDeleteArgs>(args: SelectSubset<T, AiMessageDeleteArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -6997,7 +7509,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends AiMessageUpdateArgs>(args: SelectSubset<T, AiMessageUpdateArgs<ExtArgs>>): Prisma__AiMessageClient<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -7011,7 +7523,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends AiMessageDeleteManyArgs>(args?: SelectSubset<T, AiMessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7030,7 +7542,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends AiMessageUpdateManyArgs>(args: SelectSubset<T, AiMessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -7047,7 +7559,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more AiMessages and only return the `id`
      * const aiMessageWithIdOnly = await prisma.aiMessage.updateManyAndReturn({
      *   select: { id: true },
@@ -7060,7 +7572,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends AiMessageUpdateManyAndReturnArgs>(args: SelectSubset<T, AiMessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -7149,7 +7661,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends AiMessageGroupByArgs,
@@ -7263,7 +7775,7 @@ export namespace Prisma {
     readonly content: FieldRef<"AiMessage", 'String'>
     readonly createdAt: FieldRef<"AiMessage", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -7332,31 +7844,31 @@ export namespace Prisma {
     where?: AiMessageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiMessages to fetch.
      */
     orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for AiMessages.
      */
     cursor?: AiMessageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiMessages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiMessages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AiMessages.
      */
     distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
@@ -7384,31 +7896,31 @@ export namespace Prisma {
     where?: AiMessageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiMessages to fetch.
      */
     orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for AiMessages.
      */
     cursor?: AiMessageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiMessages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiMessages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AiMessages.
      */
     distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
@@ -7436,31 +7948,31 @@ export namespace Prisma {
     where?: AiMessageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiMessages to fetch.
      */
     orderBy?: AiMessageOrderByWithRelationInput | AiMessageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing AiMessages.
      */
     cursor?: AiMessageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiMessages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiMessages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AiMessages.
      */
     distinct?: AiMessageScalarFieldEnum | AiMessageScalarFieldEnum[]
@@ -7774,55 +8286,55 @@ export namespace Prisma {
     where?: AiUsageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiUsages to fetch.
      */
     orderBy?: AiUsageOrderByWithRelationInput | AiUsageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: AiUsageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiUsages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiUsages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned AiUsages
     **/
     _count?: true | AiUsageCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: AiUsageAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: AiUsageSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: AiUsageMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: AiUsageMaxAggregateInputType
@@ -7990,13 +8502,13 @@ export namespace Prisma {
      * @example
      * // Get all AiUsages
      * const aiUsages = await prisma.aiUsage.findMany()
-     *
+     * 
      * // Get first 10 AiUsages
      * const aiUsages = await prisma.aiUsage.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `key`
      * const aiUsageWithKeyOnly = await prisma.aiUsage.findMany({ select: { key: true } })
-     *
+     * 
      */
     findMany<T extends AiUsageFindManyArgs>(args?: SelectSubset<T, AiUsageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiUsagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -8010,7 +8522,7 @@ export namespace Prisma {
      *     // ... data to create a AiUsage
      *   }
      * })
-     *
+     * 
      */
     create<T extends AiUsageCreateArgs>(args: SelectSubset<T, AiUsageCreateArgs<ExtArgs>>): Prisma__AiUsageClient<$Result.GetResult<Prisma.$AiUsagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8024,7 +8536,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends AiUsageCreateManyArgs>(args?: SelectSubset<T, AiUsageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8038,7 +8550,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many AiUsages and only return the `key`
      * const aiUsageWithKeyOnly = await prisma.aiUsage.createManyAndReturn({
      *   select: { key: true },
@@ -8048,7 +8560,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends AiUsageCreateManyAndReturnArgs>(args?: SelectSubset<T, AiUsageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiUsagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -8062,7 +8574,7 @@ export namespace Prisma {
      *     // ... filter to delete one AiUsage
      *   }
      * })
-     *
+     * 
      */
     delete<T extends AiUsageDeleteArgs>(args: SelectSubset<T, AiUsageDeleteArgs<ExtArgs>>): Prisma__AiUsageClient<$Result.GetResult<Prisma.$AiUsagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8079,7 +8591,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends AiUsageUpdateArgs>(args: SelectSubset<T, AiUsageUpdateArgs<ExtArgs>>): Prisma__AiUsageClient<$Result.GetResult<Prisma.$AiUsagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -8093,7 +8605,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends AiUsageDeleteManyArgs>(args?: SelectSubset<T, AiUsageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8112,7 +8624,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends AiUsageUpdateManyArgs>(args: SelectSubset<T, AiUsageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -8129,7 +8641,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more AiUsages and only return the `key`
      * const aiUsageWithKeyOnly = await prisma.aiUsage.updateManyAndReturn({
      *   select: { key: true },
@@ -8142,7 +8654,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends AiUsageUpdateManyAndReturnArgs>(args: SelectSubset<T, AiUsageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiUsagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -8231,7 +8743,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends AiUsageGroupByArgs,
@@ -8338,7 +8850,7 @@ export namespace Prisma {
     readonly count: FieldRef<"AiUsage", 'Int'>
     readonly updatedAt: FieldRef<"AiUsage", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -8395,31 +8907,31 @@ export namespace Prisma {
     where?: AiUsageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiUsages to fetch.
      */
     orderBy?: AiUsageOrderByWithRelationInput | AiUsageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for AiUsages.
      */
     cursor?: AiUsageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiUsages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiUsages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AiUsages.
      */
     distinct?: AiUsageScalarFieldEnum | AiUsageScalarFieldEnum[]
@@ -8443,31 +8955,31 @@ export namespace Prisma {
     where?: AiUsageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiUsages to fetch.
      */
     orderBy?: AiUsageOrderByWithRelationInput | AiUsageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for AiUsages.
      */
     cursor?: AiUsageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiUsages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiUsages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AiUsages.
      */
     distinct?: AiUsageScalarFieldEnum | AiUsageScalarFieldEnum[]
@@ -8491,31 +9003,31 @@ export namespace Prisma {
     where?: AiUsageWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of AiUsages to fetch.
      */
     orderBy?: AiUsageOrderByWithRelationInput | AiUsageOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing AiUsages.
      */
     cursor?: AiUsageWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` AiUsages from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` AiUsages.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of AiUsages.
      */
     distinct?: AiUsageScalarFieldEnum | AiUsageScalarFieldEnum[]
@@ -8798,55 +9310,55 @@ export namespace Prisma {
     where?: RefreshSessionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of RefreshSessions to fetch.
      */
     orderBy?: RefreshSessionOrderByWithRelationInput | RefreshSessionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: RefreshSessionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` RefreshSessions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` RefreshSessions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned RefreshSessions
     **/
     _count?: true | RefreshSessionCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: RefreshSessionAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: RefreshSessionSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: RefreshSessionMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: RefreshSessionMaxAggregateInputType
@@ -9040,13 +9552,13 @@ export namespace Prisma {
      * @example
      * // Get all RefreshSessions
      * const refreshSessions = await prisma.refreshSession.findMany()
-     *
+     * 
      * // Get first 10 RefreshSessions
      * const refreshSessions = await prisma.refreshSession.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `tokenHash`
      * const refreshSessionWithTokenHashOnly = await prisma.refreshSession.findMany({ select: { tokenHash: true } })
-     *
+     * 
      */
     findMany<T extends RefreshSessionFindManyArgs>(args?: SelectSubset<T, RefreshSessionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -9060,7 +9572,7 @@ export namespace Prisma {
      *     // ... data to create a RefreshSession
      *   }
      * })
-     *
+     * 
      */
     create<T extends RefreshSessionCreateArgs>(args: SelectSubset<T, RefreshSessionCreateArgs<ExtArgs>>): Prisma__RefreshSessionClient<$Result.GetResult<Prisma.$RefreshSessionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9074,7 +9586,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends RefreshSessionCreateManyArgs>(args?: SelectSubset<T, RefreshSessionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9088,7 +9600,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many RefreshSessions and only return the `tokenHash`
      * const refreshSessionWithTokenHashOnly = await prisma.refreshSession.createManyAndReturn({
      *   select: { tokenHash: true },
@@ -9098,7 +9610,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends RefreshSessionCreateManyAndReturnArgs>(args?: SelectSubset<T, RefreshSessionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshSessionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -9112,7 +9624,7 @@ export namespace Prisma {
      *     // ... filter to delete one RefreshSession
      *   }
      * })
-     *
+     * 
      */
     delete<T extends RefreshSessionDeleteArgs>(args: SelectSubset<T, RefreshSessionDeleteArgs<ExtArgs>>): Prisma__RefreshSessionClient<$Result.GetResult<Prisma.$RefreshSessionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9129,7 +9641,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends RefreshSessionUpdateArgs>(args: SelectSubset<T, RefreshSessionUpdateArgs<ExtArgs>>): Prisma__RefreshSessionClient<$Result.GetResult<Prisma.$RefreshSessionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -9143,7 +9655,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends RefreshSessionDeleteManyArgs>(args?: SelectSubset<T, RefreshSessionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9162,7 +9674,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends RefreshSessionUpdateManyArgs>(args: SelectSubset<T, RefreshSessionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -9179,7 +9691,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more RefreshSessions and only return the `tokenHash`
      * const refreshSessionWithTokenHashOnly = await prisma.refreshSession.updateManyAndReturn({
      *   select: { tokenHash: true },
@@ -9192,7 +9704,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends RefreshSessionUpdateManyAndReturnArgs>(args: SelectSubset<T, RefreshSessionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshSessionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -9281,7 +9793,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends RefreshSessionGroupByArgs,
@@ -9391,7 +9903,7 @@ export namespace Prisma {
     readonly expiresAt: FieldRef<"RefreshSession", 'DateTime'>
     readonly usedAt: FieldRef<"RefreshSession", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -9460,31 +9972,31 @@ export namespace Prisma {
     where?: RefreshSessionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of RefreshSessions to fetch.
      */
     orderBy?: RefreshSessionOrderByWithRelationInput | RefreshSessionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for RefreshSessions.
      */
     cursor?: RefreshSessionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` RefreshSessions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` RefreshSessions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of RefreshSessions.
      */
     distinct?: RefreshSessionScalarFieldEnum | RefreshSessionScalarFieldEnum[]
@@ -9512,31 +10024,31 @@ export namespace Prisma {
     where?: RefreshSessionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of RefreshSessions to fetch.
      */
     orderBy?: RefreshSessionOrderByWithRelationInput | RefreshSessionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for RefreshSessions.
      */
     cursor?: RefreshSessionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` RefreshSessions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` RefreshSessions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of RefreshSessions.
      */
     distinct?: RefreshSessionScalarFieldEnum | RefreshSessionScalarFieldEnum[]
@@ -9564,31 +10076,31 @@ export namespace Prisma {
     where?: RefreshSessionWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of RefreshSessions to fetch.
      */
     orderBy?: RefreshSessionOrderByWithRelationInput | RefreshSessionOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing RefreshSessions.
      */
     cursor?: RefreshSessionWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` RefreshSessions from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` RefreshSessions.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of RefreshSessions.
      */
     distinct?: RefreshSessionScalarFieldEnum | RefreshSessionScalarFieldEnum[]
@@ -9905,55 +10417,55 @@ export namespace Prisma {
     where?: PasswordResetTokenWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PasswordResetTokens to fetch.
      */
     orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the start position
      */
     cursor?: PasswordResetTokenWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PasswordResetTokens from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PasswordResetTokens.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Count returned PasswordResetTokens
     **/
     _count?: true | PasswordResetTokenCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to average
     **/
     _avg?: PasswordResetTokenAvgAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to sum
     **/
     _sum?: PasswordResetTokenSumAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: PasswordResetTokenMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
+     * 
      * Select which fields to find the maximum value
     **/
     _max?: PasswordResetTokenMaxAggregateInputType
@@ -10153,13 +10665,13 @@ export namespace Prisma {
      * @example
      * // Get all PasswordResetTokens
      * const passwordResetTokens = await prisma.passwordResetToken.findMany()
-     *
+     * 
      * // Get first 10 PasswordResetTokens
      * const passwordResetTokens = await prisma.passwordResetToken.findMany({ take: 10 })
-     *
+     * 
      * // Only select the `tokenVersion`
      * const passwordResetTokenWithTokenVersionOnly = await prisma.passwordResetToken.findMany({ select: { tokenVersion: true } })
-     *
+     * 
      */
     findMany<T extends PasswordResetTokenFindManyArgs>(args?: SelectSubset<T, PasswordResetTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
@@ -10173,7 +10685,7 @@ export namespace Prisma {
      *     // ... data to create a PasswordResetToken
      *   }
      * })
-     *
+     * 
      */
     create<T extends PasswordResetTokenCreateArgs>(args: SelectSubset<T, PasswordResetTokenCreateArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10187,7 +10699,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     *     
      */
     createMany<T extends PasswordResetTokenCreateManyArgs>(args?: SelectSubset<T, PasswordResetTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10201,7 +10713,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Create many PasswordResetTokens and only return the `tokenVersion`
      * const passwordResetTokenWithTokenVersionOnly = await prisma.passwordResetToken.createManyAndReturn({
      *   select: { tokenVersion: true },
@@ -10211,7 +10723,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     createManyAndReturn<T extends PasswordResetTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, PasswordResetTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
@@ -10225,7 +10737,7 @@ export namespace Prisma {
      *     // ... filter to delete one PasswordResetToken
      *   }
      * })
-     *
+     * 
      */
     delete<T extends PasswordResetTokenDeleteArgs>(args: SelectSubset<T, PasswordResetTokenDeleteArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10242,7 +10754,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     update<T extends PasswordResetTokenUpdateArgs>(args: SelectSubset<T, PasswordResetTokenUpdateArgs<ExtArgs>>): Prisma__PasswordResetTokenClient<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
@@ -10256,7 +10768,7 @@ export namespace Prisma {
      *     // ... provide filter here
      *   }
      * })
-     *
+     * 
      */
     deleteMany<T extends PasswordResetTokenDeleteManyArgs>(args?: SelectSubset<T, PasswordResetTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10275,7 +10787,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   }
      * })
-     *
+     * 
      */
     updateMany<T extends PasswordResetTokenUpdateManyArgs>(args: SelectSubset<T, PasswordResetTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
@@ -10292,7 +10804,7 @@ export namespace Prisma {
      *     // ... provide data here
      *   ]
      * })
-     *
+     * 
      * // Update zero or more PasswordResetTokens and only return the `tokenVersion`
      * const passwordResetTokenWithTokenVersionOnly = await prisma.passwordResetToken.updateManyAndReturn({
      *   select: { tokenVersion: true },
@@ -10305,7 +10817,7 @@ export namespace Prisma {
      * })
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     *
+     * 
      */
     updateManyAndReturn<T extends PasswordResetTokenUpdateManyAndReturnArgs>(args: SelectSubset<T, PasswordResetTokenUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
@@ -10394,7 +10906,7 @@ export namespace Prisma {
      *     _all: true
      *   },
      * })
-     *
+     * 
     **/
     groupBy<
       T extends PasswordResetTokenGroupByArgs,
@@ -10505,7 +11017,7 @@ export namespace Prisma {
     readonly usedAt: FieldRef<"PasswordResetToken", 'DateTime'>
     readonly createdAt: FieldRef<"PasswordResetToken", 'DateTime'>
   }
-
+    
 
   // Custom InputTypes
   /**
@@ -10574,31 +11086,31 @@ export namespace Prisma {
     where?: PasswordResetTokenWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PasswordResetTokens to fetch.
      */
     orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PasswordResetTokens.
      */
     cursor?: PasswordResetTokenWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PasswordResetTokens from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PasswordResetTokens.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PasswordResetTokens.
      */
     distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
@@ -10626,31 +11138,31 @@ export namespace Prisma {
     where?: PasswordResetTokenWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PasswordResetTokens to fetch.
      */
     orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for searching for PasswordResetTokens.
      */
     cursor?: PasswordResetTokenWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PasswordResetTokens from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PasswordResetTokens.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PasswordResetTokens.
      */
     distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
@@ -10678,31 +11190,31 @@ export namespace Prisma {
     where?: PasswordResetTokenWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     *
+     * 
      * Determine the order of PasswordResetTokens to fetch.
      */
     orderBy?: PasswordResetTokenOrderByWithRelationInput | PasswordResetTokenOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     *
+     * 
      * Sets the position for listing PasswordResetTokens.
      */
     cursor?: PasswordResetTokenWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Take `±n` PasswordResetTokens from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     *
+     * 
      * Skip the first `n` PasswordResetTokens.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     *
+     * 
      * Filter by unique combinations of PasswordResetTokens.
      */
     distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
@@ -10924,6 +11436,4601 @@ export namespace Prisma {
 
 
   /**
+   * Model TripMember
+   */
+
+  export type AggregateTripMember = {
+    _count: TripMemberCountAggregateOutputType | null
+    _avg: TripMemberAvgAggregateOutputType | null
+    _sum: TripMemberSumAggregateOutputType | null
+    _min: TripMemberMinAggregateOutputType | null
+    _max: TripMemberMaxAggregateOutputType | null
+  }
+
+  export type TripMemberAvgAggregateOutputType = {
+    tripId: number | null
+    version: number | null
+  }
+
+  export type TripMemberSumAggregateOutputType = {
+    tripId: number | null
+    version: number | null
+  }
+
+  export type TripMemberMinAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    name: string | null
+    active: boolean | null
+    version: number | null
+  }
+
+  export type TripMemberMaxAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    name: string | null
+    active: boolean | null
+    version: number | null
+  }
+
+  export type TripMemberCountAggregateOutputType = {
+    id: number
+    tripId: number
+    name: number
+    active: number
+    version: number
+    _all: number
+  }
+
+
+  export type TripMemberAvgAggregateInputType = {
+    tripId?: true
+    version?: true
+  }
+
+  export type TripMemberSumAggregateInputType = {
+    tripId?: true
+    version?: true
+  }
+
+  export type TripMemberMinAggregateInputType = {
+    id?: true
+    tripId?: true
+    name?: true
+    active?: true
+    version?: true
+  }
+
+  export type TripMemberMaxAggregateInputType = {
+    id?: true
+    tripId?: true
+    name?: true
+    active?: true
+    version?: true
+  }
+
+  export type TripMemberCountAggregateInputType = {
+    id?: true
+    tripId?: true
+    name?: true
+    active?: true
+    version?: true
+    _all?: true
+  }
+
+  export type TripMemberAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TripMember to aggregate.
+     */
+    where?: TripMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripMembers to fetch.
+     */
+    orderBy?: TripMemberOrderByWithRelationInput | TripMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TripMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TripMembers
+    **/
+    _count?: true | TripMemberCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TripMemberAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TripMemberSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TripMemberMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TripMemberMaxAggregateInputType
+  }
+
+  export type GetTripMemberAggregateType<T extends TripMemberAggregateArgs> = {
+        [P in keyof T & keyof AggregateTripMember]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTripMember[P]>
+      : GetScalarType<T[P], AggregateTripMember[P]>
+  }
+
+
+
+
+  export type TripMemberGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TripMemberWhereInput
+    orderBy?: TripMemberOrderByWithAggregationInput | TripMemberOrderByWithAggregationInput[]
+    by: TripMemberScalarFieldEnum[] | TripMemberScalarFieldEnum
+    having?: TripMemberScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TripMemberCountAggregateInputType | true
+    _avg?: TripMemberAvgAggregateInputType
+    _sum?: TripMemberSumAggregateInputType
+    _min?: TripMemberMinAggregateInputType
+    _max?: TripMemberMaxAggregateInputType
+  }
+
+  export type TripMemberGroupByOutputType = {
+    id: string
+    tripId: number
+    name: string
+    active: boolean
+    version: number
+    _count: TripMemberCountAggregateOutputType | null
+    _avg: TripMemberAvgAggregateOutputType | null
+    _sum: TripMemberSumAggregateOutputType | null
+    _min: TripMemberMinAggregateOutputType | null
+    _max: TripMemberMaxAggregateOutputType | null
+  }
+
+  type GetTripMemberGroupByPayload<T extends TripMemberGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TripMemberGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TripMemberGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TripMemberGroupByOutputType[P]>
+            : GetScalarType<T[P], TripMemberGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TripMemberSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    name?: boolean
+    active?: boolean
+    version?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tripMember"]>
+
+  export type TripMemberSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    name?: boolean
+    active?: boolean
+    version?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tripMember"]>
+
+  export type TripMemberSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    name?: boolean
+    active?: boolean
+    version?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tripMember"]>
+
+  export type TripMemberSelectScalar = {
+    id?: boolean
+    tripId?: boolean
+    name?: boolean
+    active?: boolean
+    version?: boolean
+  }
+
+  export type TripMemberOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "name" | "active" | "version", ExtArgs["result"]["tripMember"]>
+  export type TripMemberInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type TripMemberIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type TripMemberIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+
+  export type $TripMemberPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TripMember"
+    objects: {
+      trip: Prisma.$TripPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tripId: number
+      name: string
+      active: boolean
+      version: number
+    }, ExtArgs["result"]["tripMember"]>
+    composites: {}
+  }
+
+  type TripMemberGetPayload<S extends boolean | null | undefined | TripMemberDefaultArgs> = $Result.GetResult<Prisma.$TripMemberPayload, S>
+
+  type TripMemberCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TripMemberFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TripMemberCountAggregateInputType | true
+    }
+
+  export interface TripMemberDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TripMember'], meta: { name: 'TripMember' } }
+    /**
+     * Find zero or one TripMember that matches the filter.
+     * @param {TripMemberFindUniqueArgs} args - Arguments to find a TripMember
+     * @example
+     * // Get one TripMember
+     * const tripMember = await prisma.tripMember.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TripMemberFindUniqueArgs>(args: SelectSubset<T, TripMemberFindUniqueArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TripMember that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TripMemberFindUniqueOrThrowArgs} args - Arguments to find a TripMember
+     * @example
+     * // Get one TripMember
+     * const tripMember = await prisma.tripMember.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TripMemberFindUniqueOrThrowArgs>(args: SelectSubset<T, TripMemberFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TripMember that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripMemberFindFirstArgs} args - Arguments to find a TripMember
+     * @example
+     * // Get one TripMember
+     * const tripMember = await prisma.tripMember.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TripMemberFindFirstArgs>(args?: SelectSubset<T, TripMemberFindFirstArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TripMember that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripMemberFindFirstOrThrowArgs} args - Arguments to find a TripMember
+     * @example
+     * // Get one TripMember
+     * const tripMember = await prisma.tripMember.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TripMemberFindFirstOrThrowArgs>(args?: SelectSubset<T, TripMemberFindFirstOrThrowArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TripMembers that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripMemberFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TripMembers
+     * const tripMembers = await prisma.tripMember.findMany()
+     * 
+     * // Get first 10 TripMembers
+     * const tripMembers = await prisma.tripMember.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tripMemberWithIdOnly = await prisma.tripMember.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TripMemberFindManyArgs>(args?: SelectSubset<T, TripMemberFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TripMember.
+     * @param {TripMemberCreateArgs} args - Arguments to create a TripMember.
+     * @example
+     * // Create one TripMember
+     * const TripMember = await prisma.tripMember.create({
+     *   data: {
+     *     // ... data to create a TripMember
+     *   }
+     * })
+     * 
+     */
+    create<T extends TripMemberCreateArgs>(args: SelectSubset<T, TripMemberCreateArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TripMembers.
+     * @param {TripMemberCreateManyArgs} args - Arguments to create many TripMembers.
+     * @example
+     * // Create many TripMembers
+     * const tripMember = await prisma.tripMember.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TripMemberCreateManyArgs>(args?: SelectSubset<T, TripMemberCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TripMembers and returns the data saved in the database.
+     * @param {TripMemberCreateManyAndReturnArgs} args - Arguments to create many TripMembers.
+     * @example
+     * // Create many TripMembers
+     * const tripMember = await prisma.tripMember.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TripMembers and only return the `id`
+     * const tripMemberWithIdOnly = await prisma.tripMember.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TripMemberCreateManyAndReturnArgs>(args?: SelectSubset<T, TripMemberCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TripMember.
+     * @param {TripMemberDeleteArgs} args - Arguments to delete one TripMember.
+     * @example
+     * // Delete one TripMember
+     * const TripMember = await prisma.tripMember.delete({
+     *   where: {
+     *     // ... filter to delete one TripMember
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TripMemberDeleteArgs>(args: SelectSubset<T, TripMemberDeleteArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TripMember.
+     * @param {TripMemberUpdateArgs} args - Arguments to update one TripMember.
+     * @example
+     * // Update one TripMember
+     * const tripMember = await prisma.tripMember.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TripMemberUpdateArgs>(args: SelectSubset<T, TripMemberUpdateArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TripMembers.
+     * @param {TripMemberDeleteManyArgs} args - Arguments to filter TripMembers to delete.
+     * @example
+     * // Delete a few TripMembers
+     * const { count } = await prisma.tripMember.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TripMemberDeleteManyArgs>(args?: SelectSubset<T, TripMemberDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TripMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripMemberUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TripMembers
+     * const tripMember = await prisma.tripMember.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TripMemberUpdateManyArgs>(args: SelectSubset<T, TripMemberUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TripMembers and returns the data updated in the database.
+     * @param {TripMemberUpdateManyAndReturnArgs} args - Arguments to update many TripMembers.
+     * @example
+     * // Update many TripMembers
+     * const tripMember = await prisma.tripMember.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TripMembers and only return the `id`
+     * const tripMemberWithIdOnly = await prisma.tripMember.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TripMemberUpdateManyAndReturnArgs>(args: SelectSubset<T, TripMemberUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TripMember.
+     * @param {TripMemberUpsertArgs} args - Arguments to update or create a TripMember.
+     * @example
+     * // Update or create a TripMember
+     * const tripMember = await prisma.tripMember.upsert({
+     *   create: {
+     *     // ... data to create a TripMember
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TripMember we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TripMemberUpsertArgs>(args: SelectSubset<T, TripMemberUpsertArgs<ExtArgs>>): Prisma__TripMemberClient<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TripMembers.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripMemberCountArgs} args - Arguments to filter TripMembers to count.
+     * @example
+     * // Count the number of TripMembers
+     * const count = await prisma.tripMember.count({
+     *   where: {
+     *     // ... the filter for the TripMembers we want to count
+     *   }
+     * })
+    **/
+    count<T extends TripMemberCountArgs>(
+      args?: Subset<T, TripMemberCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TripMemberCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TripMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripMemberAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TripMemberAggregateArgs>(args: Subset<T, TripMemberAggregateArgs>): Prisma.PrismaPromise<GetTripMemberAggregateType<T>>
+
+    /**
+     * Group by TripMember.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripMemberGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TripMemberGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TripMemberGroupByArgs['orderBy'] }
+        : { orderBy?: TripMemberGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TripMemberGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTripMemberGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TripMember model
+   */
+  readonly fields: TripMemberFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TripMember.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TripMemberClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    trip<T extends TripDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TripDefaultArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TripMember model
+   */
+  interface TripMemberFieldRefs {
+    readonly id: FieldRef<"TripMember", 'String'>
+    readonly tripId: FieldRef<"TripMember", 'Int'>
+    readonly name: FieldRef<"TripMember", 'String'>
+    readonly active: FieldRef<"TripMember", 'Boolean'>
+    readonly version: FieldRef<"TripMember", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TripMember findUnique
+   */
+  export type TripMemberFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which TripMember to fetch.
+     */
+    where: TripMemberWhereUniqueInput
+  }
+
+  /**
+   * TripMember findUniqueOrThrow
+   */
+  export type TripMemberFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which TripMember to fetch.
+     */
+    where: TripMemberWhereUniqueInput
+  }
+
+  /**
+   * TripMember findFirst
+   */
+  export type TripMemberFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which TripMember to fetch.
+     */
+    where?: TripMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripMembers to fetch.
+     */
+    orderBy?: TripMemberOrderByWithRelationInput | TripMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TripMembers.
+     */
+    cursor?: TripMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TripMembers.
+     */
+    distinct?: TripMemberScalarFieldEnum | TripMemberScalarFieldEnum[]
+  }
+
+  /**
+   * TripMember findFirstOrThrow
+   */
+  export type TripMemberFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which TripMember to fetch.
+     */
+    where?: TripMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripMembers to fetch.
+     */
+    orderBy?: TripMemberOrderByWithRelationInput | TripMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TripMembers.
+     */
+    cursor?: TripMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TripMembers.
+     */
+    distinct?: TripMemberScalarFieldEnum | TripMemberScalarFieldEnum[]
+  }
+
+  /**
+   * TripMember findMany
+   */
+  export type TripMemberFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * Filter, which TripMembers to fetch.
+     */
+    where?: TripMemberWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripMembers to fetch.
+     */
+    orderBy?: TripMemberOrderByWithRelationInput | TripMemberOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TripMembers.
+     */
+    cursor?: TripMemberWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripMembers from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripMembers.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TripMembers.
+     */
+    distinct?: TripMemberScalarFieldEnum | TripMemberScalarFieldEnum[]
+  }
+
+  /**
+   * TripMember create
+   */
+  export type TripMemberCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TripMember.
+     */
+    data: XOR<TripMemberCreateInput, TripMemberUncheckedCreateInput>
+  }
+
+  /**
+   * TripMember createMany
+   */
+  export type TripMemberCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TripMembers.
+     */
+    data: TripMemberCreateManyInput | TripMemberCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TripMember createManyAndReturn
+   */
+  export type TripMemberCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * The data used to create many TripMembers.
+     */
+    data: TripMemberCreateManyInput | TripMemberCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TripMember update
+   */
+  export type TripMemberUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TripMember.
+     */
+    data: XOR<TripMemberUpdateInput, TripMemberUncheckedUpdateInput>
+    /**
+     * Choose, which TripMember to update.
+     */
+    where: TripMemberWhereUniqueInput
+  }
+
+  /**
+   * TripMember updateMany
+   */
+  export type TripMemberUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TripMembers.
+     */
+    data: XOR<TripMemberUpdateManyMutationInput, TripMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which TripMembers to update
+     */
+    where?: TripMemberWhereInput
+    /**
+     * Limit how many TripMembers to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TripMember updateManyAndReturn
+   */
+  export type TripMemberUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * The data used to update TripMembers.
+     */
+    data: XOR<TripMemberUpdateManyMutationInput, TripMemberUncheckedUpdateManyInput>
+    /**
+     * Filter which TripMembers to update
+     */
+    where?: TripMemberWhereInput
+    /**
+     * Limit how many TripMembers to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TripMember upsert
+   */
+  export type TripMemberUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TripMember to update in case it exists.
+     */
+    where: TripMemberWhereUniqueInput
+    /**
+     * In case the TripMember found by the `where` argument doesn't exist, create a new TripMember with this data.
+     */
+    create: XOR<TripMemberCreateInput, TripMemberUncheckedCreateInput>
+    /**
+     * In case the TripMember was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TripMemberUpdateInput, TripMemberUncheckedUpdateInput>
+  }
+
+  /**
+   * TripMember delete
+   */
+  export type TripMemberDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+    /**
+     * Filter which TripMember to delete.
+     */
+    where: TripMemberWhereUniqueInput
+  }
+
+  /**
+   * TripMember deleteMany
+   */
+  export type TripMemberDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TripMembers to delete
+     */
+    where?: TripMemberWhereInput
+    /**
+     * Limit how many TripMembers to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TripMember without action
+   */
+  export type TripMemberDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripMember
+     */
+    select?: TripMemberSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripMember
+     */
+    omit?: TripMemberOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripMemberInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SplitBill
+   */
+
+  export type AggregateSplitBill = {
+    _count: SplitBillCountAggregateOutputType | null
+    _avg: SplitBillAvgAggregateOutputType | null
+    _sum: SplitBillSumAggregateOutputType | null
+    _min: SplitBillMinAggregateOutputType | null
+    _max: SplitBillMaxAggregateOutputType | null
+  }
+
+  export type SplitBillAvgAggregateOutputType = {
+    tripId: number | null
+    activityId: number | null
+    total: number | null
+    version: number | null
+  }
+
+  export type SplitBillSumAggregateOutputType = {
+    tripId: number | null
+    activityId: number | null
+    total: number | null
+    version: number | null
+  }
+
+  export type SplitBillMinAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    title: string | null
+    date: string | null
+    activityId: number | null
+    currency: string | null
+    total: number | null
+    voided: boolean | null
+    version: number | null
+    createdAt: Date | null
+  }
+
+  export type SplitBillMaxAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    title: string | null
+    date: string | null
+    activityId: number | null
+    currency: string | null
+    total: number | null
+    voided: boolean | null
+    version: number | null
+    createdAt: Date | null
+  }
+
+  export type SplitBillCountAggregateOutputType = {
+    id: number
+    tripId: number
+    title: number
+    date: number
+    activityId: number
+    currency: number
+    total: number
+    data: number
+    voided: number
+    version: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SplitBillAvgAggregateInputType = {
+    tripId?: true
+    activityId?: true
+    total?: true
+    version?: true
+  }
+
+  export type SplitBillSumAggregateInputType = {
+    tripId?: true
+    activityId?: true
+    total?: true
+    version?: true
+  }
+
+  export type SplitBillMinAggregateInputType = {
+    id?: true
+    tripId?: true
+    title?: true
+    date?: true
+    activityId?: true
+    currency?: true
+    total?: true
+    voided?: true
+    version?: true
+    createdAt?: true
+  }
+
+  export type SplitBillMaxAggregateInputType = {
+    id?: true
+    tripId?: true
+    title?: true
+    date?: true
+    activityId?: true
+    currency?: true
+    total?: true
+    voided?: true
+    version?: true
+    createdAt?: true
+  }
+
+  export type SplitBillCountAggregateInputType = {
+    id?: true
+    tripId?: true
+    title?: true
+    date?: true
+    activityId?: true
+    currency?: true
+    total?: true
+    data?: true
+    voided?: true
+    version?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SplitBillAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SplitBill to aggregate.
+     */
+    where?: SplitBillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitBills to fetch.
+     */
+    orderBy?: SplitBillOrderByWithRelationInput | SplitBillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SplitBillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitBills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitBills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SplitBills
+    **/
+    _count?: true | SplitBillCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SplitBillAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SplitBillSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SplitBillMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SplitBillMaxAggregateInputType
+  }
+
+  export type GetSplitBillAggregateType<T extends SplitBillAggregateArgs> = {
+        [P in keyof T & keyof AggregateSplitBill]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSplitBill[P]>
+      : GetScalarType<T[P], AggregateSplitBill[P]>
+  }
+
+
+
+
+  export type SplitBillGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SplitBillWhereInput
+    orderBy?: SplitBillOrderByWithAggregationInput | SplitBillOrderByWithAggregationInput[]
+    by: SplitBillScalarFieldEnum[] | SplitBillScalarFieldEnum
+    having?: SplitBillScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SplitBillCountAggregateInputType | true
+    _avg?: SplitBillAvgAggregateInputType
+    _sum?: SplitBillSumAggregateInputType
+    _min?: SplitBillMinAggregateInputType
+    _max?: SplitBillMaxAggregateInputType
+  }
+
+  export type SplitBillGroupByOutputType = {
+    id: string
+    tripId: number
+    title: string
+    date: string
+    activityId: number | null
+    currency: string
+    total: number
+    data: JsonValue
+    voided: boolean
+    version: number
+    createdAt: Date
+    _count: SplitBillCountAggregateOutputType | null
+    _avg: SplitBillAvgAggregateOutputType | null
+    _sum: SplitBillSumAggregateOutputType | null
+    _min: SplitBillMinAggregateOutputType | null
+    _max: SplitBillMaxAggregateOutputType | null
+  }
+
+  type GetSplitBillGroupByPayload<T extends SplitBillGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SplitBillGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SplitBillGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SplitBillGroupByOutputType[P]>
+            : GetScalarType<T[P], SplitBillGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SplitBillSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    title?: boolean
+    date?: boolean
+    activityId?: boolean
+    currency?: boolean
+    total?: boolean
+    data?: boolean
+    voided?: boolean
+    version?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["splitBill"]>
+
+  export type SplitBillSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    title?: boolean
+    date?: boolean
+    activityId?: boolean
+    currency?: boolean
+    total?: boolean
+    data?: boolean
+    voided?: boolean
+    version?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["splitBill"]>
+
+  export type SplitBillSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    title?: boolean
+    date?: boolean
+    activityId?: boolean
+    currency?: boolean
+    total?: boolean
+    data?: boolean
+    voided?: boolean
+    version?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["splitBill"]>
+
+  export type SplitBillSelectScalar = {
+    id?: boolean
+    tripId?: boolean
+    title?: boolean
+    date?: boolean
+    activityId?: boolean
+    currency?: boolean
+    total?: boolean
+    data?: boolean
+    voided?: boolean
+    version?: boolean
+    createdAt?: boolean
+  }
+
+  export type SplitBillOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "title" | "date" | "activityId" | "currency" | "total" | "data" | "voided" | "version" | "createdAt", ExtArgs["result"]["splitBill"]>
+  export type SplitBillInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type SplitBillIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type SplitBillIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+
+  export type $SplitBillPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SplitBill"
+    objects: {
+      trip: Prisma.$TripPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tripId: number
+      title: string
+      date: string
+      activityId: number | null
+      currency: string
+      total: number
+      data: Prisma.JsonValue
+      voided: boolean
+      version: number
+      createdAt: Date
+    }, ExtArgs["result"]["splitBill"]>
+    composites: {}
+  }
+
+  type SplitBillGetPayload<S extends boolean | null | undefined | SplitBillDefaultArgs> = $Result.GetResult<Prisma.$SplitBillPayload, S>
+
+  type SplitBillCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SplitBillFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SplitBillCountAggregateInputType | true
+    }
+
+  export interface SplitBillDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SplitBill'], meta: { name: 'SplitBill' } }
+    /**
+     * Find zero or one SplitBill that matches the filter.
+     * @param {SplitBillFindUniqueArgs} args - Arguments to find a SplitBill
+     * @example
+     * // Get one SplitBill
+     * const splitBill = await prisma.splitBill.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SplitBillFindUniqueArgs>(args: SelectSubset<T, SplitBillFindUniqueArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SplitBill that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SplitBillFindUniqueOrThrowArgs} args - Arguments to find a SplitBill
+     * @example
+     * // Get one SplitBill
+     * const splitBill = await prisma.splitBill.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SplitBillFindUniqueOrThrowArgs>(args: SelectSubset<T, SplitBillFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SplitBill that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitBillFindFirstArgs} args - Arguments to find a SplitBill
+     * @example
+     * // Get one SplitBill
+     * const splitBill = await prisma.splitBill.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SplitBillFindFirstArgs>(args?: SelectSubset<T, SplitBillFindFirstArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SplitBill that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitBillFindFirstOrThrowArgs} args - Arguments to find a SplitBill
+     * @example
+     * // Get one SplitBill
+     * const splitBill = await prisma.splitBill.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SplitBillFindFirstOrThrowArgs>(args?: SelectSubset<T, SplitBillFindFirstOrThrowArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SplitBills that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitBillFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SplitBills
+     * const splitBills = await prisma.splitBill.findMany()
+     * 
+     * // Get first 10 SplitBills
+     * const splitBills = await prisma.splitBill.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const splitBillWithIdOnly = await prisma.splitBill.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SplitBillFindManyArgs>(args?: SelectSubset<T, SplitBillFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SplitBill.
+     * @param {SplitBillCreateArgs} args - Arguments to create a SplitBill.
+     * @example
+     * // Create one SplitBill
+     * const SplitBill = await prisma.splitBill.create({
+     *   data: {
+     *     // ... data to create a SplitBill
+     *   }
+     * })
+     * 
+     */
+    create<T extends SplitBillCreateArgs>(args: SelectSubset<T, SplitBillCreateArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SplitBills.
+     * @param {SplitBillCreateManyArgs} args - Arguments to create many SplitBills.
+     * @example
+     * // Create many SplitBills
+     * const splitBill = await prisma.splitBill.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SplitBillCreateManyArgs>(args?: SelectSubset<T, SplitBillCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SplitBills and returns the data saved in the database.
+     * @param {SplitBillCreateManyAndReturnArgs} args - Arguments to create many SplitBills.
+     * @example
+     * // Create many SplitBills
+     * const splitBill = await prisma.splitBill.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SplitBills and only return the `id`
+     * const splitBillWithIdOnly = await prisma.splitBill.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SplitBillCreateManyAndReturnArgs>(args?: SelectSubset<T, SplitBillCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SplitBill.
+     * @param {SplitBillDeleteArgs} args - Arguments to delete one SplitBill.
+     * @example
+     * // Delete one SplitBill
+     * const SplitBill = await prisma.splitBill.delete({
+     *   where: {
+     *     // ... filter to delete one SplitBill
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SplitBillDeleteArgs>(args: SelectSubset<T, SplitBillDeleteArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SplitBill.
+     * @param {SplitBillUpdateArgs} args - Arguments to update one SplitBill.
+     * @example
+     * // Update one SplitBill
+     * const splitBill = await prisma.splitBill.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SplitBillUpdateArgs>(args: SelectSubset<T, SplitBillUpdateArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SplitBills.
+     * @param {SplitBillDeleteManyArgs} args - Arguments to filter SplitBills to delete.
+     * @example
+     * // Delete a few SplitBills
+     * const { count } = await prisma.splitBill.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SplitBillDeleteManyArgs>(args?: SelectSubset<T, SplitBillDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SplitBills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitBillUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SplitBills
+     * const splitBill = await prisma.splitBill.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SplitBillUpdateManyArgs>(args: SelectSubset<T, SplitBillUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SplitBills and returns the data updated in the database.
+     * @param {SplitBillUpdateManyAndReturnArgs} args - Arguments to update many SplitBills.
+     * @example
+     * // Update many SplitBills
+     * const splitBill = await prisma.splitBill.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SplitBills and only return the `id`
+     * const splitBillWithIdOnly = await prisma.splitBill.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SplitBillUpdateManyAndReturnArgs>(args: SelectSubset<T, SplitBillUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SplitBill.
+     * @param {SplitBillUpsertArgs} args - Arguments to update or create a SplitBill.
+     * @example
+     * // Update or create a SplitBill
+     * const splitBill = await prisma.splitBill.upsert({
+     *   create: {
+     *     // ... data to create a SplitBill
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SplitBill we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SplitBillUpsertArgs>(args: SelectSubset<T, SplitBillUpsertArgs<ExtArgs>>): Prisma__SplitBillClient<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SplitBills.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitBillCountArgs} args - Arguments to filter SplitBills to count.
+     * @example
+     * // Count the number of SplitBills
+     * const count = await prisma.splitBill.count({
+     *   where: {
+     *     // ... the filter for the SplitBills we want to count
+     *   }
+     * })
+    **/
+    count<T extends SplitBillCountArgs>(
+      args?: Subset<T, SplitBillCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SplitBillCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SplitBill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitBillAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SplitBillAggregateArgs>(args: Subset<T, SplitBillAggregateArgs>): Prisma.PrismaPromise<GetSplitBillAggregateType<T>>
+
+    /**
+     * Group by SplitBill.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitBillGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SplitBillGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SplitBillGroupByArgs['orderBy'] }
+        : { orderBy?: SplitBillGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SplitBillGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSplitBillGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SplitBill model
+   */
+  readonly fields: SplitBillFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SplitBill.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SplitBillClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    trip<T extends TripDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TripDefaultArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SplitBill model
+   */
+  interface SplitBillFieldRefs {
+    readonly id: FieldRef<"SplitBill", 'String'>
+    readonly tripId: FieldRef<"SplitBill", 'Int'>
+    readonly title: FieldRef<"SplitBill", 'String'>
+    readonly date: FieldRef<"SplitBill", 'String'>
+    readonly activityId: FieldRef<"SplitBill", 'Int'>
+    readonly currency: FieldRef<"SplitBill", 'String'>
+    readonly total: FieldRef<"SplitBill", 'Int'>
+    readonly data: FieldRef<"SplitBill", 'Json'>
+    readonly voided: FieldRef<"SplitBill", 'Boolean'>
+    readonly version: FieldRef<"SplitBill", 'Int'>
+    readonly createdAt: FieldRef<"SplitBill", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SplitBill findUnique
+   */
+  export type SplitBillFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitBill to fetch.
+     */
+    where: SplitBillWhereUniqueInput
+  }
+
+  /**
+   * SplitBill findUniqueOrThrow
+   */
+  export type SplitBillFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitBill to fetch.
+     */
+    where: SplitBillWhereUniqueInput
+  }
+
+  /**
+   * SplitBill findFirst
+   */
+  export type SplitBillFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitBill to fetch.
+     */
+    where?: SplitBillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitBills to fetch.
+     */
+    orderBy?: SplitBillOrderByWithRelationInput | SplitBillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SplitBills.
+     */
+    cursor?: SplitBillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitBills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitBills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SplitBills.
+     */
+    distinct?: SplitBillScalarFieldEnum | SplitBillScalarFieldEnum[]
+  }
+
+  /**
+   * SplitBill findFirstOrThrow
+   */
+  export type SplitBillFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitBill to fetch.
+     */
+    where?: SplitBillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitBills to fetch.
+     */
+    orderBy?: SplitBillOrderByWithRelationInput | SplitBillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SplitBills.
+     */
+    cursor?: SplitBillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitBills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitBills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SplitBills.
+     */
+    distinct?: SplitBillScalarFieldEnum | SplitBillScalarFieldEnum[]
+  }
+
+  /**
+   * SplitBill findMany
+   */
+  export type SplitBillFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitBills to fetch.
+     */
+    where?: SplitBillWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitBills to fetch.
+     */
+    orderBy?: SplitBillOrderByWithRelationInput | SplitBillOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SplitBills.
+     */
+    cursor?: SplitBillWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitBills from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitBills.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SplitBills.
+     */
+    distinct?: SplitBillScalarFieldEnum | SplitBillScalarFieldEnum[]
+  }
+
+  /**
+   * SplitBill create
+   */
+  export type SplitBillCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SplitBill.
+     */
+    data: XOR<SplitBillCreateInput, SplitBillUncheckedCreateInput>
+  }
+
+  /**
+   * SplitBill createMany
+   */
+  export type SplitBillCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SplitBills.
+     */
+    data: SplitBillCreateManyInput | SplitBillCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SplitBill createManyAndReturn
+   */
+  export type SplitBillCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * The data used to create many SplitBills.
+     */
+    data: SplitBillCreateManyInput | SplitBillCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SplitBill update
+   */
+  export type SplitBillUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SplitBill.
+     */
+    data: XOR<SplitBillUpdateInput, SplitBillUncheckedUpdateInput>
+    /**
+     * Choose, which SplitBill to update.
+     */
+    where: SplitBillWhereUniqueInput
+  }
+
+  /**
+   * SplitBill updateMany
+   */
+  export type SplitBillUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SplitBills.
+     */
+    data: XOR<SplitBillUpdateManyMutationInput, SplitBillUncheckedUpdateManyInput>
+    /**
+     * Filter which SplitBills to update
+     */
+    where?: SplitBillWhereInput
+    /**
+     * Limit how many SplitBills to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SplitBill updateManyAndReturn
+   */
+  export type SplitBillUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * The data used to update SplitBills.
+     */
+    data: XOR<SplitBillUpdateManyMutationInput, SplitBillUncheckedUpdateManyInput>
+    /**
+     * Filter which SplitBills to update
+     */
+    where?: SplitBillWhereInput
+    /**
+     * Limit how many SplitBills to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SplitBill upsert
+   */
+  export type SplitBillUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SplitBill to update in case it exists.
+     */
+    where: SplitBillWhereUniqueInput
+    /**
+     * In case the SplitBill found by the `where` argument doesn't exist, create a new SplitBill with this data.
+     */
+    create: XOR<SplitBillCreateInput, SplitBillUncheckedCreateInput>
+    /**
+     * In case the SplitBill was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SplitBillUpdateInput, SplitBillUncheckedUpdateInput>
+  }
+
+  /**
+   * SplitBill delete
+   */
+  export type SplitBillDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+    /**
+     * Filter which SplitBill to delete.
+     */
+    where: SplitBillWhereUniqueInput
+  }
+
+  /**
+   * SplitBill deleteMany
+   */
+  export type SplitBillDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SplitBills to delete
+     */
+    where?: SplitBillWhereInput
+    /**
+     * Limit how many SplitBills to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SplitBill without action
+   */
+  export type SplitBillDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitBill
+     */
+    select?: SplitBillSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitBill
+     */
+    omit?: SplitBillOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitBillInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SplitSettlement
+   */
+
+  export type AggregateSplitSettlement = {
+    _count: SplitSettlementCountAggregateOutputType | null
+    _avg: SplitSettlementAvgAggregateOutputType | null
+    _sum: SplitSettlementSumAggregateOutputType | null
+    _min: SplitSettlementMinAggregateOutputType | null
+    _max: SplitSettlementMaxAggregateOutputType | null
+  }
+
+  export type SplitSettlementAvgAggregateOutputType = {
+    tripId: number | null
+    amount: number | null
+    version: number | null
+  }
+
+  export type SplitSettlementSumAggregateOutputType = {
+    tripId: number | null
+    amount: number | null
+    version: number | null
+  }
+
+  export type SplitSettlementMinAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    fromId: string | null
+    toId: string | null
+    amount: number | null
+    date: string | null
+    reversed: boolean | null
+    version: number | null
+    createdAt: Date | null
+  }
+
+  export type SplitSettlementMaxAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    fromId: string | null
+    toId: string | null
+    amount: number | null
+    date: string | null
+    reversed: boolean | null
+    version: number | null
+    createdAt: Date | null
+  }
+
+  export type SplitSettlementCountAggregateOutputType = {
+    id: number
+    tripId: number
+    fromId: number
+    toId: number
+    amount: number
+    date: number
+    allocations: number
+    reversed: number
+    version: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SplitSettlementAvgAggregateInputType = {
+    tripId?: true
+    amount?: true
+    version?: true
+  }
+
+  export type SplitSettlementSumAggregateInputType = {
+    tripId?: true
+    amount?: true
+    version?: true
+  }
+
+  export type SplitSettlementMinAggregateInputType = {
+    id?: true
+    tripId?: true
+    fromId?: true
+    toId?: true
+    amount?: true
+    date?: true
+    reversed?: true
+    version?: true
+    createdAt?: true
+  }
+
+  export type SplitSettlementMaxAggregateInputType = {
+    id?: true
+    tripId?: true
+    fromId?: true
+    toId?: true
+    amount?: true
+    date?: true
+    reversed?: true
+    version?: true
+    createdAt?: true
+  }
+
+  export type SplitSettlementCountAggregateInputType = {
+    id?: true
+    tripId?: true
+    fromId?: true
+    toId?: true
+    amount?: true
+    date?: true
+    allocations?: true
+    reversed?: true
+    version?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SplitSettlementAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SplitSettlement to aggregate.
+     */
+    where?: SplitSettlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitSettlements to fetch.
+     */
+    orderBy?: SplitSettlementOrderByWithRelationInput | SplitSettlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SplitSettlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitSettlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitSettlements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SplitSettlements
+    **/
+    _count?: true | SplitSettlementCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SplitSettlementAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SplitSettlementSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SplitSettlementMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SplitSettlementMaxAggregateInputType
+  }
+
+  export type GetSplitSettlementAggregateType<T extends SplitSettlementAggregateArgs> = {
+        [P in keyof T & keyof AggregateSplitSettlement]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSplitSettlement[P]>
+      : GetScalarType<T[P], AggregateSplitSettlement[P]>
+  }
+
+
+
+
+  export type SplitSettlementGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SplitSettlementWhereInput
+    orderBy?: SplitSettlementOrderByWithAggregationInput | SplitSettlementOrderByWithAggregationInput[]
+    by: SplitSettlementScalarFieldEnum[] | SplitSettlementScalarFieldEnum
+    having?: SplitSettlementScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SplitSettlementCountAggregateInputType | true
+    _avg?: SplitSettlementAvgAggregateInputType
+    _sum?: SplitSettlementSumAggregateInputType
+    _min?: SplitSettlementMinAggregateInputType
+    _max?: SplitSettlementMaxAggregateInputType
+  }
+
+  export type SplitSettlementGroupByOutputType = {
+    id: string
+    tripId: number
+    fromId: string
+    toId: string
+    amount: number
+    date: string
+    allocations: JsonValue
+    reversed: boolean
+    version: number
+    createdAt: Date
+    _count: SplitSettlementCountAggregateOutputType | null
+    _avg: SplitSettlementAvgAggregateOutputType | null
+    _sum: SplitSettlementSumAggregateOutputType | null
+    _min: SplitSettlementMinAggregateOutputType | null
+    _max: SplitSettlementMaxAggregateOutputType | null
+  }
+
+  type GetSplitSettlementGroupByPayload<T extends SplitSettlementGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SplitSettlementGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SplitSettlementGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SplitSettlementGroupByOutputType[P]>
+            : GetScalarType<T[P], SplitSettlementGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SplitSettlementSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    fromId?: boolean
+    toId?: boolean
+    amount?: boolean
+    date?: boolean
+    allocations?: boolean
+    reversed?: boolean
+    version?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["splitSettlement"]>
+
+  export type SplitSettlementSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    fromId?: boolean
+    toId?: boolean
+    amount?: boolean
+    date?: boolean
+    allocations?: boolean
+    reversed?: boolean
+    version?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["splitSettlement"]>
+
+  export type SplitSettlementSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    fromId?: boolean
+    toId?: boolean
+    amount?: boolean
+    date?: boolean
+    allocations?: boolean
+    reversed?: boolean
+    version?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["splitSettlement"]>
+
+  export type SplitSettlementSelectScalar = {
+    id?: boolean
+    tripId?: boolean
+    fromId?: boolean
+    toId?: boolean
+    amount?: boolean
+    date?: boolean
+    allocations?: boolean
+    reversed?: boolean
+    version?: boolean
+    createdAt?: boolean
+  }
+
+  export type SplitSettlementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "fromId" | "toId" | "amount" | "date" | "allocations" | "reversed" | "version" | "createdAt", ExtArgs["result"]["splitSettlement"]>
+  export type SplitSettlementInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type SplitSettlementIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type SplitSettlementIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+
+  export type $SplitSettlementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SplitSettlement"
+    objects: {
+      trip: Prisma.$TripPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tripId: number
+      fromId: string
+      toId: string
+      amount: number
+      date: string
+      allocations: Prisma.JsonValue
+      reversed: boolean
+      version: number
+      createdAt: Date
+    }, ExtArgs["result"]["splitSettlement"]>
+    composites: {}
+  }
+
+  type SplitSettlementGetPayload<S extends boolean | null | undefined | SplitSettlementDefaultArgs> = $Result.GetResult<Prisma.$SplitSettlementPayload, S>
+
+  type SplitSettlementCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SplitSettlementFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SplitSettlementCountAggregateInputType | true
+    }
+
+  export interface SplitSettlementDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SplitSettlement'], meta: { name: 'SplitSettlement' } }
+    /**
+     * Find zero or one SplitSettlement that matches the filter.
+     * @param {SplitSettlementFindUniqueArgs} args - Arguments to find a SplitSettlement
+     * @example
+     * // Get one SplitSettlement
+     * const splitSettlement = await prisma.splitSettlement.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SplitSettlementFindUniqueArgs>(args: SelectSubset<T, SplitSettlementFindUniqueArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SplitSettlement that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SplitSettlementFindUniqueOrThrowArgs} args - Arguments to find a SplitSettlement
+     * @example
+     * // Get one SplitSettlement
+     * const splitSettlement = await prisma.splitSettlement.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SplitSettlementFindUniqueOrThrowArgs>(args: SelectSubset<T, SplitSettlementFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SplitSettlement that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitSettlementFindFirstArgs} args - Arguments to find a SplitSettlement
+     * @example
+     * // Get one SplitSettlement
+     * const splitSettlement = await prisma.splitSettlement.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SplitSettlementFindFirstArgs>(args?: SelectSubset<T, SplitSettlementFindFirstArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SplitSettlement that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitSettlementFindFirstOrThrowArgs} args - Arguments to find a SplitSettlement
+     * @example
+     * // Get one SplitSettlement
+     * const splitSettlement = await prisma.splitSettlement.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SplitSettlementFindFirstOrThrowArgs>(args?: SelectSubset<T, SplitSettlementFindFirstOrThrowArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SplitSettlements that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitSettlementFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SplitSettlements
+     * const splitSettlements = await prisma.splitSettlement.findMany()
+     * 
+     * // Get first 10 SplitSettlements
+     * const splitSettlements = await prisma.splitSettlement.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const splitSettlementWithIdOnly = await prisma.splitSettlement.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SplitSettlementFindManyArgs>(args?: SelectSubset<T, SplitSettlementFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SplitSettlement.
+     * @param {SplitSettlementCreateArgs} args - Arguments to create a SplitSettlement.
+     * @example
+     * // Create one SplitSettlement
+     * const SplitSettlement = await prisma.splitSettlement.create({
+     *   data: {
+     *     // ... data to create a SplitSettlement
+     *   }
+     * })
+     * 
+     */
+    create<T extends SplitSettlementCreateArgs>(args: SelectSubset<T, SplitSettlementCreateArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SplitSettlements.
+     * @param {SplitSettlementCreateManyArgs} args - Arguments to create many SplitSettlements.
+     * @example
+     * // Create many SplitSettlements
+     * const splitSettlement = await prisma.splitSettlement.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SplitSettlementCreateManyArgs>(args?: SelectSubset<T, SplitSettlementCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SplitSettlements and returns the data saved in the database.
+     * @param {SplitSettlementCreateManyAndReturnArgs} args - Arguments to create many SplitSettlements.
+     * @example
+     * // Create many SplitSettlements
+     * const splitSettlement = await prisma.splitSettlement.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SplitSettlements and only return the `id`
+     * const splitSettlementWithIdOnly = await prisma.splitSettlement.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SplitSettlementCreateManyAndReturnArgs>(args?: SelectSubset<T, SplitSettlementCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SplitSettlement.
+     * @param {SplitSettlementDeleteArgs} args - Arguments to delete one SplitSettlement.
+     * @example
+     * // Delete one SplitSettlement
+     * const SplitSettlement = await prisma.splitSettlement.delete({
+     *   where: {
+     *     // ... filter to delete one SplitSettlement
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SplitSettlementDeleteArgs>(args: SelectSubset<T, SplitSettlementDeleteArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SplitSettlement.
+     * @param {SplitSettlementUpdateArgs} args - Arguments to update one SplitSettlement.
+     * @example
+     * // Update one SplitSettlement
+     * const splitSettlement = await prisma.splitSettlement.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SplitSettlementUpdateArgs>(args: SelectSubset<T, SplitSettlementUpdateArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SplitSettlements.
+     * @param {SplitSettlementDeleteManyArgs} args - Arguments to filter SplitSettlements to delete.
+     * @example
+     * // Delete a few SplitSettlements
+     * const { count } = await prisma.splitSettlement.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SplitSettlementDeleteManyArgs>(args?: SelectSubset<T, SplitSettlementDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SplitSettlements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitSettlementUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SplitSettlements
+     * const splitSettlement = await prisma.splitSettlement.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SplitSettlementUpdateManyArgs>(args: SelectSubset<T, SplitSettlementUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SplitSettlements and returns the data updated in the database.
+     * @param {SplitSettlementUpdateManyAndReturnArgs} args - Arguments to update many SplitSettlements.
+     * @example
+     * // Update many SplitSettlements
+     * const splitSettlement = await prisma.splitSettlement.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SplitSettlements and only return the `id`
+     * const splitSettlementWithIdOnly = await prisma.splitSettlement.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SplitSettlementUpdateManyAndReturnArgs>(args: SelectSubset<T, SplitSettlementUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SplitSettlement.
+     * @param {SplitSettlementUpsertArgs} args - Arguments to update or create a SplitSettlement.
+     * @example
+     * // Update or create a SplitSettlement
+     * const splitSettlement = await prisma.splitSettlement.upsert({
+     *   create: {
+     *     // ... data to create a SplitSettlement
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SplitSettlement we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SplitSettlementUpsertArgs>(args: SelectSubset<T, SplitSettlementUpsertArgs<ExtArgs>>): Prisma__SplitSettlementClient<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SplitSettlements.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitSettlementCountArgs} args - Arguments to filter SplitSettlements to count.
+     * @example
+     * // Count the number of SplitSettlements
+     * const count = await prisma.splitSettlement.count({
+     *   where: {
+     *     // ... the filter for the SplitSettlements we want to count
+     *   }
+     * })
+    **/
+    count<T extends SplitSettlementCountArgs>(
+      args?: Subset<T, SplitSettlementCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SplitSettlementCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SplitSettlement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitSettlementAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SplitSettlementAggregateArgs>(args: Subset<T, SplitSettlementAggregateArgs>): Prisma.PrismaPromise<GetSplitSettlementAggregateType<T>>
+
+    /**
+     * Group by SplitSettlement.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SplitSettlementGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SplitSettlementGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SplitSettlementGroupByArgs['orderBy'] }
+        : { orderBy?: SplitSettlementGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SplitSettlementGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSplitSettlementGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SplitSettlement model
+   */
+  readonly fields: SplitSettlementFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SplitSettlement.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SplitSettlementClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    trip<T extends TripDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TripDefaultArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SplitSettlement model
+   */
+  interface SplitSettlementFieldRefs {
+    readonly id: FieldRef<"SplitSettlement", 'String'>
+    readonly tripId: FieldRef<"SplitSettlement", 'Int'>
+    readonly fromId: FieldRef<"SplitSettlement", 'String'>
+    readonly toId: FieldRef<"SplitSettlement", 'String'>
+    readonly amount: FieldRef<"SplitSettlement", 'Int'>
+    readonly date: FieldRef<"SplitSettlement", 'String'>
+    readonly allocations: FieldRef<"SplitSettlement", 'Json'>
+    readonly reversed: FieldRef<"SplitSettlement", 'Boolean'>
+    readonly version: FieldRef<"SplitSettlement", 'Int'>
+    readonly createdAt: FieldRef<"SplitSettlement", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SplitSettlement findUnique
+   */
+  export type SplitSettlementFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitSettlement to fetch.
+     */
+    where: SplitSettlementWhereUniqueInput
+  }
+
+  /**
+   * SplitSettlement findUniqueOrThrow
+   */
+  export type SplitSettlementFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitSettlement to fetch.
+     */
+    where: SplitSettlementWhereUniqueInput
+  }
+
+  /**
+   * SplitSettlement findFirst
+   */
+  export type SplitSettlementFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitSettlement to fetch.
+     */
+    where?: SplitSettlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitSettlements to fetch.
+     */
+    orderBy?: SplitSettlementOrderByWithRelationInput | SplitSettlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SplitSettlements.
+     */
+    cursor?: SplitSettlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitSettlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitSettlements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SplitSettlements.
+     */
+    distinct?: SplitSettlementScalarFieldEnum | SplitSettlementScalarFieldEnum[]
+  }
+
+  /**
+   * SplitSettlement findFirstOrThrow
+   */
+  export type SplitSettlementFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitSettlement to fetch.
+     */
+    where?: SplitSettlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitSettlements to fetch.
+     */
+    orderBy?: SplitSettlementOrderByWithRelationInput | SplitSettlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SplitSettlements.
+     */
+    cursor?: SplitSettlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitSettlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitSettlements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SplitSettlements.
+     */
+    distinct?: SplitSettlementScalarFieldEnum | SplitSettlementScalarFieldEnum[]
+  }
+
+  /**
+   * SplitSettlement findMany
+   */
+  export type SplitSettlementFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * Filter, which SplitSettlements to fetch.
+     */
+    where?: SplitSettlementWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SplitSettlements to fetch.
+     */
+    orderBy?: SplitSettlementOrderByWithRelationInput | SplitSettlementOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SplitSettlements.
+     */
+    cursor?: SplitSettlementWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SplitSettlements from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SplitSettlements.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SplitSettlements.
+     */
+    distinct?: SplitSettlementScalarFieldEnum | SplitSettlementScalarFieldEnum[]
+  }
+
+  /**
+   * SplitSettlement create
+   */
+  export type SplitSettlementCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SplitSettlement.
+     */
+    data: XOR<SplitSettlementCreateInput, SplitSettlementUncheckedCreateInput>
+  }
+
+  /**
+   * SplitSettlement createMany
+   */
+  export type SplitSettlementCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SplitSettlements.
+     */
+    data: SplitSettlementCreateManyInput | SplitSettlementCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SplitSettlement createManyAndReturn
+   */
+  export type SplitSettlementCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * The data used to create many SplitSettlements.
+     */
+    data: SplitSettlementCreateManyInput | SplitSettlementCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SplitSettlement update
+   */
+  export type SplitSettlementUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SplitSettlement.
+     */
+    data: XOR<SplitSettlementUpdateInput, SplitSettlementUncheckedUpdateInput>
+    /**
+     * Choose, which SplitSettlement to update.
+     */
+    where: SplitSettlementWhereUniqueInput
+  }
+
+  /**
+   * SplitSettlement updateMany
+   */
+  export type SplitSettlementUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SplitSettlements.
+     */
+    data: XOR<SplitSettlementUpdateManyMutationInput, SplitSettlementUncheckedUpdateManyInput>
+    /**
+     * Filter which SplitSettlements to update
+     */
+    where?: SplitSettlementWhereInput
+    /**
+     * Limit how many SplitSettlements to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SplitSettlement updateManyAndReturn
+   */
+  export type SplitSettlementUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * The data used to update SplitSettlements.
+     */
+    data: XOR<SplitSettlementUpdateManyMutationInput, SplitSettlementUncheckedUpdateManyInput>
+    /**
+     * Filter which SplitSettlements to update
+     */
+    where?: SplitSettlementWhereInput
+    /**
+     * Limit how many SplitSettlements to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SplitSettlement upsert
+   */
+  export type SplitSettlementUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SplitSettlement to update in case it exists.
+     */
+    where: SplitSettlementWhereUniqueInput
+    /**
+     * In case the SplitSettlement found by the `where` argument doesn't exist, create a new SplitSettlement with this data.
+     */
+    create: XOR<SplitSettlementCreateInput, SplitSettlementUncheckedCreateInput>
+    /**
+     * In case the SplitSettlement was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SplitSettlementUpdateInput, SplitSettlementUncheckedUpdateInput>
+  }
+
+  /**
+   * SplitSettlement delete
+   */
+  export type SplitSettlementDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+    /**
+     * Filter which SplitSettlement to delete.
+     */
+    where: SplitSettlementWhereUniqueInput
+  }
+
+  /**
+   * SplitSettlement deleteMany
+   */
+  export type SplitSettlementDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SplitSettlements to delete
+     */
+    where?: SplitSettlementWhereInput
+    /**
+     * Limit how many SplitSettlements to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SplitSettlement without action
+   */
+  export type SplitSettlementDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SplitSettlement
+     */
+    select?: SplitSettlementSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SplitSettlement
+     */
+    omit?: SplitSettlementOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SplitSettlementInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model BillingEvent
+   */
+
+  export type AggregateBillingEvent = {
+    _count: BillingEventCountAggregateOutputType | null
+    _avg: BillingEventAvgAggregateOutputType | null
+    _sum: BillingEventSumAggregateOutputType | null
+    _min: BillingEventMinAggregateOutputType | null
+    _max: BillingEventMaxAggregateOutputType | null
+  }
+
+  export type BillingEventAvgAggregateOutputType = {
+    tripId: number | null
+    actorId: number | null
+  }
+
+  export type BillingEventSumAggregateOutputType = {
+    tripId: number | null
+    actorId: number | null
+  }
+
+  export type BillingEventMinAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    actorId: number | null
+    requestId: string | null
+    fingerprint: string | null
+    action: string | null
+    createdAt: Date | null
+  }
+
+  export type BillingEventMaxAggregateOutputType = {
+    id: string | null
+    tripId: number | null
+    actorId: number | null
+    requestId: string | null
+    fingerprint: string | null
+    action: string | null
+    createdAt: Date | null
+  }
+
+  export type BillingEventCountAggregateOutputType = {
+    id: number
+    tripId: number
+    actorId: number
+    requestId: number
+    fingerprint: number
+    action: number
+    before: number
+    result: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BillingEventAvgAggregateInputType = {
+    tripId?: true
+    actorId?: true
+  }
+
+  export type BillingEventSumAggregateInputType = {
+    tripId?: true
+    actorId?: true
+  }
+
+  export type BillingEventMinAggregateInputType = {
+    id?: true
+    tripId?: true
+    actorId?: true
+    requestId?: true
+    fingerprint?: true
+    action?: true
+    createdAt?: true
+  }
+
+  export type BillingEventMaxAggregateInputType = {
+    id?: true
+    tripId?: true
+    actorId?: true
+    requestId?: true
+    fingerprint?: true
+    action?: true
+    createdAt?: true
+  }
+
+  export type BillingEventCountAggregateInputType = {
+    id?: true
+    tripId?: true
+    actorId?: true
+    requestId?: true
+    fingerprint?: true
+    action?: true
+    before?: true
+    result?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BillingEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BillingEvent to aggregate.
+     */
+    where?: BillingEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BillingEvents to fetch.
+     */
+    orderBy?: BillingEventOrderByWithRelationInput | BillingEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BillingEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BillingEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BillingEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BillingEvents
+    **/
+    _count?: true | BillingEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BillingEventAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BillingEventSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BillingEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BillingEventMaxAggregateInputType
+  }
+
+  export type GetBillingEventAggregateType<T extends BillingEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateBillingEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBillingEvent[P]>
+      : GetScalarType<T[P], AggregateBillingEvent[P]>
+  }
+
+
+
+
+  export type BillingEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BillingEventWhereInput
+    orderBy?: BillingEventOrderByWithAggregationInput | BillingEventOrderByWithAggregationInput[]
+    by: BillingEventScalarFieldEnum[] | BillingEventScalarFieldEnum
+    having?: BillingEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BillingEventCountAggregateInputType | true
+    _avg?: BillingEventAvgAggregateInputType
+    _sum?: BillingEventSumAggregateInputType
+    _min?: BillingEventMinAggregateInputType
+    _max?: BillingEventMaxAggregateInputType
+  }
+
+  export type BillingEventGroupByOutputType = {
+    id: string
+    tripId: number
+    actorId: number
+    requestId: string
+    fingerprint: string
+    action: string
+    before: JsonValue | null
+    result: JsonValue
+    createdAt: Date
+    _count: BillingEventCountAggregateOutputType | null
+    _avg: BillingEventAvgAggregateOutputType | null
+    _sum: BillingEventSumAggregateOutputType | null
+    _min: BillingEventMinAggregateOutputType | null
+    _max: BillingEventMaxAggregateOutputType | null
+  }
+
+  type GetBillingEventGroupByPayload<T extends BillingEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BillingEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BillingEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BillingEventGroupByOutputType[P]>
+            : GetScalarType<T[P], BillingEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BillingEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    actorId?: boolean
+    requestId?: boolean
+    fingerprint?: boolean
+    action?: boolean
+    before?: boolean
+    result?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["billingEvent"]>
+
+  export type BillingEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    actorId?: boolean
+    requestId?: boolean
+    fingerprint?: boolean
+    action?: boolean
+    before?: boolean
+    result?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["billingEvent"]>
+
+  export type BillingEventSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    actorId?: boolean
+    requestId?: boolean
+    fingerprint?: boolean
+    action?: boolean
+    before?: boolean
+    result?: boolean
+    createdAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["billingEvent"]>
+
+  export type BillingEventSelectScalar = {
+    id?: boolean
+    tripId?: boolean
+    actorId?: boolean
+    requestId?: boolean
+    fingerprint?: boolean
+    action?: boolean
+    before?: boolean
+    result?: boolean
+    createdAt?: boolean
+  }
+
+  export type BillingEventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "actorId" | "requestId" | "fingerprint" | "action" | "before" | "result" | "createdAt", ExtArgs["result"]["billingEvent"]>
+  export type BillingEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type BillingEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+  export type BillingEventIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+  }
+
+  export type $BillingEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BillingEvent"
+    objects: {
+      trip: Prisma.$TripPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      tripId: number
+      actorId: number
+      requestId: string
+      fingerprint: string
+      action: string
+      before: Prisma.JsonValue | null
+      result: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["billingEvent"]>
+    composites: {}
+  }
+
+  type BillingEventGetPayload<S extends boolean | null | undefined | BillingEventDefaultArgs> = $Result.GetResult<Prisma.$BillingEventPayload, S>
+
+  type BillingEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BillingEventFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BillingEventCountAggregateInputType | true
+    }
+
+  export interface BillingEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BillingEvent'], meta: { name: 'BillingEvent' } }
+    /**
+     * Find zero or one BillingEvent that matches the filter.
+     * @param {BillingEventFindUniqueArgs} args - Arguments to find a BillingEvent
+     * @example
+     * // Get one BillingEvent
+     * const billingEvent = await prisma.billingEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BillingEventFindUniqueArgs>(args: SelectSubset<T, BillingEventFindUniqueArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BillingEvent that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BillingEventFindUniqueOrThrowArgs} args - Arguments to find a BillingEvent
+     * @example
+     * // Get one BillingEvent
+     * const billingEvent = await prisma.billingEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BillingEventFindUniqueOrThrowArgs>(args: SelectSubset<T, BillingEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BillingEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillingEventFindFirstArgs} args - Arguments to find a BillingEvent
+     * @example
+     * // Get one BillingEvent
+     * const billingEvent = await prisma.billingEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BillingEventFindFirstArgs>(args?: SelectSubset<T, BillingEventFindFirstArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BillingEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillingEventFindFirstOrThrowArgs} args - Arguments to find a BillingEvent
+     * @example
+     * // Get one BillingEvent
+     * const billingEvent = await prisma.billingEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BillingEventFindFirstOrThrowArgs>(args?: SelectSubset<T, BillingEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BillingEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillingEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BillingEvents
+     * const billingEvents = await prisma.billingEvent.findMany()
+     * 
+     * // Get first 10 BillingEvents
+     * const billingEvents = await prisma.billingEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const billingEventWithIdOnly = await prisma.billingEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BillingEventFindManyArgs>(args?: SelectSubset<T, BillingEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BillingEvent.
+     * @param {BillingEventCreateArgs} args - Arguments to create a BillingEvent.
+     * @example
+     * // Create one BillingEvent
+     * const BillingEvent = await prisma.billingEvent.create({
+     *   data: {
+     *     // ... data to create a BillingEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends BillingEventCreateArgs>(args: SelectSubset<T, BillingEventCreateArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BillingEvents.
+     * @param {BillingEventCreateManyArgs} args - Arguments to create many BillingEvents.
+     * @example
+     * // Create many BillingEvents
+     * const billingEvent = await prisma.billingEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BillingEventCreateManyArgs>(args?: SelectSubset<T, BillingEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BillingEvents and returns the data saved in the database.
+     * @param {BillingEventCreateManyAndReturnArgs} args - Arguments to create many BillingEvents.
+     * @example
+     * // Create many BillingEvents
+     * const billingEvent = await prisma.billingEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BillingEvents and only return the `id`
+     * const billingEventWithIdOnly = await prisma.billingEvent.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BillingEventCreateManyAndReturnArgs>(args?: SelectSubset<T, BillingEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BillingEvent.
+     * @param {BillingEventDeleteArgs} args - Arguments to delete one BillingEvent.
+     * @example
+     * // Delete one BillingEvent
+     * const BillingEvent = await prisma.billingEvent.delete({
+     *   where: {
+     *     // ... filter to delete one BillingEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BillingEventDeleteArgs>(args: SelectSubset<T, BillingEventDeleteArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BillingEvent.
+     * @param {BillingEventUpdateArgs} args - Arguments to update one BillingEvent.
+     * @example
+     * // Update one BillingEvent
+     * const billingEvent = await prisma.billingEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BillingEventUpdateArgs>(args: SelectSubset<T, BillingEventUpdateArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BillingEvents.
+     * @param {BillingEventDeleteManyArgs} args - Arguments to filter BillingEvents to delete.
+     * @example
+     * // Delete a few BillingEvents
+     * const { count } = await prisma.billingEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BillingEventDeleteManyArgs>(args?: SelectSubset<T, BillingEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BillingEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillingEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BillingEvents
+     * const billingEvent = await prisma.billingEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BillingEventUpdateManyArgs>(args: SelectSubset<T, BillingEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BillingEvents and returns the data updated in the database.
+     * @param {BillingEventUpdateManyAndReturnArgs} args - Arguments to update many BillingEvents.
+     * @example
+     * // Update many BillingEvents
+     * const billingEvent = await prisma.billingEvent.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BillingEvents and only return the `id`
+     * const billingEventWithIdOnly = await prisma.billingEvent.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BillingEventUpdateManyAndReturnArgs>(args: SelectSubset<T, BillingEventUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BillingEvent.
+     * @param {BillingEventUpsertArgs} args - Arguments to update or create a BillingEvent.
+     * @example
+     * // Update or create a BillingEvent
+     * const billingEvent = await prisma.billingEvent.upsert({
+     *   create: {
+     *     // ... data to create a BillingEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BillingEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BillingEventUpsertArgs>(args: SelectSubset<T, BillingEventUpsertArgs<ExtArgs>>): Prisma__BillingEventClient<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BillingEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillingEventCountArgs} args - Arguments to filter BillingEvents to count.
+     * @example
+     * // Count the number of BillingEvents
+     * const count = await prisma.billingEvent.count({
+     *   where: {
+     *     // ... the filter for the BillingEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends BillingEventCountArgs>(
+      args?: Subset<T, BillingEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BillingEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BillingEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillingEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BillingEventAggregateArgs>(args: Subset<T, BillingEventAggregateArgs>): Prisma.PrismaPromise<GetBillingEventAggregateType<T>>
+
+    /**
+     * Group by BillingEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BillingEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BillingEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BillingEventGroupByArgs['orderBy'] }
+        : { orderBy?: BillingEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BillingEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBillingEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BillingEvent model
+   */
+  readonly fields: BillingEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BillingEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BillingEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    trip<T extends TripDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TripDefaultArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BillingEvent model
+   */
+  interface BillingEventFieldRefs {
+    readonly id: FieldRef<"BillingEvent", 'String'>
+    readonly tripId: FieldRef<"BillingEvent", 'Int'>
+    readonly actorId: FieldRef<"BillingEvent", 'Int'>
+    readonly requestId: FieldRef<"BillingEvent", 'String'>
+    readonly fingerprint: FieldRef<"BillingEvent", 'String'>
+    readonly action: FieldRef<"BillingEvent", 'String'>
+    readonly before: FieldRef<"BillingEvent", 'Json'>
+    readonly result: FieldRef<"BillingEvent", 'Json'>
+    readonly createdAt: FieldRef<"BillingEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BillingEvent findUnique
+   */
+  export type BillingEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * Filter, which BillingEvent to fetch.
+     */
+    where: BillingEventWhereUniqueInput
+  }
+
+  /**
+   * BillingEvent findUniqueOrThrow
+   */
+  export type BillingEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * Filter, which BillingEvent to fetch.
+     */
+    where: BillingEventWhereUniqueInput
+  }
+
+  /**
+   * BillingEvent findFirst
+   */
+  export type BillingEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * Filter, which BillingEvent to fetch.
+     */
+    where?: BillingEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BillingEvents to fetch.
+     */
+    orderBy?: BillingEventOrderByWithRelationInput | BillingEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BillingEvents.
+     */
+    cursor?: BillingEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BillingEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BillingEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BillingEvents.
+     */
+    distinct?: BillingEventScalarFieldEnum | BillingEventScalarFieldEnum[]
+  }
+
+  /**
+   * BillingEvent findFirstOrThrow
+   */
+  export type BillingEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * Filter, which BillingEvent to fetch.
+     */
+    where?: BillingEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BillingEvents to fetch.
+     */
+    orderBy?: BillingEventOrderByWithRelationInput | BillingEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BillingEvents.
+     */
+    cursor?: BillingEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BillingEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BillingEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BillingEvents.
+     */
+    distinct?: BillingEventScalarFieldEnum | BillingEventScalarFieldEnum[]
+  }
+
+  /**
+   * BillingEvent findMany
+   */
+  export type BillingEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * Filter, which BillingEvents to fetch.
+     */
+    where?: BillingEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BillingEvents to fetch.
+     */
+    orderBy?: BillingEventOrderByWithRelationInput | BillingEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BillingEvents.
+     */
+    cursor?: BillingEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BillingEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BillingEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BillingEvents.
+     */
+    distinct?: BillingEventScalarFieldEnum | BillingEventScalarFieldEnum[]
+  }
+
+  /**
+   * BillingEvent create
+   */
+  export type BillingEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BillingEvent.
+     */
+    data: XOR<BillingEventCreateInput, BillingEventUncheckedCreateInput>
+  }
+
+  /**
+   * BillingEvent createMany
+   */
+  export type BillingEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BillingEvents.
+     */
+    data: BillingEventCreateManyInput | BillingEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BillingEvent createManyAndReturn
+   */
+  export type BillingEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * The data used to create many BillingEvents.
+     */
+    data: BillingEventCreateManyInput | BillingEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BillingEvent update
+   */
+  export type BillingEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BillingEvent.
+     */
+    data: XOR<BillingEventUpdateInput, BillingEventUncheckedUpdateInput>
+    /**
+     * Choose, which BillingEvent to update.
+     */
+    where: BillingEventWhereUniqueInput
+  }
+
+  /**
+   * BillingEvent updateMany
+   */
+  export type BillingEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BillingEvents.
+     */
+    data: XOR<BillingEventUpdateManyMutationInput, BillingEventUncheckedUpdateManyInput>
+    /**
+     * Filter which BillingEvents to update
+     */
+    where?: BillingEventWhereInput
+    /**
+     * Limit how many BillingEvents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BillingEvent updateManyAndReturn
+   */
+  export type BillingEventUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * The data used to update BillingEvents.
+     */
+    data: XOR<BillingEventUpdateManyMutationInput, BillingEventUncheckedUpdateManyInput>
+    /**
+     * Filter which BillingEvents to update
+     */
+    where?: BillingEventWhereInput
+    /**
+     * Limit how many BillingEvents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BillingEvent upsert
+   */
+  export type BillingEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BillingEvent to update in case it exists.
+     */
+    where: BillingEventWhereUniqueInput
+    /**
+     * In case the BillingEvent found by the `where` argument doesn't exist, create a new BillingEvent with this data.
+     */
+    create: XOR<BillingEventCreateInput, BillingEventUncheckedCreateInput>
+    /**
+     * In case the BillingEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BillingEventUpdateInput, BillingEventUncheckedUpdateInput>
+  }
+
+  /**
+   * BillingEvent delete
+   */
+  export type BillingEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+    /**
+     * Filter which BillingEvent to delete.
+     */
+    where: BillingEventWhereUniqueInput
+  }
+
+  /**
+   * BillingEvent deleteMany
+   */
+  export type BillingEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BillingEvents to delete
+     */
+    where?: BillingEventWhereInput
+    /**
+     * Limit how many BillingEvents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BillingEvent without action
+   */
+  export type BillingEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BillingEvent
+     */
+    select?: BillingEventSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BillingEvent
+     */
+    omit?: BillingEventOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BillingEventInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -11045,12 +16152,86 @@ export namespace Prisma {
   export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
 
 
+  export const TripMemberScalarFieldEnum: {
+    id: 'id',
+    tripId: 'tripId',
+    name: 'name',
+    active: 'active',
+    version: 'version'
+  };
+
+  export type TripMemberScalarFieldEnum = (typeof TripMemberScalarFieldEnum)[keyof typeof TripMemberScalarFieldEnum]
+
+
+  export const SplitBillScalarFieldEnum: {
+    id: 'id',
+    tripId: 'tripId',
+    title: 'title',
+    date: 'date',
+    activityId: 'activityId',
+    currency: 'currency',
+    total: 'total',
+    data: 'data',
+    voided: 'voided',
+    version: 'version',
+    createdAt: 'createdAt'
+  };
+
+  export type SplitBillScalarFieldEnum = (typeof SplitBillScalarFieldEnum)[keyof typeof SplitBillScalarFieldEnum]
+
+
+  export const SplitSettlementScalarFieldEnum: {
+    id: 'id',
+    tripId: 'tripId',
+    fromId: 'fromId',
+    toId: 'toId',
+    amount: 'amount',
+    date: 'date',
+    allocations: 'allocations',
+    reversed: 'reversed',
+    version: 'version',
+    createdAt: 'createdAt'
+  };
+
+  export type SplitSettlementScalarFieldEnum = (typeof SplitSettlementScalarFieldEnum)[keyof typeof SplitSettlementScalarFieldEnum]
+
+
+  export const BillingEventScalarFieldEnum: {
+    id: 'id',
+    tripId: 'tripId',
+    actorId: 'actorId',
+    requestId: 'requestId',
+    fingerprint: 'fingerprint',
+    action: 'action',
+    before: 'before',
+    result: 'result',
+    createdAt: 'createdAt'
+  };
+
+  export type BillingEventScalarFieldEnum = (typeof BillingEventScalarFieldEnum)[keyof typeof BillingEventScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -11069,6 +16250,15 @@ export namespace Prisma {
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
   /**
    * Field references
    */
@@ -11078,98 +16268,119 @@ export namespace Prisma {
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-
+    
 
 
   /**
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
-
+    
 
 
   /**
    * Reference to a field of type 'String[]'
    */
   export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-
+    
 
 
   /**
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'ActivityType'
    */
   export type EnumActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityType'>
-
+    
 
 
   /**
    * Reference to a field of type 'ActivityType[]'
    */
   export type ListEnumActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityType[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'Decimal'
    */
   export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-
+    
 
 
   /**
    * Reference to a field of type 'Decimal[]'
    */
   export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
-
+    
 
 
   /**
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
-
+    
 
 
   /**
    * Reference to a field of type 'AiMessageKind'
    */
   export type EnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind'>
-
+    
 
 
   /**
    * Reference to a field of type 'AiMessageKind[]'
    */
   export type ListEnumAiMessageKindFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'AiMessageKind[]'>
+    
 
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
   /**
    * Deep Input Types
    */
@@ -11270,6 +16481,10 @@ export namespace Prisma {
     shareToken?: StringNullableFilter<"Trip"> | string | null
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
+    members?: TripMemberListRelationFilter
+    bills?: SplitBillListRelationFilter
+    settlements?: SplitSettlementListRelationFilter
+    billingEvents?: BillingEventListRelationFilter
     days?: DayListRelationFilter
     aiMessages?: AiMessageListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11286,6 +16501,10 @@ export namespace Prisma {
     shareToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    members?: TripMemberOrderByRelationAggregateInput
+    bills?: SplitBillOrderByRelationAggregateInput
+    settlements?: SplitSettlementOrderByRelationAggregateInput
+    billingEvents?: BillingEventOrderByRelationAggregateInput
     days?: DayOrderByRelationAggregateInput
     aiMessages?: AiMessageOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
@@ -11305,6 +16524,10 @@ export namespace Prisma {
     tripDescription?: StringNullableFilter<"Trip"> | string | null
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
+    members?: TripMemberListRelationFilter
+    bills?: SplitBillListRelationFilter
+    settlements?: SplitSettlementListRelationFilter
+    billingEvents?: BillingEventListRelationFilter
     days?: DayListRelationFilter
     aiMessages?: AiMessageListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11749,6 +16972,310 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type TripMemberWhereInput = {
+    AND?: TripMemberWhereInput | TripMemberWhereInput[]
+    OR?: TripMemberWhereInput[]
+    NOT?: TripMemberWhereInput | TripMemberWhereInput[]
+    id?: UuidFilter<"TripMember"> | string
+    tripId?: IntFilter<"TripMember"> | number
+    name?: StringFilter<"TripMember"> | string
+    active?: BoolFilter<"TripMember"> | boolean
+    version?: IntFilter<"TripMember"> | number
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }
+
+  export type TripMemberOrderByWithRelationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    version?: SortOrder
+    trip?: TripOrderByWithRelationInput
+  }
+
+  export type TripMemberWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TripMemberWhereInput | TripMemberWhereInput[]
+    OR?: TripMemberWhereInput[]
+    NOT?: TripMemberWhereInput | TripMemberWhereInput[]
+    tripId?: IntFilter<"TripMember"> | number
+    name?: StringFilter<"TripMember"> | string
+    active?: BoolFilter<"TripMember"> | boolean
+    version?: IntFilter<"TripMember"> | number
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }, "id">
+
+  export type TripMemberOrderByWithAggregationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    version?: SortOrder
+    _count?: TripMemberCountOrderByAggregateInput
+    _avg?: TripMemberAvgOrderByAggregateInput
+    _max?: TripMemberMaxOrderByAggregateInput
+    _min?: TripMemberMinOrderByAggregateInput
+    _sum?: TripMemberSumOrderByAggregateInput
+  }
+
+  export type TripMemberScalarWhereWithAggregatesInput = {
+    AND?: TripMemberScalarWhereWithAggregatesInput | TripMemberScalarWhereWithAggregatesInput[]
+    OR?: TripMemberScalarWhereWithAggregatesInput[]
+    NOT?: TripMemberScalarWhereWithAggregatesInput | TripMemberScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"TripMember"> | string
+    tripId?: IntWithAggregatesFilter<"TripMember"> | number
+    name?: StringWithAggregatesFilter<"TripMember"> | string
+    active?: BoolWithAggregatesFilter<"TripMember"> | boolean
+    version?: IntWithAggregatesFilter<"TripMember"> | number
+  }
+
+  export type SplitBillWhereInput = {
+    AND?: SplitBillWhereInput | SplitBillWhereInput[]
+    OR?: SplitBillWhereInput[]
+    NOT?: SplitBillWhereInput | SplitBillWhereInput[]
+    id?: UuidFilter<"SplitBill"> | string
+    tripId?: IntFilter<"SplitBill"> | number
+    title?: StringFilter<"SplitBill"> | string
+    date?: StringFilter<"SplitBill"> | string
+    activityId?: IntNullableFilter<"SplitBill"> | number | null
+    currency?: StringFilter<"SplitBill"> | string
+    total?: IntFilter<"SplitBill"> | number
+    data?: JsonFilter<"SplitBill">
+    voided?: BoolFilter<"SplitBill"> | boolean
+    version?: IntFilter<"SplitBill"> | number
+    createdAt?: DateTimeFilter<"SplitBill"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }
+
+  export type SplitBillOrderByWithRelationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    activityId?: SortOrderInput | SortOrder
+    currency?: SortOrder
+    total?: SortOrder
+    data?: SortOrder
+    voided?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    trip?: TripOrderByWithRelationInput
+  }
+
+  export type SplitBillWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SplitBillWhereInput | SplitBillWhereInput[]
+    OR?: SplitBillWhereInput[]
+    NOT?: SplitBillWhereInput | SplitBillWhereInput[]
+    tripId?: IntFilter<"SplitBill"> | number
+    title?: StringFilter<"SplitBill"> | string
+    date?: StringFilter<"SplitBill"> | string
+    activityId?: IntNullableFilter<"SplitBill"> | number | null
+    currency?: StringFilter<"SplitBill"> | string
+    total?: IntFilter<"SplitBill"> | number
+    data?: JsonFilter<"SplitBill">
+    voided?: BoolFilter<"SplitBill"> | boolean
+    version?: IntFilter<"SplitBill"> | number
+    createdAt?: DateTimeFilter<"SplitBill"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }, "id">
+
+  export type SplitBillOrderByWithAggregationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    activityId?: SortOrderInput | SortOrder
+    currency?: SortOrder
+    total?: SortOrder
+    data?: SortOrder
+    voided?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    _count?: SplitBillCountOrderByAggregateInput
+    _avg?: SplitBillAvgOrderByAggregateInput
+    _max?: SplitBillMaxOrderByAggregateInput
+    _min?: SplitBillMinOrderByAggregateInput
+    _sum?: SplitBillSumOrderByAggregateInput
+  }
+
+  export type SplitBillScalarWhereWithAggregatesInput = {
+    AND?: SplitBillScalarWhereWithAggregatesInput | SplitBillScalarWhereWithAggregatesInput[]
+    OR?: SplitBillScalarWhereWithAggregatesInput[]
+    NOT?: SplitBillScalarWhereWithAggregatesInput | SplitBillScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SplitBill"> | string
+    tripId?: IntWithAggregatesFilter<"SplitBill"> | number
+    title?: StringWithAggregatesFilter<"SplitBill"> | string
+    date?: StringWithAggregatesFilter<"SplitBill"> | string
+    activityId?: IntNullableWithAggregatesFilter<"SplitBill"> | number | null
+    currency?: StringWithAggregatesFilter<"SplitBill"> | string
+    total?: IntWithAggregatesFilter<"SplitBill"> | number
+    data?: JsonWithAggregatesFilter<"SplitBill">
+    voided?: BoolWithAggregatesFilter<"SplitBill"> | boolean
+    version?: IntWithAggregatesFilter<"SplitBill"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"SplitBill"> | Date | string
+  }
+
+  export type SplitSettlementWhereInput = {
+    AND?: SplitSettlementWhereInput | SplitSettlementWhereInput[]
+    OR?: SplitSettlementWhereInput[]
+    NOT?: SplitSettlementWhereInput | SplitSettlementWhereInput[]
+    id?: UuidFilter<"SplitSettlement"> | string
+    tripId?: IntFilter<"SplitSettlement"> | number
+    fromId?: UuidFilter<"SplitSettlement"> | string
+    toId?: UuidFilter<"SplitSettlement"> | string
+    amount?: IntFilter<"SplitSettlement"> | number
+    date?: StringFilter<"SplitSettlement"> | string
+    allocations?: JsonFilter<"SplitSettlement">
+    reversed?: BoolFilter<"SplitSettlement"> | boolean
+    version?: IntFilter<"SplitSettlement"> | number
+    createdAt?: DateTimeFilter<"SplitSettlement"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }
+
+  export type SplitSettlementOrderByWithRelationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    fromId?: SortOrder
+    toId?: SortOrder
+    amount?: SortOrder
+    date?: SortOrder
+    allocations?: SortOrder
+    reversed?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    trip?: TripOrderByWithRelationInput
+  }
+
+  export type SplitSettlementWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SplitSettlementWhereInput | SplitSettlementWhereInput[]
+    OR?: SplitSettlementWhereInput[]
+    NOT?: SplitSettlementWhereInput | SplitSettlementWhereInput[]
+    tripId?: IntFilter<"SplitSettlement"> | number
+    fromId?: UuidFilter<"SplitSettlement"> | string
+    toId?: UuidFilter<"SplitSettlement"> | string
+    amount?: IntFilter<"SplitSettlement"> | number
+    date?: StringFilter<"SplitSettlement"> | string
+    allocations?: JsonFilter<"SplitSettlement">
+    reversed?: BoolFilter<"SplitSettlement"> | boolean
+    version?: IntFilter<"SplitSettlement"> | number
+    createdAt?: DateTimeFilter<"SplitSettlement"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }, "id">
+
+  export type SplitSettlementOrderByWithAggregationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    fromId?: SortOrder
+    toId?: SortOrder
+    amount?: SortOrder
+    date?: SortOrder
+    allocations?: SortOrder
+    reversed?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+    _count?: SplitSettlementCountOrderByAggregateInput
+    _avg?: SplitSettlementAvgOrderByAggregateInput
+    _max?: SplitSettlementMaxOrderByAggregateInput
+    _min?: SplitSettlementMinOrderByAggregateInput
+    _sum?: SplitSettlementSumOrderByAggregateInput
+  }
+
+  export type SplitSettlementScalarWhereWithAggregatesInput = {
+    AND?: SplitSettlementScalarWhereWithAggregatesInput | SplitSettlementScalarWhereWithAggregatesInput[]
+    OR?: SplitSettlementScalarWhereWithAggregatesInput[]
+    NOT?: SplitSettlementScalarWhereWithAggregatesInput | SplitSettlementScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"SplitSettlement"> | string
+    tripId?: IntWithAggregatesFilter<"SplitSettlement"> | number
+    fromId?: UuidWithAggregatesFilter<"SplitSettlement"> | string
+    toId?: UuidWithAggregatesFilter<"SplitSettlement"> | string
+    amount?: IntWithAggregatesFilter<"SplitSettlement"> | number
+    date?: StringWithAggregatesFilter<"SplitSettlement"> | string
+    allocations?: JsonWithAggregatesFilter<"SplitSettlement">
+    reversed?: BoolWithAggregatesFilter<"SplitSettlement"> | boolean
+    version?: IntWithAggregatesFilter<"SplitSettlement"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"SplitSettlement"> | Date | string
+  }
+
+  export type BillingEventWhereInput = {
+    AND?: BillingEventWhereInput | BillingEventWhereInput[]
+    OR?: BillingEventWhereInput[]
+    NOT?: BillingEventWhereInput | BillingEventWhereInput[]
+    id?: UuidFilter<"BillingEvent"> | string
+    tripId?: IntFilter<"BillingEvent"> | number
+    actorId?: IntFilter<"BillingEvent"> | number
+    requestId?: UuidFilter<"BillingEvent"> | string
+    fingerprint?: StringFilter<"BillingEvent"> | string
+    action?: StringFilter<"BillingEvent"> | string
+    before?: JsonNullableFilter<"BillingEvent">
+    result?: JsonFilter<"BillingEvent">
+    createdAt?: DateTimeFilter<"BillingEvent"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }
+
+  export type BillingEventOrderByWithRelationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    actorId?: SortOrder
+    requestId?: SortOrder
+    fingerprint?: SortOrder
+    action?: SortOrder
+    before?: SortOrderInput | SortOrder
+    result?: SortOrder
+    createdAt?: SortOrder
+    trip?: TripOrderByWithRelationInput
+  }
+
+  export type BillingEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    tripId_requestId?: BillingEventTripIdRequestIdCompoundUniqueInput
+    AND?: BillingEventWhereInput | BillingEventWhereInput[]
+    OR?: BillingEventWhereInput[]
+    NOT?: BillingEventWhereInput | BillingEventWhereInput[]
+    tripId?: IntFilter<"BillingEvent"> | number
+    actorId?: IntFilter<"BillingEvent"> | number
+    requestId?: UuidFilter<"BillingEvent"> | string
+    fingerprint?: StringFilter<"BillingEvent"> | string
+    action?: StringFilter<"BillingEvent"> | string
+    before?: JsonNullableFilter<"BillingEvent">
+    result?: JsonFilter<"BillingEvent">
+    createdAt?: DateTimeFilter<"BillingEvent"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+  }, "id" | "tripId_requestId">
+
+  export type BillingEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    actorId?: SortOrder
+    requestId?: SortOrder
+    fingerprint?: SortOrder
+    action?: SortOrder
+    before?: SortOrderInput | SortOrder
+    result?: SortOrder
+    createdAt?: SortOrder
+    _count?: BillingEventCountOrderByAggregateInput
+    _avg?: BillingEventAvgOrderByAggregateInput
+    _max?: BillingEventMaxOrderByAggregateInput
+    _min?: BillingEventMinOrderByAggregateInput
+    _sum?: BillingEventSumOrderByAggregateInput
+  }
+
+  export type BillingEventScalarWhereWithAggregatesInput = {
+    AND?: BillingEventScalarWhereWithAggregatesInput | BillingEventScalarWhereWithAggregatesInput[]
+    OR?: BillingEventScalarWhereWithAggregatesInput[]
+    NOT?: BillingEventScalarWhereWithAggregatesInput | BillingEventScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"BillingEvent"> | string
+    tripId?: IntWithAggregatesFilter<"BillingEvent"> | number
+    actorId?: IntWithAggregatesFilter<"BillingEvent"> | number
+    requestId?: UuidWithAggregatesFilter<"BillingEvent"> | string
+    fingerprint?: StringWithAggregatesFilter<"BillingEvent"> | string
+    action?: StringWithAggregatesFilter<"BillingEvent"> | string
+    before?: JsonNullableWithAggregatesFilter<"BillingEvent">
+    result?: JsonWithAggregatesFilter<"BillingEvent">
+    createdAt?: DateTimeWithAggregatesFilter<"BillingEvent"> | Date | string
+  }
+
   export type UserCreateInput = {
     tokenVersion?: number
     googleSub?: string | null
@@ -11848,6 +17375,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
     days?: DayCreateNestedManyWithoutTripInput
     aiMessages?: AiMessageCreateNestedManyWithoutTripInput
     user: UserCreateNestedOneWithoutTripsInput
@@ -11864,6 +17395,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
     days?: DayUncheckedCreateNestedManyWithoutTripInput
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
   }
@@ -11877,6 +17412,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
     days?: DayUpdateManyWithoutTripNestedInput
     aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
     user?: UserUpdateOneRequiredWithoutTripsNestedInput
@@ -11893,6 +17432,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
     aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
   }
@@ -12343,6 +17886,331 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TripMemberCreateInput = {
+    id?: string
+    name: string
+    active?: boolean
+    version?: number
+    trip: TripCreateNestedOneWithoutMembersInput
+  }
+
+  export type TripMemberUncheckedCreateInput = {
+    id?: string
+    tripId: number
+    name: string
+    active?: boolean
+    version?: number
+  }
+
+  export type TripMemberUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    trip?: TripUpdateOneRequiredWithoutMembersNestedInput
+  }
+
+  export type TripMemberUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TripMemberCreateManyInput = {
+    id?: string
+    tripId: number
+    name: string
+    active?: boolean
+    version?: number
+  }
+
+  export type TripMemberUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TripMemberUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SplitBillCreateInput = {
+    id?: string
+    title: string
+    date: string
+    activityId?: number | null
+    currency?: string
+    total: number
+    data: JsonNullValueInput | InputJsonValue
+    voided?: boolean
+    version?: number
+    createdAt?: Date | string
+    trip: TripCreateNestedOneWithoutBillsInput
+  }
+
+  export type SplitBillUncheckedCreateInput = {
+    id?: string
+    tripId: number
+    title: string
+    date: string
+    activityId?: number | null
+    currency?: string
+    total: number
+    data: JsonNullValueInput | InputJsonValue
+    voided?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitBillUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    activityId?: NullableIntFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    total?: IntFieldUpdateOperationsInput | number
+    data?: JsonNullValueInput | InputJsonValue
+    voided?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip?: TripUpdateOneRequiredWithoutBillsNestedInput
+  }
+
+  export type SplitBillUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    activityId?: NullableIntFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    total?: IntFieldUpdateOperationsInput | number
+    data?: JsonNullValueInput | InputJsonValue
+    voided?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitBillCreateManyInput = {
+    id?: string
+    tripId: number
+    title: string
+    date: string
+    activityId?: number | null
+    currency?: string
+    total: number
+    data: JsonNullValueInput | InputJsonValue
+    voided?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitBillUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    activityId?: NullableIntFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    total?: IntFieldUpdateOperationsInput | number
+    data?: JsonNullValueInput | InputJsonValue
+    voided?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitBillUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    activityId?: NullableIntFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    total?: IntFieldUpdateOperationsInput | number
+    data?: JsonNullValueInput | InputJsonValue
+    voided?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitSettlementCreateInput = {
+    id?: string
+    fromId: string
+    toId: string
+    amount: number
+    date: string
+    allocations: JsonNullValueInput | InputJsonValue
+    reversed?: boolean
+    version?: number
+    createdAt?: Date | string
+    trip: TripCreateNestedOneWithoutSettlementsInput
+  }
+
+  export type SplitSettlementUncheckedCreateInput = {
+    id?: string
+    tripId: number
+    fromId: string
+    toId: string
+    amount: number
+    date: string
+    allocations: JsonNullValueInput | InputJsonValue
+    reversed?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitSettlementUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromId?: StringFieldUpdateOperationsInput | string
+    toId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    allocations?: JsonNullValueInput | InputJsonValue
+    reversed?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip?: TripUpdateOneRequiredWithoutSettlementsNestedInput
+  }
+
+  export type SplitSettlementUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    fromId?: StringFieldUpdateOperationsInput | string
+    toId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    allocations?: JsonNullValueInput | InputJsonValue
+    reversed?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitSettlementCreateManyInput = {
+    id?: string
+    tripId: number
+    fromId: string
+    toId: string
+    amount: number
+    date: string
+    allocations: JsonNullValueInput | InputJsonValue
+    reversed?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitSettlementUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromId?: StringFieldUpdateOperationsInput | string
+    toId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    allocations?: JsonNullValueInput | InputJsonValue
+    reversed?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitSettlementUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    fromId?: StringFieldUpdateOperationsInput | string
+    toId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    allocations?: JsonNullValueInput | InputJsonValue
+    reversed?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillingEventCreateInput = {
+    id?: string
+    actorId: number
+    requestId: string
+    fingerprint: string
+    action: string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    trip: TripCreateNestedOneWithoutBillingEventsInput
+  }
+
+  export type BillingEventUncheckedCreateInput = {
+    id?: string
+    tripId: number
+    actorId: number
+    requestId: string
+    fingerprint: string
+    action: string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BillingEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: IntFieldUpdateOperationsInput | number
+    requestId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip?: TripUpdateOneRequiredWithoutBillingEventsNestedInput
+  }
+
+  export type BillingEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    actorId?: IntFieldUpdateOperationsInput | number
+    requestId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillingEventCreateManyInput = {
+    id?: string
+    tripId: number
+    actorId: number
+    requestId: string
+    fingerprint: string
+    action: string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BillingEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: IntFieldUpdateOperationsInput | number
+    requestId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillingEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tripId?: IntFieldUpdateOperationsInput | number
+    actorId?: IntFieldUpdateOperationsInput | number
+    requestId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type IntFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -12560,6 +18428,30 @@ export namespace Prisma {
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
   }
 
+  export type TripMemberListRelationFilter = {
+    every?: TripMemberWhereInput
+    some?: TripMemberWhereInput
+    none?: TripMemberWhereInput
+  }
+
+  export type SplitBillListRelationFilter = {
+    every?: SplitBillWhereInput
+    some?: SplitBillWhereInput
+    none?: SplitBillWhereInput
+  }
+
+  export type SplitSettlementListRelationFilter = {
+    every?: SplitSettlementWhereInput
+    some?: SplitSettlementWhereInput
+    none?: SplitSettlementWhereInput
+  }
+
+  export type BillingEventListRelationFilter = {
+    every?: BillingEventWhereInput
+    some?: BillingEventWhereInput
+    none?: BillingEventWhereInput
+  }
+
   export type DayListRelationFilter = {
     every?: DayWhereInput
     some?: DayWhereInput
@@ -12569,6 +18461,22 @@ export namespace Prisma {
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
+  }
+
+  export type TripMemberOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SplitBillOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SplitSettlementOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BillingEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type DayOrderByRelationAggregateInput = {
@@ -13026,6 +18934,328 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type UuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type TripMemberCountOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    version?: SortOrder
+  }
+
+  export type TripMemberAvgOrderByAggregateInput = {
+    tripId?: SortOrder
+    version?: SortOrder
+  }
+
+  export type TripMemberMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    version?: SortOrder
+  }
+
+  export type TripMemberMinOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    name?: SortOrder
+    active?: SortOrder
+    version?: SortOrder
+  }
+
+  export type TripMemberSumOrderByAggregateInput = {
+    tripId?: SortOrder
+    version?: SortOrder
+  }
+
+  export type UuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type SplitBillCountOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    activityId?: SortOrder
+    currency?: SortOrder
+    total?: SortOrder
+    data?: SortOrder
+    voided?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SplitBillAvgOrderByAggregateInput = {
+    tripId?: SortOrder
+    activityId?: SortOrder
+    total?: SortOrder
+    version?: SortOrder
+  }
+
+  export type SplitBillMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    activityId?: SortOrder
+    currency?: SortOrder
+    total?: SortOrder
+    voided?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SplitBillMinOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    title?: SortOrder
+    date?: SortOrder
+    activityId?: SortOrder
+    currency?: SortOrder
+    total?: SortOrder
+    voided?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SplitBillSumOrderByAggregateInput = {
+    tripId?: SortOrder
+    activityId?: SortOrder
+    total?: SortOrder
+    version?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type SplitSettlementCountOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    fromId?: SortOrder
+    toId?: SortOrder
+    amount?: SortOrder
+    date?: SortOrder
+    allocations?: SortOrder
+    reversed?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SplitSettlementAvgOrderByAggregateInput = {
+    tripId?: SortOrder
+    amount?: SortOrder
+    version?: SortOrder
+  }
+
+  export type SplitSettlementMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    fromId?: SortOrder
+    toId?: SortOrder
+    amount?: SortOrder
+    date?: SortOrder
+    reversed?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SplitSettlementMinOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    fromId?: SortOrder
+    toId?: SortOrder
+    amount?: SortOrder
+    date?: SortOrder
+    reversed?: SortOrder
+    version?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SplitSettlementSumOrderByAggregateInput = {
+    tripId?: SortOrder
+    amount?: SortOrder
+    version?: SortOrder
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type BillingEventTripIdRequestIdCompoundUniqueInput = {
+    tripId: number
+    requestId: string
+  }
+
+  export type BillingEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    actorId?: SortOrder
+    requestId?: SortOrder
+    fingerprint?: SortOrder
+    action?: SortOrder
+    before?: SortOrder
+    result?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BillingEventAvgOrderByAggregateInput = {
+    tripId?: SortOrder
+    actorId?: SortOrder
+  }
+
+  export type BillingEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    actorId?: SortOrder
+    requestId?: SortOrder
+    fingerprint?: SortOrder
+    action?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BillingEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    actorId?: SortOrder
+    requestId?: SortOrder
+    fingerprint?: SortOrder
+    action?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BillingEventSumOrderByAggregateInput = {
+    tripId?: SortOrder
+    actorId?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
+  }
+
   export type TripCreateNestedManyWithoutUserInput = {
     create?: XOR<TripCreateWithoutUserInput, TripUncheckedCreateWithoutUserInput> | TripCreateWithoutUserInput[] | TripUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
@@ -13214,6 +19444,34 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
+  export type TripMemberCreateNestedManyWithoutTripInput = {
+    create?: XOR<TripMemberCreateWithoutTripInput, TripMemberUncheckedCreateWithoutTripInput> | TripMemberCreateWithoutTripInput[] | TripMemberUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripMemberCreateOrConnectWithoutTripInput | TripMemberCreateOrConnectWithoutTripInput[]
+    createMany?: TripMemberCreateManyTripInputEnvelope
+    connect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+  }
+
+  export type SplitBillCreateNestedManyWithoutTripInput = {
+    create?: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput> | SplitBillCreateWithoutTripInput[] | SplitBillUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitBillCreateOrConnectWithoutTripInput | SplitBillCreateOrConnectWithoutTripInput[]
+    createMany?: SplitBillCreateManyTripInputEnvelope
+    connect?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+  }
+
+  export type SplitSettlementCreateNestedManyWithoutTripInput = {
+    create?: XOR<SplitSettlementCreateWithoutTripInput, SplitSettlementUncheckedCreateWithoutTripInput> | SplitSettlementCreateWithoutTripInput[] | SplitSettlementUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitSettlementCreateOrConnectWithoutTripInput | SplitSettlementCreateOrConnectWithoutTripInput[]
+    createMany?: SplitSettlementCreateManyTripInputEnvelope
+    connect?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+  }
+
+  export type BillingEventCreateNestedManyWithoutTripInput = {
+    create?: XOR<BillingEventCreateWithoutTripInput, BillingEventUncheckedCreateWithoutTripInput> | BillingEventCreateWithoutTripInput[] | BillingEventUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: BillingEventCreateOrConnectWithoutTripInput | BillingEventCreateOrConnectWithoutTripInput[]
+    createMany?: BillingEventCreateManyTripInputEnvelope
+    connect?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+  }
+
   export type DayCreateNestedManyWithoutTripInput = {
     create?: XOR<DayCreateWithoutTripInput, DayUncheckedCreateWithoutTripInput> | DayCreateWithoutTripInput[] | DayUncheckedCreateWithoutTripInput[]
     connectOrCreate?: DayCreateOrConnectWithoutTripInput | DayCreateOrConnectWithoutTripInput[]
@@ -13234,6 +19492,34 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type TripMemberUncheckedCreateNestedManyWithoutTripInput = {
+    create?: XOR<TripMemberCreateWithoutTripInput, TripMemberUncheckedCreateWithoutTripInput> | TripMemberCreateWithoutTripInput[] | TripMemberUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripMemberCreateOrConnectWithoutTripInput | TripMemberCreateOrConnectWithoutTripInput[]
+    createMany?: TripMemberCreateManyTripInputEnvelope
+    connect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+  }
+
+  export type SplitBillUncheckedCreateNestedManyWithoutTripInput = {
+    create?: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput> | SplitBillCreateWithoutTripInput[] | SplitBillUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitBillCreateOrConnectWithoutTripInput | SplitBillCreateOrConnectWithoutTripInput[]
+    createMany?: SplitBillCreateManyTripInputEnvelope
+    connect?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+  }
+
+  export type SplitSettlementUncheckedCreateNestedManyWithoutTripInput = {
+    create?: XOR<SplitSettlementCreateWithoutTripInput, SplitSettlementUncheckedCreateWithoutTripInput> | SplitSettlementCreateWithoutTripInput[] | SplitSettlementUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitSettlementCreateOrConnectWithoutTripInput | SplitSettlementCreateOrConnectWithoutTripInput[]
+    createMany?: SplitSettlementCreateManyTripInputEnvelope
+    connect?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+  }
+
+  export type BillingEventUncheckedCreateNestedManyWithoutTripInput = {
+    create?: XOR<BillingEventCreateWithoutTripInput, BillingEventUncheckedCreateWithoutTripInput> | BillingEventCreateWithoutTripInput[] | BillingEventUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: BillingEventCreateOrConnectWithoutTripInput | BillingEventCreateOrConnectWithoutTripInput[]
+    createMany?: BillingEventCreateManyTripInputEnvelope
+    connect?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+  }
+
   export type DayUncheckedCreateNestedManyWithoutTripInput = {
     create?: XOR<DayCreateWithoutTripInput, DayUncheckedCreateWithoutTripInput> | DayCreateWithoutTripInput[] | DayUncheckedCreateWithoutTripInput[]
     connectOrCreate?: DayCreateOrConnectWithoutTripInput | DayCreateOrConnectWithoutTripInput[]
@@ -13250,6 +19536,62 @@ export namespace Prisma {
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
     set?: Date | string | null
+  }
+
+  export type TripMemberUpdateManyWithoutTripNestedInput = {
+    create?: XOR<TripMemberCreateWithoutTripInput, TripMemberUncheckedCreateWithoutTripInput> | TripMemberCreateWithoutTripInput[] | TripMemberUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripMemberCreateOrConnectWithoutTripInput | TripMemberCreateOrConnectWithoutTripInput[]
+    upsert?: TripMemberUpsertWithWhereUniqueWithoutTripInput | TripMemberUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: TripMemberCreateManyTripInputEnvelope
+    set?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    disconnect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    delete?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    connect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    update?: TripMemberUpdateWithWhereUniqueWithoutTripInput | TripMemberUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: TripMemberUpdateManyWithWhereWithoutTripInput | TripMemberUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: TripMemberScalarWhereInput | TripMemberScalarWhereInput[]
+  }
+
+  export type SplitBillUpdateManyWithoutTripNestedInput = {
+    create?: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput> | SplitBillCreateWithoutTripInput[] | SplitBillUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitBillCreateOrConnectWithoutTripInput | SplitBillCreateOrConnectWithoutTripInput[]
+    upsert?: SplitBillUpsertWithWhereUniqueWithoutTripInput | SplitBillUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: SplitBillCreateManyTripInputEnvelope
+    set?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    disconnect?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    delete?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    connect?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    update?: SplitBillUpdateWithWhereUniqueWithoutTripInput | SplitBillUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: SplitBillUpdateManyWithWhereWithoutTripInput | SplitBillUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: SplitBillScalarWhereInput | SplitBillScalarWhereInput[]
+  }
+
+  export type SplitSettlementUpdateManyWithoutTripNestedInput = {
+    create?: XOR<SplitSettlementCreateWithoutTripInput, SplitSettlementUncheckedCreateWithoutTripInput> | SplitSettlementCreateWithoutTripInput[] | SplitSettlementUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitSettlementCreateOrConnectWithoutTripInput | SplitSettlementCreateOrConnectWithoutTripInput[]
+    upsert?: SplitSettlementUpsertWithWhereUniqueWithoutTripInput | SplitSettlementUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: SplitSettlementCreateManyTripInputEnvelope
+    set?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    disconnect?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    delete?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    connect?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    update?: SplitSettlementUpdateWithWhereUniqueWithoutTripInput | SplitSettlementUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: SplitSettlementUpdateManyWithWhereWithoutTripInput | SplitSettlementUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: SplitSettlementScalarWhereInput | SplitSettlementScalarWhereInput[]
+  }
+
+  export type BillingEventUpdateManyWithoutTripNestedInput = {
+    create?: XOR<BillingEventCreateWithoutTripInput, BillingEventUncheckedCreateWithoutTripInput> | BillingEventCreateWithoutTripInput[] | BillingEventUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: BillingEventCreateOrConnectWithoutTripInput | BillingEventCreateOrConnectWithoutTripInput[]
+    upsert?: BillingEventUpsertWithWhereUniqueWithoutTripInput | BillingEventUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: BillingEventCreateManyTripInputEnvelope
+    set?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    disconnect?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    delete?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    connect?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    update?: BillingEventUpdateWithWhereUniqueWithoutTripInput | BillingEventUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: BillingEventUpdateManyWithWhereWithoutTripInput | BillingEventUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: BillingEventScalarWhereInput | BillingEventScalarWhereInput[]
   }
 
   export type DayUpdateManyWithoutTripNestedInput = {
@@ -13286,6 +19628,62 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutTripsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTripsInput, UserUpdateWithoutTripsInput>, UserUncheckedUpdateWithoutTripsInput>
+  }
+
+  export type TripMemberUncheckedUpdateManyWithoutTripNestedInput = {
+    create?: XOR<TripMemberCreateWithoutTripInput, TripMemberUncheckedCreateWithoutTripInput> | TripMemberCreateWithoutTripInput[] | TripMemberUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripMemberCreateOrConnectWithoutTripInput | TripMemberCreateOrConnectWithoutTripInput[]
+    upsert?: TripMemberUpsertWithWhereUniqueWithoutTripInput | TripMemberUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: TripMemberCreateManyTripInputEnvelope
+    set?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    disconnect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    delete?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    connect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+    update?: TripMemberUpdateWithWhereUniqueWithoutTripInput | TripMemberUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: TripMemberUpdateManyWithWhereWithoutTripInput | TripMemberUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: TripMemberScalarWhereInput | TripMemberScalarWhereInput[]
+  }
+
+  export type SplitBillUncheckedUpdateManyWithoutTripNestedInput = {
+    create?: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput> | SplitBillCreateWithoutTripInput[] | SplitBillUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitBillCreateOrConnectWithoutTripInput | SplitBillCreateOrConnectWithoutTripInput[]
+    upsert?: SplitBillUpsertWithWhereUniqueWithoutTripInput | SplitBillUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: SplitBillCreateManyTripInputEnvelope
+    set?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    disconnect?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    delete?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    connect?: SplitBillWhereUniqueInput | SplitBillWhereUniqueInput[]
+    update?: SplitBillUpdateWithWhereUniqueWithoutTripInput | SplitBillUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: SplitBillUpdateManyWithWhereWithoutTripInput | SplitBillUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: SplitBillScalarWhereInput | SplitBillScalarWhereInput[]
+  }
+
+  export type SplitSettlementUncheckedUpdateManyWithoutTripNestedInput = {
+    create?: XOR<SplitSettlementCreateWithoutTripInput, SplitSettlementUncheckedCreateWithoutTripInput> | SplitSettlementCreateWithoutTripInput[] | SplitSettlementUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: SplitSettlementCreateOrConnectWithoutTripInput | SplitSettlementCreateOrConnectWithoutTripInput[]
+    upsert?: SplitSettlementUpsertWithWhereUniqueWithoutTripInput | SplitSettlementUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: SplitSettlementCreateManyTripInputEnvelope
+    set?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    disconnect?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    delete?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    connect?: SplitSettlementWhereUniqueInput | SplitSettlementWhereUniqueInput[]
+    update?: SplitSettlementUpdateWithWhereUniqueWithoutTripInput | SplitSettlementUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: SplitSettlementUpdateManyWithWhereWithoutTripInput | SplitSettlementUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: SplitSettlementScalarWhereInput | SplitSettlementScalarWhereInput[]
+  }
+
+  export type BillingEventUncheckedUpdateManyWithoutTripNestedInput = {
+    create?: XOR<BillingEventCreateWithoutTripInput, BillingEventUncheckedCreateWithoutTripInput> | BillingEventCreateWithoutTripInput[] | BillingEventUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: BillingEventCreateOrConnectWithoutTripInput | BillingEventCreateOrConnectWithoutTripInput[]
+    upsert?: BillingEventUpsertWithWhereUniqueWithoutTripInput | BillingEventUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: BillingEventCreateManyTripInputEnvelope
+    set?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    disconnect?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    delete?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    connect?: BillingEventWhereUniqueInput | BillingEventWhereUniqueInput[]
+    update?: BillingEventUpdateWithWhereUniqueWithoutTripInput | BillingEventUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: BillingEventUpdateManyWithWhereWithoutTripInput | BillingEventUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: BillingEventScalarWhereInput | BillingEventScalarWhereInput[]
   }
 
   export type DayUncheckedUpdateManyWithoutTripNestedInput = {
@@ -13474,6 +19872,66 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutPasswordResetTokensInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, UserUpdateWithoutPasswordResetTokensInput>, UserUncheckedUpdateWithoutPasswordResetTokensInput>
+  }
+
+  export type TripCreateNestedOneWithoutMembersInput = {
+    create?: XOR<TripCreateWithoutMembersInput, TripUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: TripCreateOrConnectWithoutMembersInput
+    connect?: TripWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type TripUpdateOneRequiredWithoutMembersNestedInput = {
+    create?: XOR<TripCreateWithoutMembersInput, TripUncheckedCreateWithoutMembersInput>
+    connectOrCreate?: TripCreateOrConnectWithoutMembersInput
+    upsert?: TripUpsertWithoutMembersInput
+    connect?: TripWhereUniqueInput
+    update?: XOR<XOR<TripUpdateToOneWithWhereWithoutMembersInput, TripUpdateWithoutMembersInput>, TripUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type TripCreateNestedOneWithoutBillsInput = {
+    create?: XOR<TripCreateWithoutBillsInput, TripUncheckedCreateWithoutBillsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutBillsInput
+    connect?: TripWhereUniqueInput
+  }
+
+  export type TripUpdateOneRequiredWithoutBillsNestedInput = {
+    create?: XOR<TripCreateWithoutBillsInput, TripUncheckedCreateWithoutBillsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutBillsInput
+    upsert?: TripUpsertWithoutBillsInput
+    connect?: TripWhereUniqueInput
+    update?: XOR<XOR<TripUpdateToOneWithWhereWithoutBillsInput, TripUpdateWithoutBillsInput>, TripUncheckedUpdateWithoutBillsInput>
+  }
+
+  export type TripCreateNestedOneWithoutSettlementsInput = {
+    create?: XOR<TripCreateWithoutSettlementsInput, TripUncheckedCreateWithoutSettlementsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutSettlementsInput
+    connect?: TripWhereUniqueInput
+  }
+
+  export type TripUpdateOneRequiredWithoutSettlementsNestedInput = {
+    create?: XOR<TripCreateWithoutSettlementsInput, TripUncheckedCreateWithoutSettlementsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutSettlementsInput
+    upsert?: TripUpsertWithoutSettlementsInput
+    connect?: TripWhereUniqueInput
+    update?: XOR<XOR<TripUpdateToOneWithWhereWithoutSettlementsInput, TripUpdateWithoutSettlementsInput>, TripUncheckedUpdateWithoutSettlementsInput>
+  }
+
+  export type TripCreateNestedOneWithoutBillingEventsInput = {
+    create?: XOR<TripCreateWithoutBillingEventsInput, TripUncheckedCreateWithoutBillingEventsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutBillingEventsInput
+    connect?: TripWhereUniqueInput
+  }
+
+  export type TripUpdateOneRequiredWithoutBillingEventsNestedInput = {
+    create?: XOR<TripCreateWithoutBillingEventsInput, TripUncheckedCreateWithoutBillingEventsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutBillingEventsInput
+    upsert?: TripUpsertWithoutBillingEventsInput
+    connect?: TripWhereUniqueInput
+    update?: XOR<XOR<TripUpdateToOneWithWhereWithoutBillingEventsInput, TripUpdateWithoutBillingEventsInput>, TripUncheckedUpdateWithoutBillingEventsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -13741,6 +20199,90 @@ export namespace Prisma {
     _max?: NestedEnumAiMessageKindFilter<$PrismaModel>
   }
 
+  export type NestedUuidFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedUuidWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedUuidWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type TripCreateWithoutUserInput = {
     tripName: string
     destination?: string | null
@@ -13750,6 +20292,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
     days?: DayCreateNestedManyWithoutTripInput
     aiMessages?: AiMessageCreateNestedManyWithoutTripInput
   }
@@ -13764,6 +20310,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
     days?: DayUncheckedCreateNestedManyWithoutTripInput
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
   }
@@ -13974,6 +20524,132 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type TripMemberCreateWithoutTripInput = {
+    id?: string
+    name: string
+    active?: boolean
+    version?: number
+  }
+
+  export type TripMemberUncheckedCreateWithoutTripInput = {
+    id?: string
+    name: string
+    active?: boolean
+    version?: number
+  }
+
+  export type TripMemberCreateOrConnectWithoutTripInput = {
+    where: TripMemberWhereUniqueInput
+    create: XOR<TripMemberCreateWithoutTripInput, TripMemberUncheckedCreateWithoutTripInput>
+  }
+
+  export type TripMemberCreateManyTripInputEnvelope = {
+    data: TripMemberCreateManyTripInput | TripMemberCreateManyTripInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SplitBillCreateWithoutTripInput = {
+    id?: string
+    title: string
+    date: string
+    activityId?: number | null
+    currency?: string
+    total: number
+    data: JsonNullValueInput | InputJsonValue
+    voided?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitBillUncheckedCreateWithoutTripInput = {
+    id?: string
+    title: string
+    date: string
+    activityId?: number | null
+    currency?: string
+    total: number
+    data: JsonNullValueInput | InputJsonValue
+    voided?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitBillCreateOrConnectWithoutTripInput = {
+    where: SplitBillWhereUniqueInput
+    create: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput>
+  }
+
+  export type SplitBillCreateManyTripInputEnvelope = {
+    data: SplitBillCreateManyTripInput | SplitBillCreateManyTripInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SplitSettlementCreateWithoutTripInput = {
+    id?: string
+    fromId: string
+    toId: string
+    amount: number
+    date: string
+    allocations: JsonNullValueInput | InputJsonValue
+    reversed?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitSettlementUncheckedCreateWithoutTripInput = {
+    id?: string
+    fromId: string
+    toId: string
+    amount: number
+    date: string
+    allocations: JsonNullValueInput | InputJsonValue
+    reversed?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitSettlementCreateOrConnectWithoutTripInput = {
+    where: SplitSettlementWhereUniqueInput
+    create: XOR<SplitSettlementCreateWithoutTripInput, SplitSettlementUncheckedCreateWithoutTripInput>
+  }
+
+  export type SplitSettlementCreateManyTripInputEnvelope = {
+    data: SplitSettlementCreateManyTripInput | SplitSettlementCreateManyTripInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type BillingEventCreateWithoutTripInput = {
+    id?: string
+    actorId: number
+    requestId: string
+    fingerprint: string
+    action: string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BillingEventUncheckedCreateWithoutTripInput = {
+    id?: string
+    actorId: number
+    requestId: string
+    fingerprint: string
+    action: string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type BillingEventCreateOrConnectWithoutTripInput = {
+    where: BillingEventWhereUniqueInput
+    create: XOR<BillingEventCreateWithoutTripInput, BillingEventUncheckedCreateWithoutTripInput>
+  }
+
+  export type BillingEventCreateManyTripInputEnvelope = {
+    data: BillingEventCreateManyTripInput | BillingEventCreateManyTripInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DayCreateWithoutTripInput = {
     dayCount: number
     dayDate?: Date | string | null
@@ -14062,6 +20738,129 @@ export namespace Prisma {
   export type UserCreateOrConnectWithoutTripsInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutTripsInput, UserUncheckedCreateWithoutTripsInput>
+  }
+
+  export type TripMemberUpsertWithWhereUniqueWithoutTripInput = {
+    where: TripMemberWhereUniqueInput
+    update: XOR<TripMemberUpdateWithoutTripInput, TripMemberUncheckedUpdateWithoutTripInput>
+    create: XOR<TripMemberCreateWithoutTripInput, TripMemberUncheckedCreateWithoutTripInput>
+  }
+
+  export type TripMemberUpdateWithWhereUniqueWithoutTripInput = {
+    where: TripMemberWhereUniqueInput
+    data: XOR<TripMemberUpdateWithoutTripInput, TripMemberUncheckedUpdateWithoutTripInput>
+  }
+
+  export type TripMemberUpdateManyWithWhereWithoutTripInput = {
+    where: TripMemberScalarWhereInput
+    data: XOR<TripMemberUpdateManyMutationInput, TripMemberUncheckedUpdateManyWithoutTripInput>
+  }
+
+  export type TripMemberScalarWhereInput = {
+    AND?: TripMemberScalarWhereInput | TripMemberScalarWhereInput[]
+    OR?: TripMemberScalarWhereInput[]
+    NOT?: TripMemberScalarWhereInput | TripMemberScalarWhereInput[]
+    id?: UuidFilter<"TripMember"> | string
+    tripId?: IntFilter<"TripMember"> | number
+    name?: StringFilter<"TripMember"> | string
+    active?: BoolFilter<"TripMember"> | boolean
+    version?: IntFilter<"TripMember"> | number
+  }
+
+  export type SplitBillUpsertWithWhereUniqueWithoutTripInput = {
+    where: SplitBillWhereUniqueInput
+    update: XOR<SplitBillUpdateWithoutTripInput, SplitBillUncheckedUpdateWithoutTripInput>
+    create: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput>
+  }
+
+  export type SplitBillUpdateWithWhereUniqueWithoutTripInput = {
+    where: SplitBillWhereUniqueInput
+    data: XOR<SplitBillUpdateWithoutTripInput, SplitBillUncheckedUpdateWithoutTripInput>
+  }
+
+  export type SplitBillUpdateManyWithWhereWithoutTripInput = {
+    where: SplitBillScalarWhereInput
+    data: XOR<SplitBillUpdateManyMutationInput, SplitBillUncheckedUpdateManyWithoutTripInput>
+  }
+
+  export type SplitBillScalarWhereInput = {
+    AND?: SplitBillScalarWhereInput | SplitBillScalarWhereInput[]
+    OR?: SplitBillScalarWhereInput[]
+    NOT?: SplitBillScalarWhereInput | SplitBillScalarWhereInput[]
+    id?: UuidFilter<"SplitBill"> | string
+    tripId?: IntFilter<"SplitBill"> | number
+    title?: StringFilter<"SplitBill"> | string
+    date?: StringFilter<"SplitBill"> | string
+    activityId?: IntNullableFilter<"SplitBill"> | number | null
+    currency?: StringFilter<"SplitBill"> | string
+    total?: IntFilter<"SplitBill"> | number
+    data?: JsonFilter<"SplitBill">
+    voided?: BoolFilter<"SplitBill"> | boolean
+    version?: IntFilter<"SplitBill"> | number
+    createdAt?: DateTimeFilter<"SplitBill"> | Date | string
+  }
+
+  export type SplitSettlementUpsertWithWhereUniqueWithoutTripInput = {
+    where: SplitSettlementWhereUniqueInput
+    update: XOR<SplitSettlementUpdateWithoutTripInput, SplitSettlementUncheckedUpdateWithoutTripInput>
+    create: XOR<SplitSettlementCreateWithoutTripInput, SplitSettlementUncheckedCreateWithoutTripInput>
+  }
+
+  export type SplitSettlementUpdateWithWhereUniqueWithoutTripInput = {
+    where: SplitSettlementWhereUniqueInput
+    data: XOR<SplitSettlementUpdateWithoutTripInput, SplitSettlementUncheckedUpdateWithoutTripInput>
+  }
+
+  export type SplitSettlementUpdateManyWithWhereWithoutTripInput = {
+    where: SplitSettlementScalarWhereInput
+    data: XOR<SplitSettlementUpdateManyMutationInput, SplitSettlementUncheckedUpdateManyWithoutTripInput>
+  }
+
+  export type SplitSettlementScalarWhereInput = {
+    AND?: SplitSettlementScalarWhereInput | SplitSettlementScalarWhereInput[]
+    OR?: SplitSettlementScalarWhereInput[]
+    NOT?: SplitSettlementScalarWhereInput | SplitSettlementScalarWhereInput[]
+    id?: UuidFilter<"SplitSettlement"> | string
+    tripId?: IntFilter<"SplitSettlement"> | number
+    fromId?: UuidFilter<"SplitSettlement"> | string
+    toId?: UuidFilter<"SplitSettlement"> | string
+    amount?: IntFilter<"SplitSettlement"> | number
+    date?: StringFilter<"SplitSettlement"> | string
+    allocations?: JsonFilter<"SplitSettlement">
+    reversed?: BoolFilter<"SplitSettlement"> | boolean
+    version?: IntFilter<"SplitSettlement"> | number
+    createdAt?: DateTimeFilter<"SplitSettlement"> | Date | string
+  }
+
+  export type BillingEventUpsertWithWhereUniqueWithoutTripInput = {
+    where: BillingEventWhereUniqueInput
+    update: XOR<BillingEventUpdateWithoutTripInput, BillingEventUncheckedUpdateWithoutTripInput>
+    create: XOR<BillingEventCreateWithoutTripInput, BillingEventUncheckedCreateWithoutTripInput>
+  }
+
+  export type BillingEventUpdateWithWhereUniqueWithoutTripInput = {
+    where: BillingEventWhereUniqueInput
+    data: XOR<BillingEventUpdateWithoutTripInput, BillingEventUncheckedUpdateWithoutTripInput>
+  }
+
+  export type BillingEventUpdateManyWithWhereWithoutTripInput = {
+    where: BillingEventScalarWhereInput
+    data: XOR<BillingEventUpdateManyMutationInput, BillingEventUncheckedUpdateManyWithoutTripInput>
+  }
+
+  export type BillingEventScalarWhereInput = {
+    AND?: BillingEventScalarWhereInput | BillingEventScalarWhereInput[]
+    OR?: BillingEventScalarWhereInput[]
+    NOT?: BillingEventScalarWhereInput | BillingEventScalarWhereInput[]
+    id?: UuidFilter<"BillingEvent"> | string
+    tripId?: IntFilter<"BillingEvent"> | number
+    actorId?: IntFilter<"BillingEvent"> | number
+    requestId?: UuidFilter<"BillingEvent"> | string
+    fingerprint?: StringFilter<"BillingEvent"> | string
+    action?: StringFilter<"BillingEvent"> | string
+    before?: JsonNullableFilter<"BillingEvent">
+    result?: JsonFilter<"BillingEvent">
+    createdAt?: DateTimeFilter<"BillingEvent"> | Date | string
   }
 
   export type DayUpsertWithWhereUniqueWithoutTripInput = {
@@ -14195,6 +20994,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
     aiMessages?: AiMessageCreateNestedManyWithoutTripInput
     user: UserCreateNestedOneWithoutTripsInput
   }
@@ -14210,6 +21013,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
   }
 
@@ -14273,6 +21080,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
     aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
     user?: UserUpdateOneRequiredWithoutTripsNestedInput
   }
@@ -14288,6 +21099,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
     aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
   }
 
@@ -14386,6 +21201,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
     days?: DayCreateNestedManyWithoutTripInput
     user: UserCreateNestedOneWithoutTripsInput
   }
@@ -14401,6 +21220,10 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
     days?: DayUncheckedCreateNestedManyWithoutTripInput
   }
 
@@ -14467,6 +21290,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
     days?: DayUpdateManyWithoutTripNestedInput
     user?: UserUpdateOneRequiredWithoutTripsNestedInput
   }
@@ -14482,6 +21309,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
   }
 
@@ -14625,6 +21456,350 @@ export namespace Prisma {
     refreshSessions?: RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
   }
 
+  export type TripCreateWithoutMembersInput = {
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
+    days?: DayCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
+    user: UserCreateNestedOneWithoutTripsInput
+  }
+
+  export type TripUncheckedCreateWithoutMembersInput = {
+    id?: number
+    userId: number
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
+    days?: DayUncheckedCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
+  }
+
+  export type TripCreateOrConnectWithoutMembersInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutMembersInput, TripUncheckedCreateWithoutMembersInput>
+  }
+
+  export type TripUpsertWithoutMembersInput = {
+    update: XOR<TripUpdateWithoutMembersInput, TripUncheckedUpdateWithoutMembersInput>
+    create: XOR<TripCreateWithoutMembersInput, TripUncheckedCreateWithoutMembersInput>
+    where?: TripWhereInput
+  }
+
+  export type TripUpdateToOneWithWhereWithoutMembersInput = {
+    where?: TripWhereInput
+    data: XOR<TripUpdateWithoutMembersInput, TripUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type TripUpdateWithoutMembersInput = {
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
+    days?: DayUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutMembersInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
+    days?: DayUncheckedUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
+  }
+
+  export type TripCreateWithoutBillsInput = {
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
+    days?: DayCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
+    user: UserCreateNestedOneWithoutTripsInput
+  }
+
+  export type TripUncheckedCreateWithoutBillsInput = {
+    id?: number
+    userId: number
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
+    days?: DayUncheckedCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
+  }
+
+  export type TripCreateOrConnectWithoutBillsInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutBillsInput, TripUncheckedCreateWithoutBillsInput>
+  }
+
+  export type TripUpsertWithoutBillsInput = {
+    update: XOR<TripUpdateWithoutBillsInput, TripUncheckedUpdateWithoutBillsInput>
+    create: XOR<TripCreateWithoutBillsInput, TripUncheckedCreateWithoutBillsInput>
+    where?: TripWhereInput
+  }
+
+  export type TripUpdateToOneWithWhereWithoutBillsInput = {
+    where?: TripWhereInput
+    data: XOR<TripUpdateWithoutBillsInput, TripUncheckedUpdateWithoutBillsInput>
+  }
+
+  export type TripUpdateWithoutBillsInput = {
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
+    days?: DayUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutBillsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
+    days?: DayUncheckedUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
+  }
+
+  export type TripCreateWithoutSettlementsInput = {
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
+    days?: DayCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
+    user: UserCreateNestedOneWithoutTripsInput
+  }
+
+  export type TripUncheckedCreateWithoutSettlementsInput = {
+    id?: number
+    userId: number
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
+    days?: DayUncheckedCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
+  }
+
+  export type TripCreateOrConnectWithoutSettlementsInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutSettlementsInput, TripUncheckedCreateWithoutSettlementsInput>
+  }
+
+  export type TripUpsertWithoutSettlementsInput = {
+    update: XOR<TripUpdateWithoutSettlementsInput, TripUncheckedUpdateWithoutSettlementsInput>
+    create: XOR<TripCreateWithoutSettlementsInput, TripUncheckedCreateWithoutSettlementsInput>
+    where?: TripWhereInput
+  }
+
+  export type TripUpdateToOneWithWhereWithoutSettlementsInput = {
+    where?: TripWhereInput
+    data: XOR<TripUpdateWithoutSettlementsInput, TripUncheckedUpdateWithoutSettlementsInput>
+  }
+
+  export type TripUpdateWithoutSettlementsInput = {
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
+    days?: DayUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutSettlementsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
+    days?: DayUncheckedUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
+  }
+
+  export type TripCreateWithoutBillingEventsInput = {
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    days?: DayCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
+    user: UserCreateNestedOneWithoutTripsInput
+  }
+
+  export type TripUncheckedCreateWithoutBillingEventsInput = {
+    id?: number
+    userId: number
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    days?: DayUncheckedCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
+  }
+
+  export type TripCreateOrConnectWithoutBillingEventsInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutBillingEventsInput, TripUncheckedCreateWithoutBillingEventsInput>
+  }
+
+  export type TripUpsertWithoutBillingEventsInput = {
+    update: XOR<TripUpdateWithoutBillingEventsInput, TripUncheckedUpdateWithoutBillingEventsInput>
+    create: XOR<TripCreateWithoutBillingEventsInput, TripUncheckedCreateWithoutBillingEventsInput>
+    where?: TripWhereInput
+  }
+
+  export type TripUpdateToOneWithWhereWithoutBillingEventsInput = {
+    where?: TripWhereInput
+    data: XOR<TripUpdateWithoutBillingEventsInput, TripUncheckedUpdateWithoutBillingEventsInput>
+  }
+
+  export type TripUpdateWithoutBillingEventsInput = {
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    days?: DayUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutBillingEventsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    days?: DayUncheckedUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
+  }
+
   export type TripCreateManyUserInput = {
     id?: number
     tripName: string
@@ -14671,6 +21846,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
     days?: DayUpdateManyWithoutTripNestedInput
     aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
   }
@@ -14685,6 +21864,10 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
     aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
   }
@@ -14775,6 +21958,49 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TripMemberCreateManyTripInput = {
+    id?: string
+    name: string
+    active?: boolean
+    version?: number
+  }
+
+  export type SplitBillCreateManyTripInput = {
+    id?: string
+    title: string
+    date: string
+    activityId?: number | null
+    currency?: string
+    total: number
+    data: JsonNullValueInput | InputJsonValue
+    voided?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type SplitSettlementCreateManyTripInput = {
+    id?: string
+    fromId: string
+    toId: string
+    amount: number
+    date: string
+    allocations: JsonNullValueInput | InputJsonValue
+    reversed?: boolean
+    version?: number
+    createdAt?: Date | string
+  }
+
+  export type BillingEventCreateManyTripInput = {
+    id?: string
+    actorId: number
+    requestId: string
+    fingerprint: string
+    action: string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
   export type DayCreateManyTripInput = {
     id?: number
     dayCount: number
@@ -14792,6 +22018,135 @@ export namespace Prisma {
     prompt?: string | null
     content: string
     createdAt?: Date | string
+  }
+
+  export type TripMemberUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TripMemberUncheckedUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TripMemberUncheckedUpdateManyWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    active?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type SplitBillUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    activityId?: NullableIntFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    total?: IntFieldUpdateOperationsInput | number
+    data?: JsonNullValueInput | InputJsonValue
+    voided?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitBillUncheckedUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    activityId?: NullableIntFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    total?: IntFieldUpdateOperationsInput | number
+    data?: JsonNullValueInput | InputJsonValue
+    voided?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitBillUncheckedUpdateManyWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    date?: StringFieldUpdateOperationsInput | string
+    activityId?: NullableIntFieldUpdateOperationsInput | number | null
+    currency?: StringFieldUpdateOperationsInput | string
+    total?: IntFieldUpdateOperationsInput | number
+    data?: JsonNullValueInput | InputJsonValue
+    voided?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitSettlementUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromId?: StringFieldUpdateOperationsInput | string
+    toId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    allocations?: JsonNullValueInput | InputJsonValue
+    reversed?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitSettlementUncheckedUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromId?: StringFieldUpdateOperationsInput | string
+    toId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    allocations?: JsonNullValueInput | InputJsonValue
+    reversed?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SplitSettlementUncheckedUpdateManyWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromId?: StringFieldUpdateOperationsInput | string
+    toId?: StringFieldUpdateOperationsInput | string
+    amount?: IntFieldUpdateOperationsInput | number
+    date?: StringFieldUpdateOperationsInput | string
+    allocations?: JsonNullValueInput | InputJsonValue
+    reversed?: BoolFieldUpdateOperationsInput | boolean
+    version?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillingEventUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: IntFieldUpdateOperationsInput | number
+    requestId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillingEventUncheckedUpdateWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: IntFieldUpdateOperationsInput | number
+    requestId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BillingEventUncheckedUpdateManyWithoutTripInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    actorId?: IntFieldUpdateOperationsInput | number
+    requestId?: StringFieldUpdateOperationsInput | string
+    fingerprint?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    before?: NullableJsonNullValueInput | InputJsonValue
+    result?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type DayUpdateWithoutTripInput = {

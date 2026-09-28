@@ -1,3 +1,15 @@
+# Handover — Trip billing shipped (2026-09-29)
+
+- เพิ่ม owner-only THB billing: สมาชิก, รายการย่อย/หลายผู้จ่าย, หาร4แบบ, VAT/service/tip, server preview, คืนบางคน/บิล/บางส่วน, reversal และ audit/version/idempotency
+- เงินหน่วยสตางค์ + allocation; บิลที่มี repayment ต้องย้อนก่อนแก้; แยกงบ Activity.price จาก confirmed bills และไม่รวมเงินคืนเป็นค่าเที่ยว
+- เพิ่มตาราง4ชุดแบบ additive และ generate Prisma แล้วใน DB ปัจจุบัน; temporary smoke data ถูกลบทิ้ง ไม่มี seed บิลจริง
+- TravelOverview และ account export รวมบิลของเจ้าของ; public share ไม่เปิดข้อมูลบิล
+- ผลตรวจและ checklist environment: [docs/BILLING.md](docs/BILLING.md)
+- API 35เดิม+5billing ผ่าน; DB smoke duplicate/concurrency/ownership/reversal ผ่าน; Front unit13/build/browser billing+sidebar ผ่าน
+- Commit แยก API/Front ไม่ push; ระบบโอนเงินจริง/สลิป/หลายสกุล/AI/สิทธิ์ร่วมอยู่นอก scope
+
+---
+
 # Handover — แผนหารบิลทริป (2026-09-28)
 
 - ผู้ใช้สั่งทำแผนรอ ยังไม่เริ่มฟีเจอร์ และไม่ใช้ AI

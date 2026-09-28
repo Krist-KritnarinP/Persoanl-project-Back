@@ -1,3 +1,4 @@
+import { ledgerSummary } from "../billing/ledger.js";
 // Compact read model: never expose account data, share tokens or activity notes.
 export function summarizeTravel(trip) {
   const days = trip.days || [];
@@ -34,6 +35,11 @@ export function summarizeTravel(trip) {
     startDate: trip.startDate ?? days[0]?.dayDate ?? null,
     endDate: trip.endDate ?? days.at(-1)?.dayDate ?? trip.startDate ?? null,
     totalCost: cents / 100,
+    billing: ledgerSummary(
+      trip.members || [],
+      trip.bills || [],
+      trip.settlements || [],
+    ),
     activityCount,
     points,
   };
@@ -51,6 +57,9 @@ export async function readTravelOverview(db, userId, page) {
       destination: true,
       startDate: true,
       endDate: true,
+      members: true,
+      bills: true,
+      settlements: true,
       days: {
         orderBy: { dayCount: "asc" },
         select: {

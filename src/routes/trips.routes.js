@@ -1,3 +1,4 @@
+import billingRoutes from "./billing.routes.js";
 import { getTravelOverview } from "../controllers/travel-overview.controller.js";
 import {
   validateBody,
@@ -32,6 +33,7 @@ TripsRoute.get("/overview", getTravelOverview);
 TripsRoute.post("/", validateBody(tripCreateSchema), createTrip);
 
 // 3.3 [หน้า Timeline] ดึงทริปแบบดึง Days และ Activities ทั้งหมดมาแสดง
+TripsRoute.use("/:tripId/billing", billingRoutes);
 TripsRoute.get("/:tripId", getTripById);
 
 // 3.4 แก้ไขข้อมูลทริป

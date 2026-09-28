@@ -44,6 +44,10 @@ model Trip {
   updatedAt       DateTime  @updatedAt @map("updated_at")
 
   // Relations
+  members TripMember[]
+  bills SplitBill[]
+  settlements SplitSettlement[]
+  billingEvents BillingEvent[]
   days Day[]
   aiMessages AiMessage[]
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -155,4 +159,61 @@ model PasswordResetToken {
   @@index([userId], map: "password_reset_tokens_user_id_idx")
   @@index([expiresAt], map: "password_reset_tokens_expires_at_idx")
   @@map("password_reset_tokens")
+}
+
+// Owner-managed trip billing. Money is integer satang; JSON stores validated calculation snapshots.
+model TripMember {
+  id String @id @default(uuid()) @db.Uuid
+  tripId Int @map("trip_id")
+  name String @db.VarChar(80)
+  active Boolean @default(true)
+  version Int @default(1)
+  trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  @@index([tripId])
+  @@map("trip_members")
+}
+model SplitBill {
+  id String @id @default(uuid()) @db.Uuid
+  tripId Int @map("trip_id")
+  title String @db.VarChar(150)
+  date String @db.VarChar(10)
+  activityId Int? @map("activity_id")
+  currency String @default("THB") @db.VarChar(3)
+  total Int
+  data Json
+  voided Boolean @default(false)
+  version Int @default(1)
+  createdAt DateTime @default(now()) @map("created_at")
+  trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  @@index([tripId])
+  @@map("split_bills")
+}
+model SplitSettlement {
+  id String @id @default(uuid()) @db.Uuid
+  tripId Int @map("trip_id")
+  fromId String @db.Uuid @map("from_id")
+  toId String @db.Uuid @map("to_id")
+  amount Int
+  date String @db.VarChar(10)
+  allocations Json
+  reversed Boolean @default(false)
+  version Int @default(1)
+  createdAt DateTime @default(now()) @map("created_at")
+  trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  @@index([tripId])
+  @@map("split_settlements")
+}
+model BillingEvent {
+  id String @id @default(uuid()) @db.Uuid
+  tripId Int @map("trip_id")
+  actorId Int @map("actor_id")
+  requestId String @db.Uuid @map("request_id")
+  fingerprint String @db.VarChar(64)
+  action String @db.VarChar(40)
+  before Json?
+  result Json
+  createdAt DateTime @default(now()) @map("created_at")
+  trip Trip @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  @@unique([tripId, requestId])
+  @@map("billing_events")
 }
