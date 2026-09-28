@@ -18,6 +18,7 @@ export function tripDates(start, end) {
 }
 export const plannerRequestSchema = z
   .object({
+    language: z.enum(["th", "en", "zh", "ko"]).default("th"),
     requirements: z.string().trim().min(10).max(2000),
     startDate: date,
     endDate: date,

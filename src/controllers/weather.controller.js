@@ -64,7 +64,7 @@ export const predictTripWeather = async (req, res, next) => {
       return next(createError(400, "Invalid weather request payload"));
     }
 
-    const { tripId } = parsed.data;
+    const { tripId, language } = parsed.data;
     const trip = await prisma.trip.findFirst({
       where: { id: tripId, userId: req.user.id },
       include: { days: { include: { activities: true } } },
@@ -91,6 +91,7 @@ export const predictTripWeather = async (req, res, next) => {
     });
     // Cache only when the owned itinerary matches the request used to generate it.
     const fingerprint = JSON.stringify([
+      language,
       location,
       startDate,
       endDate,
@@ -147,7 +148,7 @@ export const predictTripWeather = async (req, res, next) => {
 
     // หมายเหตุ: ตัด JSON กิจกรรมดิบทั้งก้อนทิ้ง (ซ้ำกับรายวัน) —
     // บรรทัด ⚠️ ให้ AI เลือกวันที่เสี่ยงสุดของทริปนั้นเอง (พายุ/ถนนปิด/ฝน แล้วแต่ทริป)
-    const prompt = `พยากรณ์อากาศทริป "${targetLocation}" ${range} ตอบภาษาไทยเท่านั้น แบ่งคำตอบเป็น 2 ส่วน คั่นด้วยบรรทัด ---DETAILS--- เป๊ะๆ บรรทัดเดียว (ต้องมีทุกครั้ง ห้ามขาด):
+    const prompt = `พยากรณ์อากาศทริป "${targetLocation}" ${range} ตอบภาษา ${{ th: "ไทย", en: "อังกฤษ", zh: "จีนตัวย่อ", ko: "เกาหลี" }[language]} เท่านั้น (แปลหัวข้อและข้อความตัวอย่างทั้งหมดเป็นภาษานี้) แบ่งคำตอบเป็น 2 ส่วน คั่นด้วยบรรทัด ---DETAILS--- เป๊ะๆ บรรทัดเดียว (ต้องมีทุกครั้ง ห้ามขาด):
 ส่วนที่ 1 — ภาพรวมทั้งทริปไม่เกิน 4 บรรทัด อ่าน 10 วินาทีรู้เรื่อง ปิดท้ายด้วย "⚠️ วันที่เสี่ยงสุด: DN ...เพราะ..." (พายุ/ถนนปิด/ปัจจัยที่ทำทริปล่มได้)
 ---DETAILS---
 ส่วนที่ 2 — รายวันขึ้นต้น "DN: " ทุกวัน แต่ละที่ 1 บรรทัดบอกเช้า/กลางวัน/เย็นเจออะไร ที่ละ 1-2 ประโยค ห้ามแนะนำเพิ่ม

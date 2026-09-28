@@ -170,3 +170,56 @@ test("long drafts resume after a quota failure, preserve days and report success
     else process.env.GEMINI_API_KEY = oldKey;
   }
 });
+
+test("language is validated and saved estimate labels follow the requested language", () => {
+  assert.equal(plannerRequestSchema.parse(request).language, "th");
+  assert.equal(
+    plannerRequestSchema.safeParse({ ...request, language: "unknown" }).success,
+    false,
+  );
+  for (const language of ["en", "zh", "ko"]) {
+    const data = planTripData(1, { ...request, language }, fixture());
+    assert.equal(/[ก-๙]/.test(data.tripDescription.split("\n")[1]), false);
+  }
+});
+
+test("draft caches and provider prompts are separated by requested language", async () => {
+  const oldKey = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = "test-only-key";
+  const records = new Map(),
+    prompts = [];
+  const db = {
+    aiMessage: {
+      findFirst: async ({ where }) => records.get(where.prompt) || null,
+      create: async ({ data }) => {
+        const row = { id: records.size + 1, ...data };
+        records.set(data.prompt, row);
+        return row;
+      },
+    },
+  };
+  const deps = {
+    db,
+    transact: (_, fn) => fn(db),
+    reserve: async () => {},
+    generate: async (_ai, prompt) => {
+      prompts.push(prompt);
+      return { model: "stub", response: { text: JSON.stringify(fixture()) } };
+    },
+  };
+  try {
+    const english = await draftPlan(1, { ...request, language: "en" }, deps);
+    const korean = await draftPlan(1, { ...request, language: "ko" }, deps);
+    assert.notEqual(english.draftId, korean.draftId);
+    assert.match(prompts[0], /draft in English/);
+    assert.match(prompts[1], /draft in Korean/);
+    assert.equal(
+      (await draftPlan(1, { ...request, language: "en" }, deps)).cached,
+      true,
+    );
+    assert.equal(prompts.length, 2);
+  } finally {
+    if (oldKey === undefined) delete process.env.GEMINI_API_KEY;
+    else process.env.GEMINI_API_KEY = oldKey;
+  }
+});

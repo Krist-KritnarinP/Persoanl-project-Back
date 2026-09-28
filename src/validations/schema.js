@@ -111,6 +111,7 @@ export const activityUpdateSchema = activityFields
   .strict();
 export const weatherSchema = z
   .object({
+    language: z.enum(["th", "en", "zh", "ko"]).default("th"),
     tripId: idSchema,
     location: z.string().max(200).nullable().optional(),
     startDate: optionalDate,
