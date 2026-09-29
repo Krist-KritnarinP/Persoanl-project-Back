@@ -26,7 +26,8 @@
 | generated/prisma/ | code generator; ห้าม refactor ด้วยมือ |
 
 ## ข้อตกลงที่คงไว้
-- ทุก mutation ยังตรวจ owner ตามเดิม; public share คืนเฉพาะ whitelist เดิม
+- การอ่านทริปตรวจ owner หรือ accepted collaborator; การแก้ไขตรวจ owner หรือ editor; ลบทริป/จัดการผู้ร่วม/จัดการ public share ยังเป็น owner-only
+- อ่าน [TRIP_COLLABORATION_PLAN.md](TRIP_COLLABORATION_PLAN.md) ก่อนแก้สิทธิ์ร่วมทริปหรือ migration; public share ยังคง whitelist เดิม
 - summarizeTrip ใช้ ?? ไม่ใช่ ||; วันที่ทริปมาก่อนวันที่วันแรก/สุดท้าย และไม่ sort ใหม่
 - public share มี shape ต่างจาก owner response จึงไม่ใช้ helper รวมที่อาจเผยข้อมูลบัญชี
 - JWT/refresh/reset lock order, tokenVersion, rate limits และ Origin checks ห้ามแก้เพื่อความสั้น

@@ -1,9 +1,11 @@
-# สถานะล่าสุด — API (2026-09-29)
+# สถานะล่าสุด — API / Trip collaboration (2026-09-29)
 
-- Repo `main` อยู่ที่ `a7dfbca` และตรงกับ `origin/main`; มีไฟล์ `docs/ADMIN.md` เป็น untracked ซึ่งคงไว้โดยไม่แก้หรือ stage
-- ฟีเจอร์หารบิลชุดแรก implement แล้ว; roadmap สถานะตรงกันใน `docs/SPLIT_BILLS_PLAN.md` และรายละเอียด implementation/setup/acceptance อยู่ใน `docs/BILLING.md`
-- Frontend checks ล่าสุดผ่านตาม run 36524216696 ที่ผู้ใช้ยืนยัน
-- รายการ setup บน environment อื่นและ user acceptance ใน `docs/BILLING.md` ยังเป็นงานค้างตามจริง; รอบนี้ไม่เปลี่ยน logic หรือ schema
+- เพิ่มการเชิญ/ตอบรับผู้ร่วมและการตรวจ owner/viewer/editor; itinerary, overview, weather ของผู้ใช้เอง และ ledger ใช้สิทธิ์สมาชิก; public share whitelist เดิม
+- เพิ่ม `TripCollaborator`, migration `npm run migrate:collaboration` และ Prisma client ที่ generate แล้ว; ยังไม่ได้ apply migration กับฐานข้อมูลใด
+- ก่อนเปิดใช้ใน environment ให้รัน migration ด้วย credentials สำหรับ migration แล้ว restart API; ทำ owner/viewer/editor และ privacy verification บน PostgreSQL ชั่วคราวก่อน rollout
+- แผน implementation/checklist: [docs/TRIP_COLLABORATION_PLAN.md](docs/TRIP_COLLABORATION_PLAN.md); การแจ้งคำเชิญทาง email ยังไม่ทำ ผู้รับเห็นคำเชิญหลัง sign in ที่ Dashboard
+- Repo มีไฟล์ `docs/ADMIN.md` เป็น untracked ซึ่งคงไว้โดยไม่แก้หรือ stage
+- ฟีเจอร์หารบิลชุดแรกยังอยู่ใน [docs/SPLIT_BILLS_PLAN.md](docs/SPLIT_BILLS_PLAN.md) และคู่มือ [docs/BILLING.md](docs/BILLING.md); Frontend checks ล่าสุดที่ผู้ใช้แจ้งผ่าน run 36524216696
 
 ---
 

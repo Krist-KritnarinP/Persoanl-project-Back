@@ -15,7 +15,8 @@
     "maintenance:sessions": "node scripts/cleanup-sessions.js",
     "test:phase0:integration": "node scripts/phase0-smoke.js",
     "test:auth:integration": "node scripts/auth-smoke.js",
-    "migrate:billing": "node scripts/migrate-billing.js"
+    "migrate:billing": "node scripts/migrate-billing.js",
+    "migrate:collaboration": "node scripts/migrate-collaboration.js"
   },
   "keywords": [],
   "author": "",

@@ -2,7 +2,7 @@
 
 ## Entry and scope
 Open an owned trip → ค่าใช้จ่าย / หารบิล → `/trips/:tripId/billing`.
-THB only, managed by the trip owner. Named participants do not need accounts and gain no access rights. This records expenses and repayments; it does not transfer money or verify bank slips. No AI calls.
+THB only, managed by the trip owner and accepted trip editors. Named participants do not need accounts and gain no access rights. Accepted viewers can read the ledger but cannot change it. This records expenses and repayments; it does not transfer money or verify bank slips. No AI calls.
 
 ## User flow
 1. Add member names; rename/archive/restore without deleting historical IDs.

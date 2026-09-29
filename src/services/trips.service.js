@@ -3,21 +3,24 @@ import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import createError from "http-errors";
 import { prisma } from "../lib/prisma.js";
 import crypto from "crypto";
+import { tripAccessWhere } from "./trip-access.js";
 
 // 3.1 ดึงทริปทั้งหมดของผู้ใช้ (สำหรับหน้า Dashboard พร้อมสรุปวันที่และจำนวนวัน)
 export const getAllTripsService = async (userId, page = 1) => {
   const trips = await prisma.trip.findMany({
     take: 100,
     skip: (page - 1) * 100,
-    where: {
-      userId: Number(userId),
-    },
+    where: tripAccessWhere(userId),
     include: {
       days: {
         select: { dayCount: true, dayDate: true },
         orderBy: {
           dayCount: "asc",
         },
+      },
+      collaborators: {
+        where: { userId: Number(userId), status: "accepted" },
+        select: { role: true },
       },
     },
     orderBy: {
@@ -27,7 +30,14 @@ export const getAllTripsService = async (userId, page = 1) => {
 
   // คำนวณ totalDays จาก Day; เก็บ startDate/endDate ที่ user กรอกเป็นหลัก
   // ใช้ dayDate เป็น fallback เฉพาะกรณี trip ยังไม่มีวันที่
-  return trips.map(summarizeTrip);
+  return trips.map((trip) => {
+    const accessRole = trip.userId === Number(userId)
+      ? "owner"
+      : (trip.collaborators[0]?.role || "viewer");
+    const result = summarizeTrip(trip);
+    if (accessRole !== "owner") delete result.shareToken;
+    return { ...result, accessRole };
+  });
 };
 
 // 3.2 สร้างทริปใหม่ (ไม่บังคับส่ง startDate / endDate)
@@ -64,7 +74,7 @@ export const getTripByIdService = async (tripId, userId) => {
   const trip = await prisma.trip.findFirst({
     where: {
       id: targetId,
-      userId: Number(userId),
+      ...tripAccessWhere(userId),
     },
     include: {
       days: {
@@ -79,12 +89,21 @@ export const getTripByIdService = async (tripId, userId) => {
           },
         },
       },
+      collaborators: {
+        where: { userId: Number(userId), status: "accepted" },
+        select: { role: true },
+      },
     },
   });
 
   if (!trip) return null;
 
-  return summarizeTrip(trip);
+  const accessRole = trip.userId === Number(userId)
+    ? "owner"
+    : (trip.collaborators[0]?.role || "viewer");
+  const result = summarizeTrip(trip);
+  if (accessRole !== "owner") delete result.shareToken;
+  return { ...result, accessRole };
 };
 
 // 3.4 แก้ไขข้อมูลทริป
@@ -96,7 +115,7 @@ export const updateTripService = async (tripId, userId, tripData) => {
   const existingTrip = await prisma.trip.findFirst({
     where: {
       id: Number(tripId),
-      userId: Number(userId),
+      ...tripAccessWhere(userId, "editor"),
     },
   });
 

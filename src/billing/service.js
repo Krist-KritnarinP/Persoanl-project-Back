@@ -4,15 +4,7 @@ import { commandSchema } from "./schema.js";
 import { calculateBill } from "./calculate.js";
 import { allocateSettlement, ledgerSummary } from "./ledger.js";
 import { reject } from "./money.js";
-async function owner(tx, tripId, userId) {
-  if (
-    !(await tx.trip.findFirst({
-      where: { id: tripId, userId },
-      select: { id: true },
-    }))
-  )
-    reject("Trip not found", 404);
-}
+import { requireTripAccess } from "../services/trip-access.js";
 async function snapshot(tx, tripId) {
   const members = await tx.tripMember.findMany({
     where: { tripId },
@@ -37,7 +29,7 @@ async function snapshot(tx, tripId) {
 export async function billingRead(tripId, userId, db = prisma) {
   return db.$transaction(async (tx) => {
     await tx.$queryRaw`SELECT pg_advisory_xact_lock(914209, ${tripId}::integer)::text`;
-    await owner(tx, tripId, userId);
+    await requireTripAccess(tx, tripId, userId);
     const data = await snapshot(tx, tripId);
     const history = await tx.billingEvent.findMany({
       where: { tripId },
@@ -55,7 +47,7 @@ export async function billingRead(tripId, userId, db = prisma) {
   });
 }
 export async function billingPreview(tripId, userId, input, db = prisma) {
-  await owner(db, tripId, userId);
+  await requireTripAccess(db, tripId, userId);
   const members = await db.tripMember.findMany({
     where: { tripId, active: true },
     select: { id: true },
@@ -76,7 +68,7 @@ export async function billingCommand(tripId, userId, raw, db = prisma) {
   return db.$transaction(
     async (tx) => {
       await tx.$queryRaw`SELECT pg_advisory_xact_lock(914209, ${tripId}::integer)::text`;
-      await owner(tx, tripId, userId);
+      await requireTripAccess(tx, tripId, userId, "editor");
       const receipt = await tx.billingEvent.findUnique({
         where: { tripId_requestId: { tripId, requestId: c.requestId } },
       });

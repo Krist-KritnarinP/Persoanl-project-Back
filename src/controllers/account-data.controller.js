@@ -84,6 +84,14 @@ export async function exportAccount(req, res, next) {
             },
           },
         },
+        tripCollaborations: {
+          select: {
+            role: true,
+            status: true,
+            createdAt: true,
+            trip: { select: { id: true, tripName: true } },
+          },
+        },
         aiMessages: {
           select: {
             id: true,

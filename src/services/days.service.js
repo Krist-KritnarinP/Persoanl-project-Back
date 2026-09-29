@@ -1,5 +1,6 @@
 import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import { prisma } from "../lib/prisma.js";
+import { tripAccessWhere } from "./trip-access.js";
 
 // 4.1 สร้างวันใหม่ (Create Day)
 export const createDayService = async (userId, dayData) => {
@@ -17,7 +18,7 @@ export const createDayService = async (userId, dayData) => {
     const trip = await tx.trip.findFirst({
       where: {
         id: targetTripId,
-        userId: Number(userId),
+        ...tripAccessWhere(userId, "editor"),
       },
       include: {
         days: {
@@ -79,7 +80,7 @@ export const updateDayService = async (dayId, userId, updateData) => {
     where: {
       id: Number(dayId),
       trip: {
-        userId: Number(userId),
+        ...tripAccessWhere(userId, "editor"),
       },
     },
   });
@@ -109,7 +110,7 @@ export const deleteDayService = async (dayId, userId) => {
     where: {
       id: Number(dayId),
       trip: {
-        userId: Number(userId),
+        ...tripAccessWhere(userId, "editor"),
       },
     },
   });

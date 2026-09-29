@@ -1,8 +1,9 @@
 import { prisma } from "../lib/prisma.js";
+import { tripAccessWhere } from "./trip-access.js";
 
 const ALLOWED_KINDS = ["WEATHER", "PLAN", "CHAT"];
 
-// บันทึกข้อความตอบกลับจาก AI (ownership: trip ต้องเป็นของ user)
+// บันทึกข้อความตอบกลับจาก AI (trip owner หรือ accepted collaborator)
 export const saveAiMessage = async ({
   userId,
   tripId,
@@ -17,7 +18,7 @@ export const saveAiMessage = async ({
 
   if (tripId) {
     const trip = await prisma.trip.findFirst({
-      where: { id: Number(tripId), userId: Number(userId) },
+      where: { id: Number(tripId), ...tripAccessWhere(userId) },
       select: { id: true },
     });
     if (!trip) {
@@ -50,7 +51,7 @@ export const deleteAiMessageService = async (messageId, userId) => {
 // ดึงประวัติ AI ของทริป (ใหม่สุดก่อน)
 export const getAiHistoryService = async (tripId, userId, limit = 20) => {
   const trip = await prisma.trip.findFirst({
-    where: { id: Number(tripId), userId: Number(userId) },
+    where: { id: Number(tripId), ...tripAccessWhere(userId) },
     select: { id: true },
   });
   if (!trip) return null;

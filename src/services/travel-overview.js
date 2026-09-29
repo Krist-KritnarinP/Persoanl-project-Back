@@ -1,4 +1,5 @@
 import { ledgerSummary } from "../billing/ledger.js";
+import { tripAccessWhere } from "./trip-access.js";
 // Compact read model: never expose account data, share tokens or activity notes.
 export function summarizeTravel(trip) {
   const days = trip.days || [];
@@ -47,7 +48,7 @@ export function summarizeTravel(trip) {
 
 export async function readTravelOverview(db, userId, page) {
   const trips = await db.trip.findMany({
-    where: { userId: Number(userId) },
+    where: tripAccessWhere(userId),
     take: 20,
     skip: (page - 1) * 20,
     orderBy: { id: "asc" },

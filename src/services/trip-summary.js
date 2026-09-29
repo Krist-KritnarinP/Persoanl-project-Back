@@ -1,5 +1,5 @@
 /**
- * Add display dates and day count to an owner-visible trip response.
+ * Add display dates and day count to an authorized trip response.
  * Explicit trip dates win; fallback follows the existing day order, not a new date sort.
  * Does not mutate the Prisma result or strip any response fields.
  */

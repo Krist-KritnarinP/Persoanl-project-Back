@@ -1,5 +1,6 @@
 import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import { prisma } from "../lib/prisma.js";
+import { tripAccessWhere } from "./trip-access.js";
 
 const ALLOWED_ACTIVITY_TYPES = [
   "ACCOMMODATION",
@@ -46,7 +47,7 @@ export const createActivityService = async (userId, activityData) => {
     const day = await tx.day.findFirst({
       where: {
         id: targetDayId,
-        trip: { userId: Number(userId) },
+        trip: tripAccessWhere(userId, "editor"),
       },
     });
 
@@ -106,7 +107,7 @@ export const updateActivityService = async (activityId, userId, updateData) => {
   const activity = await prisma.activity.findFirst({
     where: {
       id: Number(activityId),
-      day: { trip: { userId: Number(userId) } },
+      day: { trip: tripAccessWhere(userId, "editor") },
     },
   });
 
@@ -153,7 +154,7 @@ export const deleteActivityService = async (activityId, userId) => {
   const activity = await prisma.activity.findFirst({
     where: {
       id: Number(activityId),
-      day: { trip: { userId: Number(userId) } },
+      day: { trip: tripAccessWhere(userId, "editor") },
     },
   });
 

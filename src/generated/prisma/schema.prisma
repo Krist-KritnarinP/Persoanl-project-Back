@@ -24,6 +24,7 @@ model User {
 
   // Relations
   trips               Trip[]
+  tripCollaborations  TripCollaborator[]
   aiMessages          AiMessage[]
   refreshSessions     RefreshSession[]
   passwordResetTokens PasswordResetToken[]
@@ -45,14 +46,31 @@ model Trip {
 
   // Relations
   members       TripMember[]
+  collaborators TripCollaborator[]
   bills         SplitBill[]
   settlements   SplitSettlement[]
   billingEvents BillingEvent[]
   days          Day[]
   aiMessages    AiMessage[]
-  user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("trips")
+}
+
+model TripCollaborator {
+  id        Int      @id @default(autoincrement())
+  tripId    Int      @map("trip_id")
+  userId    Int      @map("user_id")
+  role      String   @db.VarChar(16)
+  status    String   @default("pending") @db.VarChar(16)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([tripId, userId])
+  @@index([userId, status])
+  @@map("trip_collaborators")
 }
 
 model Day {

@@ -24,6 +24,11 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type Trip = $Result.DefaultSelection<Prisma.$TripPayload>
 /**
+ * Model TripCollaborator
+ * 
+ */
+export type TripCollaborator = $Result.DefaultSelection<Prisma.$TripCollaboratorPayload>
+/**
  * Model Day
  * 
  */
@@ -246,6 +251,16 @@ export class PrismaClient<
     * ```
     */
   get trip(): Prisma.TripDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tripCollaborator`: Exposes CRUD operations for the **TripCollaborator** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TripCollaborators
+    * const tripCollaborators = await prisma.tripCollaborator.findMany()
+    * ```
+    */
+  get tripCollaborator(): Prisma.TripCollaboratorDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.day`: Exposes CRUD operations for the **Day** model.
@@ -795,6 +810,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     Trip: 'Trip',
+    TripCollaborator: 'TripCollaborator',
     Day: 'Day',
     Activity: 'Activity',
     AiMessage: 'AiMessage',
@@ -820,7 +836,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "trip" | "day" | "activity" | "aiMessage" | "aiUsage" | "refreshSession" | "passwordResetToken" | "tripMember" | "splitBill" | "splitSettlement" | "billingEvent"
+      modelProps: "user" | "trip" | "tripCollaborator" | "day" | "activity" | "aiMessage" | "aiUsage" | "refreshSession" | "passwordResetToken" | "tripMember" | "splitBill" | "splitSettlement" | "billingEvent"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -969,6 +985,80 @@ export namespace Prisma {
           count: {
             args: Prisma.TripCountArgs<ExtArgs>
             result: $Utils.Optional<TripCountAggregateOutputType> | number
+          }
+        }
+      }
+      TripCollaborator: {
+        payload: Prisma.$TripCollaboratorPayload<ExtArgs>
+        fields: Prisma.TripCollaboratorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TripCollaboratorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TripCollaboratorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>
+          }
+          findFirst: {
+            args: Prisma.TripCollaboratorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TripCollaboratorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>
+          }
+          findMany: {
+            args: Prisma.TripCollaboratorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>[]
+          }
+          create: {
+            args: Prisma.TripCollaboratorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>
+          }
+          createMany: {
+            args: Prisma.TripCollaboratorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TripCollaboratorCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>[]
+          }
+          delete: {
+            args: Prisma.TripCollaboratorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>
+          }
+          update: {
+            args: Prisma.TripCollaboratorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>
+          }
+          deleteMany: {
+            args: Prisma.TripCollaboratorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TripCollaboratorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TripCollaboratorUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>[]
+          }
+          upsert: {
+            args: Prisma.TripCollaboratorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TripCollaboratorPayload>
+          }
+          aggregate: {
+            args: Prisma.TripCollaboratorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTripCollaborator>
+          }
+          groupBy: {
+            args: Prisma.TripCollaboratorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TripCollaboratorGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TripCollaboratorCountArgs<ExtArgs>
+            result: $Utils.Optional<TripCollaboratorCountAggregateOutputType> | number
           }
         }
       }
@@ -1837,6 +1927,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     trip?: TripOmit
+    tripCollaborator?: TripCollaboratorOmit
     day?: DayOmit
     activity?: ActivityOmit
     aiMessage?: AiMessageOmit
@@ -1928,6 +2019,7 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     trips: number
+    tripCollaborations: number
     aiMessages: number
     refreshSessions: number
     passwordResetTokens: number
@@ -1935,6 +2027,7 @@ export namespace Prisma {
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trips?: boolean | UserCountOutputTypeCountTripsArgs
+    tripCollaborations?: boolean | UserCountOutputTypeCountTripCollaborationsArgs
     aiMessages?: boolean | UserCountOutputTypeCountAiMessagesArgs
     refreshSessions?: boolean | UserCountOutputTypeCountRefreshSessionsArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
@@ -1956,6 +2049,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountTripsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TripWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTripCollaborationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TripCollaboratorWhereInput
   }
 
   /**
@@ -1986,6 +2086,7 @@ export namespace Prisma {
 
   export type TripCountOutputType = {
     members: number
+    collaborators: number
     bills: number
     settlements: number
     billingEvents: number
@@ -1995,6 +2096,7 @@ export namespace Prisma {
 
   export type TripCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | TripCountOutputTypeCountMembersArgs
+    collaborators?: boolean | TripCountOutputTypeCountCollaboratorsArgs
     bills?: boolean | TripCountOutputTypeCountBillsArgs
     settlements?: boolean | TripCountOutputTypeCountSettlementsArgs
     billingEvents?: boolean | TripCountOutputTypeCountBillingEventsArgs
@@ -2018,6 +2120,13 @@ export namespace Prisma {
    */
   export type TripCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TripMemberWhereInput
+  }
+
+  /**
+   * TripCountOutputType without action
+   */
+  export type TripCountOutputTypeCountCollaboratorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TripCollaboratorWhereInput
   }
 
   /**
@@ -2318,6 +2427,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     trips?: boolean | User$tripsArgs<ExtArgs>
+    tripCollaborations?: boolean | User$tripCollaborationsArgs<ExtArgs>
     aiMessages?: boolean | User$aiMessagesArgs<ExtArgs>
     refreshSessions?: boolean | User$refreshSessionsArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
@@ -2360,6 +2470,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tokenVersion" | "googleSub" | "username" | "email" | "password" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     trips?: boolean | User$tripsArgs<ExtArgs>
+    tripCollaborations?: boolean | User$tripCollaborationsArgs<ExtArgs>
     aiMessages?: boolean | User$aiMessagesArgs<ExtArgs>
     refreshSessions?: boolean | User$refreshSessionsArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
@@ -2372,6 +2483,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       trips: Prisma.$TripPayload<ExtArgs>[]
+      tripCollaborations: Prisma.$TripCollaboratorPayload<ExtArgs>[]
       aiMessages: Prisma.$AiMessagePayload<ExtArgs>[]
       refreshSessions: Prisma.$RefreshSessionPayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
@@ -2780,6 +2892,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     trips<T extends User$tripsArgs<ExtArgs> = {}>(args?: Subset<T, User$tripsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    tripCollaborations<T extends User$tripCollaborationsArgs<ExtArgs> = {}>(args?: Subset<T, User$tripCollaborationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     aiMessages<T extends User$aiMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$aiMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiMessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     refreshSessions<T extends User$refreshSessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$refreshSessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RefreshSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3237,6 +3350,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.tripCollaborations
+   */
+  export type User$tripCollaborationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    where?: TripCollaboratorWhereInput
+    orderBy?: TripCollaboratorOrderByWithRelationInput | TripCollaboratorOrderByWithRelationInput[]
+    cursor?: TripCollaboratorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TripCollaboratorScalarFieldEnum | TripCollaboratorScalarFieldEnum[]
+  }
+
+  /**
    * User.aiMessages
    */
   export type User$aiMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3570,6 +3707,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     members?: boolean | Trip$membersArgs<ExtArgs>
+    collaborators?: boolean | Trip$collaboratorsArgs<ExtArgs>
     bills?: boolean | Trip$billsArgs<ExtArgs>
     settlements?: boolean | Trip$settlementsArgs<ExtArgs>
     billingEvents?: boolean | Trip$billingEventsArgs<ExtArgs>
@@ -3623,6 +3761,7 @@ export namespace Prisma {
   export type TripOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "tripName" | "destination" | "startDate" | "endDate" | "tripDescription" | "shareToken" | "createdAt" | "updatedAt", ExtArgs["result"]["trip"]>
   export type TripInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | Trip$membersArgs<ExtArgs>
+    collaborators?: boolean | Trip$collaboratorsArgs<ExtArgs>
     bills?: boolean | Trip$billsArgs<ExtArgs>
     settlements?: boolean | Trip$settlementsArgs<ExtArgs>
     billingEvents?: boolean | Trip$billingEventsArgs<ExtArgs>
@@ -3642,6 +3781,7 @@ export namespace Prisma {
     name: "Trip"
     objects: {
       members: Prisma.$TripMemberPayload<ExtArgs>[]
+      collaborators: Prisma.$TripCollaboratorPayload<ExtArgs>[]
       bills: Prisma.$SplitBillPayload<ExtArgs>[]
       settlements: Prisma.$SplitSettlementPayload<ExtArgs>[]
       billingEvents: Prisma.$BillingEventPayload<ExtArgs>[]
@@ -4055,6 +4195,7 @@ export namespace Prisma {
   export interface Prisma__TripClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     members<T extends Trip$membersArgs<ExtArgs> = {}>(args?: Subset<T, Trip$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    collaborators<T extends Trip$collaboratorsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$collaboratorsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bills<T extends Trip$billsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$billsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitBillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     settlements<T extends Trip$settlementsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$settlementsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SplitSettlementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     billingEvents<T extends Trip$billingEventsArgs<ExtArgs> = {}>(args?: Subset<T, Trip$billingEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BillingEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4525,6 +4666,30 @@ export namespace Prisma {
   }
 
   /**
+   * Trip.collaborators
+   */
+  export type Trip$collaboratorsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    where?: TripCollaboratorWhereInput
+    orderBy?: TripCollaboratorOrderByWithRelationInput | TripCollaboratorOrderByWithRelationInput[]
+    cursor?: TripCollaboratorWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TripCollaboratorScalarFieldEnum | TripCollaboratorScalarFieldEnum[]
+  }
+
+  /**
    * Trip.bills
    */
   export type Trip$billsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4660,6 +4825,1145 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: TripInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model TripCollaborator
+   */
+
+  export type AggregateTripCollaborator = {
+    _count: TripCollaboratorCountAggregateOutputType | null
+    _avg: TripCollaboratorAvgAggregateOutputType | null
+    _sum: TripCollaboratorSumAggregateOutputType | null
+    _min: TripCollaboratorMinAggregateOutputType | null
+    _max: TripCollaboratorMaxAggregateOutputType | null
+  }
+
+  export type TripCollaboratorAvgAggregateOutputType = {
+    id: number | null
+    tripId: number | null
+    userId: number | null
+  }
+
+  export type TripCollaboratorSumAggregateOutputType = {
+    id: number | null
+    tripId: number | null
+    userId: number | null
+  }
+
+  export type TripCollaboratorMinAggregateOutputType = {
+    id: number | null
+    tripId: number | null
+    userId: number | null
+    role: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TripCollaboratorMaxAggregateOutputType = {
+    id: number | null
+    tripId: number | null
+    userId: number | null
+    role: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TripCollaboratorCountAggregateOutputType = {
+    id: number
+    tripId: number
+    userId: number
+    role: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TripCollaboratorAvgAggregateInputType = {
+    id?: true
+    tripId?: true
+    userId?: true
+  }
+
+  export type TripCollaboratorSumAggregateInputType = {
+    id?: true
+    tripId?: true
+    userId?: true
+  }
+
+  export type TripCollaboratorMinAggregateInputType = {
+    id?: true
+    tripId?: true
+    userId?: true
+    role?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TripCollaboratorMaxAggregateInputType = {
+    id?: true
+    tripId?: true
+    userId?: true
+    role?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TripCollaboratorCountAggregateInputType = {
+    id?: true
+    tripId?: true
+    userId?: true
+    role?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TripCollaboratorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TripCollaborator to aggregate.
+     */
+    where?: TripCollaboratorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripCollaborators to fetch.
+     */
+    orderBy?: TripCollaboratorOrderByWithRelationInput | TripCollaboratorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TripCollaboratorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripCollaborators from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripCollaborators.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TripCollaborators
+    **/
+    _count?: true | TripCollaboratorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TripCollaboratorAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TripCollaboratorSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TripCollaboratorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TripCollaboratorMaxAggregateInputType
+  }
+
+  export type GetTripCollaboratorAggregateType<T extends TripCollaboratorAggregateArgs> = {
+        [P in keyof T & keyof AggregateTripCollaborator]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTripCollaborator[P]>
+      : GetScalarType<T[P], AggregateTripCollaborator[P]>
+  }
+
+
+
+
+  export type TripCollaboratorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TripCollaboratorWhereInput
+    orderBy?: TripCollaboratorOrderByWithAggregationInput | TripCollaboratorOrderByWithAggregationInput[]
+    by: TripCollaboratorScalarFieldEnum[] | TripCollaboratorScalarFieldEnum
+    having?: TripCollaboratorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TripCollaboratorCountAggregateInputType | true
+    _avg?: TripCollaboratorAvgAggregateInputType
+    _sum?: TripCollaboratorSumAggregateInputType
+    _min?: TripCollaboratorMinAggregateInputType
+    _max?: TripCollaboratorMaxAggregateInputType
+  }
+
+  export type TripCollaboratorGroupByOutputType = {
+    id: number
+    tripId: number
+    userId: number
+    role: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TripCollaboratorCountAggregateOutputType | null
+    _avg: TripCollaboratorAvgAggregateOutputType | null
+    _sum: TripCollaboratorSumAggregateOutputType | null
+    _min: TripCollaboratorMinAggregateOutputType | null
+    _max: TripCollaboratorMaxAggregateOutputType | null
+  }
+
+  type GetTripCollaboratorGroupByPayload<T extends TripCollaboratorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TripCollaboratorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TripCollaboratorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TripCollaboratorGroupByOutputType[P]>
+            : GetScalarType<T[P], TripCollaboratorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TripCollaboratorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    userId?: boolean
+    role?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tripCollaborator"]>
+
+  export type TripCollaboratorSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    userId?: boolean
+    role?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tripCollaborator"]>
+
+  export type TripCollaboratorSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    tripId?: boolean
+    userId?: boolean
+    role?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tripCollaborator"]>
+
+  export type TripCollaboratorSelectScalar = {
+    id?: boolean
+    tripId?: boolean
+    userId?: boolean
+    role?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TripCollaboratorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "userId" | "role" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["tripCollaborator"]>
+  export type TripCollaboratorInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TripCollaboratorIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type TripCollaboratorIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    trip?: boolean | TripDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $TripCollaboratorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TripCollaborator"
+    objects: {
+      trip: Prisma.$TripPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      tripId: number
+      userId: number
+      role: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["tripCollaborator"]>
+    composites: {}
+  }
+
+  type TripCollaboratorGetPayload<S extends boolean | null | undefined | TripCollaboratorDefaultArgs> = $Result.GetResult<Prisma.$TripCollaboratorPayload, S>
+
+  type TripCollaboratorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TripCollaboratorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TripCollaboratorCountAggregateInputType | true
+    }
+
+  export interface TripCollaboratorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TripCollaborator'], meta: { name: 'TripCollaborator' } }
+    /**
+     * Find zero or one TripCollaborator that matches the filter.
+     * @param {TripCollaboratorFindUniqueArgs} args - Arguments to find a TripCollaborator
+     * @example
+     * // Get one TripCollaborator
+     * const tripCollaborator = await prisma.tripCollaborator.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TripCollaboratorFindUniqueArgs>(args: SelectSubset<T, TripCollaboratorFindUniqueArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TripCollaborator that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TripCollaboratorFindUniqueOrThrowArgs} args - Arguments to find a TripCollaborator
+     * @example
+     * // Get one TripCollaborator
+     * const tripCollaborator = await prisma.tripCollaborator.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TripCollaboratorFindUniqueOrThrowArgs>(args: SelectSubset<T, TripCollaboratorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TripCollaborator that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripCollaboratorFindFirstArgs} args - Arguments to find a TripCollaborator
+     * @example
+     * // Get one TripCollaborator
+     * const tripCollaborator = await prisma.tripCollaborator.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TripCollaboratorFindFirstArgs>(args?: SelectSubset<T, TripCollaboratorFindFirstArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TripCollaborator that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripCollaboratorFindFirstOrThrowArgs} args - Arguments to find a TripCollaborator
+     * @example
+     * // Get one TripCollaborator
+     * const tripCollaborator = await prisma.tripCollaborator.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TripCollaboratorFindFirstOrThrowArgs>(args?: SelectSubset<T, TripCollaboratorFindFirstOrThrowArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TripCollaborators that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripCollaboratorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TripCollaborators
+     * const tripCollaborators = await prisma.tripCollaborator.findMany()
+     * 
+     * // Get first 10 TripCollaborators
+     * const tripCollaborators = await prisma.tripCollaborator.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tripCollaboratorWithIdOnly = await prisma.tripCollaborator.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TripCollaboratorFindManyArgs>(args?: SelectSubset<T, TripCollaboratorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TripCollaborator.
+     * @param {TripCollaboratorCreateArgs} args - Arguments to create a TripCollaborator.
+     * @example
+     * // Create one TripCollaborator
+     * const TripCollaborator = await prisma.tripCollaborator.create({
+     *   data: {
+     *     // ... data to create a TripCollaborator
+     *   }
+     * })
+     * 
+     */
+    create<T extends TripCollaboratorCreateArgs>(args: SelectSubset<T, TripCollaboratorCreateArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TripCollaborators.
+     * @param {TripCollaboratorCreateManyArgs} args - Arguments to create many TripCollaborators.
+     * @example
+     * // Create many TripCollaborators
+     * const tripCollaborator = await prisma.tripCollaborator.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TripCollaboratorCreateManyArgs>(args?: SelectSubset<T, TripCollaboratorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TripCollaborators and returns the data saved in the database.
+     * @param {TripCollaboratorCreateManyAndReturnArgs} args - Arguments to create many TripCollaborators.
+     * @example
+     * // Create many TripCollaborators
+     * const tripCollaborator = await prisma.tripCollaborator.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TripCollaborators and only return the `id`
+     * const tripCollaboratorWithIdOnly = await prisma.tripCollaborator.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TripCollaboratorCreateManyAndReturnArgs>(args?: SelectSubset<T, TripCollaboratorCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TripCollaborator.
+     * @param {TripCollaboratorDeleteArgs} args - Arguments to delete one TripCollaborator.
+     * @example
+     * // Delete one TripCollaborator
+     * const TripCollaborator = await prisma.tripCollaborator.delete({
+     *   where: {
+     *     // ... filter to delete one TripCollaborator
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TripCollaboratorDeleteArgs>(args: SelectSubset<T, TripCollaboratorDeleteArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TripCollaborator.
+     * @param {TripCollaboratorUpdateArgs} args - Arguments to update one TripCollaborator.
+     * @example
+     * // Update one TripCollaborator
+     * const tripCollaborator = await prisma.tripCollaborator.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TripCollaboratorUpdateArgs>(args: SelectSubset<T, TripCollaboratorUpdateArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TripCollaborators.
+     * @param {TripCollaboratorDeleteManyArgs} args - Arguments to filter TripCollaborators to delete.
+     * @example
+     * // Delete a few TripCollaborators
+     * const { count } = await prisma.tripCollaborator.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TripCollaboratorDeleteManyArgs>(args?: SelectSubset<T, TripCollaboratorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TripCollaborators.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripCollaboratorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TripCollaborators
+     * const tripCollaborator = await prisma.tripCollaborator.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TripCollaboratorUpdateManyArgs>(args: SelectSubset<T, TripCollaboratorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TripCollaborators and returns the data updated in the database.
+     * @param {TripCollaboratorUpdateManyAndReturnArgs} args - Arguments to update many TripCollaborators.
+     * @example
+     * // Update many TripCollaborators
+     * const tripCollaborator = await prisma.tripCollaborator.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TripCollaborators and only return the `id`
+     * const tripCollaboratorWithIdOnly = await prisma.tripCollaborator.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TripCollaboratorUpdateManyAndReturnArgs>(args: SelectSubset<T, TripCollaboratorUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TripCollaborator.
+     * @param {TripCollaboratorUpsertArgs} args - Arguments to update or create a TripCollaborator.
+     * @example
+     * // Update or create a TripCollaborator
+     * const tripCollaborator = await prisma.tripCollaborator.upsert({
+     *   create: {
+     *     // ... data to create a TripCollaborator
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TripCollaborator we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TripCollaboratorUpsertArgs>(args: SelectSubset<T, TripCollaboratorUpsertArgs<ExtArgs>>): Prisma__TripCollaboratorClient<$Result.GetResult<Prisma.$TripCollaboratorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TripCollaborators.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripCollaboratorCountArgs} args - Arguments to filter TripCollaborators to count.
+     * @example
+     * // Count the number of TripCollaborators
+     * const count = await prisma.tripCollaborator.count({
+     *   where: {
+     *     // ... the filter for the TripCollaborators we want to count
+     *   }
+     * })
+    **/
+    count<T extends TripCollaboratorCountArgs>(
+      args?: Subset<T, TripCollaboratorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TripCollaboratorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TripCollaborator.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripCollaboratorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TripCollaboratorAggregateArgs>(args: Subset<T, TripCollaboratorAggregateArgs>): Prisma.PrismaPromise<GetTripCollaboratorAggregateType<T>>
+
+    /**
+     * Group by TripCollaborator.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TripCollaboratorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TripCollaboratorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TripCollaboratorGroupByArgs['orderBy'] }
+        : { orderBy?: TripCollaboratorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TripCollaboratorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTripCollaboratorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TripCollaborator model
+   */
+  readonly fields: TripCollaboratorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TripCollaborator.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TripCollaboratorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    trip<T extends TripDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TripDefaultArgs<ExtArgs>>): Prisma__TripClient<$Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TripCollaborator model
+   */
+  interface TripCollaboratorFieldRefs {
+    readonly id: FieldRef<"TripCollaborator", 'Int'>
+    readonly tripId: FieldRef<"TripCollaborator", 'Int'>
+    readonly userId: FieldRef<"TripCollaborator", 'Int'>
+    readonly role: FieldRef<"TripCollaborator", 'String'>
+    readonly status: FieldRef<"TripCollaborator", 'String'>
+    readonly createdAt: FieldRef<"TripCollaborator", 'DateTime'>
+    readonly updatedAt: FieldRef<"TripCollaborator", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TripCollaborator findUnique
+   */
+  export type TripCollaboratorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * Filter, which TripCollaborator to fetch.
+     */
+    where: TripCollaboratorWhereUniqueInput
+  }
+
+  /**
+   * TripCollaborator findUniqueOrThrow
+   */
+  export type TripCollaboratorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * Filter, which TripCollaborator to fetch.
+     */
+    where: TripCollaboratorWhereUniqueInput
+  }
+
+  /**
+   * TripCollaborator findFirst
+   */
+  export type TripCollaboratorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * Filter, which TripCollaborator to fetch.
+     */
+    where?: TripCollaboratorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripCollaborators to fetch.
+     */
+    orderBy?: TripCollaboratorOrderByWithRelationInput | TripCollaboratorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TripCollaborators.
+     */
+    cursor?: TripCollaboratorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripCollaborators from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripCollaborators.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TripCollaborators.
+     */
+    distinct?: TripCollaboratorScalarFieldEnum | TripCollaboratorScalarFieldEnum[]
+  }
+
+  /**
+   * TripCollaborator findFirstOrThrow
+   */
+  export type TripCollaboratorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * Filter, which TripCollaborator to fetch.
+     */
+    where?: TripCollaboratorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripCollaborators to fetch.
+     */
+    orderBy?: TripCollaboratorOrderByWithRelationInput | TripCollaboratorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TripCollaborators.
+     */
+    cursor?: TripCollaboratorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripCollaborators from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripCollaborators.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TripCollaborators.
+     */
+    distinct?: TripCollaboratorScalarFieldEnum | TripCollaboratorScalarFieldEnum[]
+  }
+
+  /**
+   * TripCollaborator findMany
+   */
+  export type TripCollaboratorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * Filter, which TripCollaborators to fetch.
+     */
+    where?: TripCollaboratorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TripCollaborators to fetch.
+     */
+    orderBy?: TripCollaboratorOrderByWithRelationInput | TripCollaboratorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TripCollaborators.
+     */
+    cursor?: TripCollaboratorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TripCollaborators from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TripCollaborators.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TripCollaborators.
+     */
+    distinct?: TripCollaboratorScalarFieldEnum | TripCollaboratorScalarFieldEnum[]
+  }
+
+  /**
+   * TripCollaborator create
+   */
+  export type TripCollaboratorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TripCollaborator.
+     */
+    data: XOR<TripCollaboratorCreateInput, TripCollaboratorUncheckedCreateInput>
+  }
+
+  /**
+   * TripCollaborator createMany
+   */
+  export type TripCollaboratorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TripCollaborators.
+     */
+    data: TripCollaboratorCreateManyInput | TripCollaboratorCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TripCollaborator createManyAndReturn
+   */
+  export type TripCollaboratorCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * The data used to create many TripCollaborators.
+     */
+    data: TripCollaboratorCreateManyInput | TripCollaboratorCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TripCollaborator update
+   */
+  export type TripCollaboratorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TripCollaborator.
+     */
+    data: XOR<TripCollaboratorUpdateInput, TripCollaboratorUncheckedUpdateInput>
+    /**
+     * Choose, which TripCollaborator to update.
+     */
+    where: TripCollaboratorWhereUniqueInput
+  }
+
+  /**
+   * TripCollaborator updateMany
+   */
+  export type TripCollaboratorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TripCollaborators.
+     */
+    data: XOR<TripCollaboratorUpdateManyMutationInput, TripCollaboratorUncheckedUpdateManyInput>
+    /**
+     * Filter which TripCollaborators to update
+     */
+    where?: TripCollaboratorWhereInput
+    /**
+     * Limit how many TripCollaborators to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TripCollaborator updateManyAndReturn
+   */
+  export type TripCollaboratorUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * The data used to update TripCollaborators.
+     */
+    data: XOR<TripCollaboratorUpdateManyMutationInput, TripCollaboratorUncheckedUpdateManyInput>
+    /**
+     * Filter which TripCollaborators to update
+     */
+    where?: TripCollaboratorWhereInput
+    /**
+     * Limit how many TripCollaborators to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TripCollaborator upsert
+   */
+  export type TripCollaboratorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TripCollaborator to update in case it exists.
+     */
+    where: TripCollaboratorWhereUniqueInput
+    /**
+     * In case the TripCollaborator found by the `where` argument doesn't exist, create a new TripCollaborator with this data.
+     */
+    create: XOR<TripCollaboratorCreateInput, TripCollaboratorUncheckedCreateInput>
+    /**
+     * In case the TripCollaborator was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TripCollaboratorUpdateInput, TripCollaboratorUncheckedUpdateInput>
+  }
+
+  /**
+   * TripCollaborator delete
+   */
+  export type TripCollaboratorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
+    /**
+     * Filter which TripCollaborator to delete.
+     */
+    where: TripCollaboratorWhereUniqueInput
+  }
+
+  /**
+   * TripCollaborator deleteMany
+   */
+  export type TripCollaboratorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TripCollaborators to delete
+     */
+    where?: TripCollaboratorWhereInput
+    /**
+     * Limit how many TripCollaborators to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TripCollaborator without action
+   */
+  export type TripCollaboratorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TripCollaborator
+     */
+    select?: TripCollaboratorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TripCollaborator
+     */
+    omit?: TripCollaboratorOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TripCollaboratorInclude<ExtArgs> | null
   }
 
 
@@ -16074,6 +17378,19 @@ export namespace Prisma {
   export type TripScalarFieldEnum = (typeof TripScalarFieldEnum)[keyof typeof TripScalarFieldEnum]
 
 
+  export const TripCollaboratorScalarFieldEnum: {
+    id: 'id',
+    tripId: 'tripId',
+    userId: 'userId',
+    role: 'role',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TripCollaboratorScalarFieldEnum = (typeof TripCollaboratorScalarFieldEnum)[keyof typeof TripCollaboratorScalarFieldEnum]
+
+
   export const DayScalarFieldEnum: {
     id: 'id',
     tripId: 'tripId',
@@ -16399,6 +17716,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     trips?: TripListRelationFilter
+    tripCollaborations?: TripCollaboratorListRelationFilter
     aiMessages?: AiMessageListRelationFilter
     refreshSessions?: RefreshSessionListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
@@ -16414,6 +17732,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     trips?: TripOrderByRelationAggregateInput
+    tripCollaborations?: TripCollaboratorOrderByRelationAggregateInput
     aiMessages?: AiMessageOrderByRelationAggregateInput
     refreshSessions?: RefreshSessionOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
@@ -16432,6 +17751,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     trips?: TripListRelationFilter
+    tripCollaborations?: TripCollaboratorListRelationFilter
     aiMessages?: AiMessageListRelationFilter
     refreshSessions?: RefreshSessionListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
@@ -16482,6 +17802,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
     members?: TripMemberListRelationFilter
+    collaborators?: TripCollaboratorListRelationFilter
     bills?: SplitBillListRelationFilter
     settlements?: SplitSettlementListRelationFilter
     billingEvents?: BillingEventListRelationFilter
@@ -16502,6 +17823,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     members?: TripMemberOrderByRelationAggregateInput
+    collaborators?: TripCollaboratorOrderByRelationAggregateInput
     bills?: SplitBillOrderByRelationAggregateInput
     settlements?: SplitSettlementOrderByRelationAggregateInput
     billingEvents?: BillingEventOrderByRelationAggregateInput
@@ -16525,6 +17847,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Trip"> | Date | string
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
     members?: TripMemberListRelationFilter
+    collaborators?: TripCollaboratorListRelationFilter
     bills?: SplitBillListRelationFilter
     settlements?: SplitSettlementListRelationFilter
     billingEvents?: BillingEventListRelationFilter
@@ -16565,6 +17888,77 @@ export namespace Prisma {
     shareToken?: StringNullableWithAggregatesFilter<"Trip"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Trip"> | Date | string
+  }
+
+  export type TripCollaboratorWhereInput = {
+    AND?: TripCollaboratorWhereInput | TripCollaboratorWhereInput[]
+    OR?: TripCollaboratorWhereInput[]
+    NOT?: TripCollaboratorWhereInput | TripCollaboratorWhereInput[]
+    id?: IntFilter<"TripCollaborator"> | number
+    tripId?: IntFilter<"TripCollaborator"> | number
+    userId?: IntFilter<"TripCollaborator"> | number
+    role?: StringFilter<"TripCollaborator"> | string
+    status?: StringFilter<"TripCollaborator"> | string
+    createdAt?: DateTimeFilter<"TripCollaborator"> | Date | string
+    updatedAt?: DateTimeFilter<"TripCollaborator"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type TripCollaboratorOrderByWithRelationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    trip?: TripOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type TripCollaboratorWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    tripId_userId?: TripCollaboratorTripIdUserIdCompoundUniqueInput
+    AND?: TripCollaboratorWhereInput | TripCollaboratorWhereInput[]
+    OR?: TripCollaboratorWhereInput[]
+    NOT?: TripCollaboratorWhereInput | TripCollaboratorWhereInput[]
+    tripId?: IntFilter<"TripCollaborator"> | number
+    userId?: IntFilter<"TripCollaborator"> | number
+    role?: StringFilter<"TripCollaborator"> | string
+    status?: StringFilter<"TripCollaborator"> | string
+    createdAt?: DateTimeFilter<"TripCollaborator"> | Date | string
+    updatedAt?: DateTimeFilter<"TripCollaborator"> | Date | string
+    trip?: XOR<TripScalarRelationFilter, TripWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "tripId_userId">
+
+  export type TripCollaboratorOrderByWithAggregationInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TripCollaboratorCountOrderByAggregateInput
+    _avg?: TripCollaboratorAvgOrderByAggregateInput
+    _max?: TripCollaboratorMaxOrderByAggregateInput
+    _min?: TripCollaboratorMinOrderByAggregateInput
+    _sum?: TripCollaboratorSumOrderByAggregateInput
+  }
+
+  export type TripCollaboratorScalarWhereWithAggregatesInput = {
+    AND?: TripCollaboratorScalarWhereWithAggregatesInput | TripCollaboratorScalarWhereWithAggregatesInput[]
+    OR?: TripCollaboratorScalarWhereWithAggregatesInput[]
+    NOT?: TripCollaboratorScalarWhereWithAggregatesInput | TripCollaboratorScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"TripCollaborator"> | number
+    tripId?: IntWithAggregatesFilter<"TripCollaborator"> | number
+    userId?: IntWithAggregatesFilter<"TripCollaborator"> | number
+    role?: StringWithAggregatesFilter<"TripCollaborator"> | string
+    status?: StringWithAggregatesFilter<"TripCollaborator"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"TripCollaborator"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TripCollaborator"> | Date | string
   }
 
   export type DayWhereInput = {
@@ -17285,6 +18679,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -17300,6 +18695,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorUncheckedCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -17314,6 +18710,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -17329,6 +18726,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUncheckedUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUncheckedUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -17376,6 +18774,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     bills?: SplitBillCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventCreateNestedManyWithoutTripInput
@@ -17396,6 +18795,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
@@ -17413,6 +18813,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     bills?: SplitBillUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
@@ -17433,6 +18834,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
@@ -17473,6 +18875,71 @@ export namespace Prisma {
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripCollaboratorCreateInput = {
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trip: TripCreateNestedOneWithoutCollaboratorsInput
+    user: UserCreateNestedOneWithoutTripCollaborationsInput
+  }
+
+  export type TripCollaboratorUncheckedCreateInput = {
+    id?: number
+    tripId: number
+    userId: number
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TripCollaboratorUpdateInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip?: TripUpdateOneRequiredWithoutCollaboratorsNestedInput
+    user?: UserUpdateOneRequiredWithoutTripCollaborationsNestedInput
+  }
+
+  export type TripCollaboratorUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tripId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripCollaboratorCreateManyInput = {
+    id?: number
+    tripId: number
+    userId: number
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TripCollaboratorUpdateManyMutationInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripCollaboratorUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tripId?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18269,6 +19736,12 @@ export namespace Prisma {
     none?: TripWhereInput
   }
 
+  export type TripCollaboratorListRelationFilter = {
+    every?: TripCollaboratorWhereInput
+    some?: TripCollaboratorWhereInput
+    none?: TripCollaboratorWhereInput
+  }
+
   export type AiMessageListRelationFilter = {
     every?: AiMessageWhereInput
     some?: AiMessageWhereInput
@@ -18293,6 +19766,10 @@ export namespace Prisma {
   }
 
   export type TripOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TripCollaboratorOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18546,15 +20023,62 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type TripScalarRelationFilter = {
+    is?: TripWhereInput
+    isNot?: TripWhereInput
+  }
+
+  export type TripCollaboratorTripIdUserIdCompoundUniqueInput = {
+    tripId: number
+    userId: number
+  }
+
+  export type TripCollaboratorCountOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TripCollaboratorAvgOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type TripCollaboratorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TripCollaboratorMinOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    userId?: SortOrder
+    role?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TripCollaboratorSumOrderByAggregateInput = {
+    id?: SortOrder
+    tripId?: SortOrder
+    userId?: SortOrder
+  }
+
   export type ActivityListRelationFilter = {
     every?: ActivityWhereInput
     some?: ActivityWhereInput
     none?: ActivityWhereInput
-  }
-
-  export type TripScalarRelationFilter = {
-    is?: TripWhereInput
-    isNot?: TripWhereInput
   }
 
   export type ActivityOrderByRelationAggregateInput = {
@@ -19263,6 +20787,13 @@ export namespace Prisma {
     connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
   }
 
+  export type TripCollaboratorCreateNestedManyWithoutUserInput = {
+    create?: XOR<TripCollaboratorCreateWithoutUserInput, TripCollaboratorUncheckedCreateWithoutUserInput> | TripCollaboratorCreateWithoutUserInput[] | TripCollaboratorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutUserInput | TripCollaboratorCreateOrConnectWithoutUserInput[]
+    createMany?: TripCollaboratorCreateManyUserInputEnvelope
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+  }
+
   export type AiMessageCreateNestedManyWithoutUserInput = {
     create?: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput> | AiMessageCreateWithoutUserInput[] | AiMessageUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AiMessageCreateOrConnectWithoutUserInput | AiMessageCreateOrConnectWithoutUserInput[]
@@ -19289,6 +20820,13 @@ export namespace Prisma {
     connectOrCreate?: TripCreateOrConnectWithoutUserInput | TripCreateOrConnectWithoutUserInput[]
     createMany?: TripCreateManyUserInputEnvelope
     connect?: TripWhereUniqueInput | TripWhereUniqueInput[]
+  }
+
+  export type TripCollaboratorUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<TripCollaboratorCreateWithoutUserInput, TripCollaboratorUncheckedCreateWithoutUserInput> | TripCollaboratorCreateWithoutUserInput[] | TripCollaboratorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutUserInput | TripCollaboratorCreateOrConnectWithoutUserInput[]
+    createMany?: TripCollaboratorCreateManyUserInputEnvelope
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
   }
 
   export type AiMessageUncheckedCreateNestedManyWithoutUserInput = {
@@ -19344,6 +20882,20 @@ export namespace Prisma {
     update?: TripUpdateWithWhereUniqueWithoutUserInput | TripUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: TripUpdateManyWithWhereWithoutUserInput | TripUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: TripScalarWhereInput | TripScalarWhereInput[]
+  }
+
+  export type TripCollaboratorUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TripCollaboratorCreateWithoutUserInput, TripCollaboratorUncheckedCreateWithoutUserInput> | TripCollaboratorCreateWithoutUserInput[] | TripCollaboratorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutUserInput | TripCollaboratorCreateOrConnectWithoutUserInput[]
+    upsert?: TripCollaboratorUpsertWithWhereUniqueWithoutUserInput | TripCollaboratorUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TripCollaboratorCreateManyUserInputEnvelope
+    set?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    disconnect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    delete?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    update?: TripCollaboratorUpdateWithWhereUniqueWithoutUserInput | TripCollaboratorUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TripCollaboratorUpdateManyWithWhereWithoutUserInput | TripCollaboratorUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TripCollaboratorScalarWhereInput | TripCollaboratorScalarWhereInput[]
   }
 
   export type AiMessageUpdateManyWithoutUserNestedInput = {
@@ -19402,6 +20954,20 @@ export namespace Prisma {
     deleteMany?: TripScalarWhereInput | TripScalarWhereInput[]
   }
 
+  export type TripCollaboratorUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<TripCollaboratorCreateWithoutUserInput, TripCollaboratorUncheckedCreateWithoutUserInput> | TripCollaboratorCreateWithoutUserInput[] | TripCollaboratorUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutUserInput | TripCollaboratorCreateOrConnectWithoutUserInput[]
+    upsert?: TripCollaboratorUpsertWithWhereUniqueWithoutUserInput | TripCollaboratorUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: TripCollaboratorCreateManyUserInputEnvelope
+    set?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    disconnect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    delete?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    update?: TripCollaboratorUpdateWithWhereUniqueWithoutUserInput | TripCollaboratorUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: TripCollaboratorUpdateManyWithWhereWithoutUserInput | TripCollaboratorUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: TripCollaboratorScalarWhereInput | TripCollaboratorScalarWhereInput[]
+  }
+
   export type AiMessageUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AiMessageCreateWithoutUserInput, AiMessageUncheckedCreateWithoutUserInput> | AiMessageCreateWithoutUserInput[] | AiMessageUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AiMessageCreateOrConnectWithoutUserInput | AiMessageCreateOrConnectWithoutUserInput[]
@@ -19451,6 +21017,13 @@ export namespace Prisma {
     connect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
   }
 
+  export type TripCollaboratorCreateNestedManyWithoutTripInput = {
+    create?: XOR<TripCollaboratorCreateWithoutTripInput, TripCollaboratorUncheckedCreateWithoutTripInput> | TripCollaboratorCreateWithoutTripInput[] | TripCollaboratorUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutTripInput | TripCollaboratorCreateOrConnectWithoutTripInput[]
+    createMany?: TripCollaboratorCreateManyTripInputEnvelope
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+  }
+
   export type SplitBillCreateNestedManyWithoutTripInput = {
     create?: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput> | SplitBillCreateWithoutTripInput[] | SplitBillUncheckedCreateWithoutTripInput[]
     connectOrCreate?: SplitBillCreateOrConnectWithoutTripInput | SplitBillCreateOrConnectWithoutTripInput[]
@@ -19497,6 +21070,13 @@ export namespace Prisma {
     connectOrCreate?: TripMemberCreateOrConnectWithoutTripInput | TripMemberCreateOrConnectWithoutTripInput[]
     createMany?: TripMemberCreateManyTripInputEnvelope
     connect?: TripMemberWhereUniqueInput | TripMemberWhereUniqueInput[]
+  }
+
+  export type TripCollaboratorUncheckedCreateNestedManyWithoutTripInput = {
+    create?: XOR<TripCollaboratorCreateWithoutTripInput, TripCollaboratorUncheckedCreateWithoutTripInput> | TripCollaboratorCreateWithoutTripInput[] | TripCollaboratorUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutTripInput | TripCollaboratorCreateOrConnectWithoutTripInput[]
+    createMany?: TripCollaboratorCreateManyTripInputEnvelope
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
   }
 
   export type SplitBillUncheckedCreateNestedManyWithoutTripInput = {
@@ -19550,6 +21130,20 @@ export namespace Prisma {
     update?: TripMemberUpdateWithWhereUniqueWithoutTripInput | TripMemberUpdateWithWhereUniqueWithoutTripInput[]
     updateMany?: TripMemberUpdateManyWithWhereWithoutTripInput | TripMemberUpdateManyWithWhereWithoutTripInput[]
     deleteMany?: TripMemberScalarWhereInput | TripMemberScalarWhereInput[]
+  }
+
+  export type TripCollaboratorUpdateManyWithoutTripNestedInput = {
+    create?: XOR<TripCollaboratorCreateWithoutTripInput, TripCollaboratorUncheckedCreateWithoutTripInput> | TripCollaboratorCreateWithoutTripInput[] | TripCollaboratorUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutTripInput | TripCollaboratorCreateOrConnectWithoutTripInput[]
+    upsert?: TripCollaboratorUpsertWithWhereUniqueWithoutTripInput | TripCollaboratorUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: TripCollaboratorCreateManyTripInputEnvelope
+    set?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    disconnect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    delete?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    update?: TripCollaboratorUpdateWithWhereUniqueWithoutTripInput | TripCollaboratorUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: TripCollaboratorUpdateManyWithWhereWithoutTripInput | TripCollaboratorUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: TripCollaboratorScalarWhereInput | TripCollaboratorScalarWhereInput[]
   }
 
   export type SplitBillUpdateManyWithoutTripNestedInput = {
@@ -19644,6 +21238,20 @@ export namespace Prisma {
     deleteMany?: TripMemberScalarWhereInput | TripMemberScalarWhereInput[]
   }
 
+  export type TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput = {
+    create?: XOR<TripCollaboratorCreateWithoutTripInput, TripCollaboratorUncheckedCreateWithoutTripInput> | TripCollaboratorCreateWithoutTripInput[] | TripCollaboratorUncheckedCreateWithoutTripInput[]
+    connectOrCreate?: TripCollaboratorCreateOrConnectWithoutTripInput | TripCollaboratorCreateOrConnectWithoutTripInput[]
+    upsert?: TripCollaboratorUpsertWithWhereUniqueWithoutTripInput | TripCollaboratorUpsertWithWhereUniqueWithoutTripInput[]
+    createMany?: TripCollaboratorCreateManyTripInputEnvelope
+    set?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    disconnect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    delete?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    connect?: TripCollaboratorWhereUniqueInput | TripCollaboratorWhereUniqueInput[]
+    update?: TripCollaboratorUpdateWithWhereUniqueWithoutTripInput | TripCollaboratorUpdateWithWhereUniqueWithoutTripInput[]
+    updateMany?: TripCollaboratorUpdateManyWithWhereWithoutTripInput | TripCollaboratorUpdateManyWithWhereWithoutTripInput[]
+    deleteMany?: TripCollaboratorScalarWhereInput | TripCollaboratorScalarWhereInput[]
+  }
+
   export type SplitBillUncheckedUpdateManyWithoutTripNestedInput = {
     create?: XOR<SplitBillCreateWithoutTripInput, SplitBillUncheckedCreateWithoutTripInput> | SplitBillCreateWithoutTripInput[] | SplitBillUncheckedCreateWithoutTripInput[]
     connectOrCreate?: SplitBillCreateOrConnectWithoutTripInput | SplitBillCreateOrConnectWithoutTripInput[]
@@ -19712,6 +21320,34 @@ export namespace Prisma {
     update?: AiMessageUpdateWithWhereUniqueWithoutTripInput | AiMessageUpdateWithWhereUniqueWithoutTripInput[]
     updateMany?: AiMessageUpdateManyWithWhereWithoutTripInput | AiMessageUpdateManyWithWhereWithoutTripInput[]
     deleteMany?: AiMessageScalarWhereInput | AiMessageScalarWhereInput[]
+  }
+
+  export type TripCreateNestedOneWithoutCollaboratorsInput = {
+    create?: XOR<TripCreateWithoutCollaboratorsInput, TripUncheckedCreateWithoutCollaboratorsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutCollaboratorsInput
+    connect?: TripWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutTripCollaborationsInput = {
+    create?: XOR<UserCreateWithoutTripCollaborationsInput, UserUncheckedCreateWithoutTripCollaborationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTripCollaborationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type TripUpdateOneRequiredWithoutCollaboratorsNestedInput = {
+    create?: XOR<TripCreateWithoutCollaboratorsInput, TripUncheckedCreateWithoutCollaboratorsInput>
+    connectOrCreate?: TripCreateOrConnectWithoutCollaboratorsInput
+    upsert?: TripUpsertWithoutCollaboratorsInput
+    connect?: TripWhereUniqueInput
+    update?: XOR<XOR<TripUpdateToOneWithWhereWithoutCollaboratorsInput, TripUpdateWithoutCollaboratorsInput>, TripUncheckedUpdateWithoutCollaboratorsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutTripCollaborationsNestedInput = {
+    create?: XOR<UserCreateWithoutTripCollaborationsInput, UserUncheckedCreateWithoutTripCollaborationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTripCollaborationsInput
+    upsert?: UserUpsertWithoutTripCollaborationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTripCollaborationsInput, UserUpdateWithoutTripCollaborationsInput>, UserUncheckedUpdateWithoutTripCollaborationsInput>
   }
 
   export type ActivityCreateNestedManyWithoutDayInput = {
@@ -20293,6 +21929,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     bills?: SplitBillCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventCreateNestedManyWithoutTripInput
@@ -20311,6 +21948,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
@@ -20325,6 +21963,33 @@ export namespace Prisma {
 
   export type TripCreateManyUserInputEnvelope = {
     data: TripCreateManyUserInput | TripCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TripCollaboratorCreateWithoutUserInput = {
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trip: TripCreateNestedOneWithoutCollaboratorsInput
+  }
+
+  export type TripCollaboratorUncheckedCreateWithoutUserInput = {
+    id?: number
+    tripId: number
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TripCollaboratorCreateOrConnectWithoutUserInput = {
+    where: TripCollaboratorWhereUniqueInput
+    create: XOR<TripCollaboratorCreateWithoutUserInput, TripCollaboratorUncheckedCreateWithoutUserInput>
+  }
+
+  export type TripCollaboratorCreateManyUserInputEnvelope = {
+    data: TripCollaboratorCreateManyUserInput | TripCollaboratorCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -20439,6 +22104,35 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Trip"> | Date | string
   }
 
+  export type TripCollaboratorUpsertWithWhereUniqueWithoutUserInput = {
+    where: TripCollaboratorWhereUniqueInput
+    update: XOR<TripCollaboratorUpdateWithoutUserInput, TripCollaboratorUncheckedUpdateWithoutUserInput>
+    create: XOR<TripCollaboratorCreateWithoutUserInput, TripCollaboratorUncheckedCreateWithoutUserInput>
+  }
+
+  export type TripCollaboratorUpdateWithWhereUniqueWithoutUserInput = {
+    where: TripCollaboratorWhereUniqueInput
+    data: XOR<TripCollaboratorUpdateWithoutUserInput, TripCollaboratorUncheckedUpdateWithoutUserInput>
+  }
+
+  export type TripCollaboratorUpdateManyWithWhereWithoutUserInput = {
+    where: TripCollaboratorScalarWhereInput
+    data: XOR<TripCollaboratorUpdateManyMutationInput, TripCollaboratorUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type TripCollaboratorScalarWhereInput = {
+    AND?: TripCollaboratorScalarWhereInput | TripCollaboratorScalarWhereInput[]
+    OR?: TripCollaboratorScalarWhereInput[]
+    NOT?: TripCollaboratorScalarWhereInput | TripCollaboratorScalarWhereInput[]
+    id?: IntFilter<"TripCollaborator"> | number
+    tripId?: IntFilter<"TripCollaborator"> | number
+    userId?: IntFilter<"TripCollaborator"> | number
+    role?: StringFilter<"TripCollaborator"> | string
+    status?: StringFilter<"TripCollaborator"> | string
+    createdAt?: DateTimeFilter<"TripCollaborator"> | Date | string
+    updatedAt?: DateTimeFilter<"TripCollaborator"> | Date | string
+  }
+
   export type AiMessageUpsertWithWhereUniqueWithoutUserInput = {
     where: AiMessageWhereUniqueInput
     update: XOR<AiMessageUpdateWithoutUserInput, AiMessageUncheckedUpdateWithoutUserInput>
@@ -20545,6 +22239,33 @@ export namespace Prisma {
 
   export type TripMemberCreateManyTripInputEnvelope = {
     data: TripMemberCreateManyTripInput | TripMemberCreateManyTripInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TripCollaboratorCreateWithoutTripInput = {
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutTripCollaborationsInput
+  }
+
+  export type TripCollaboratorUncheckedCreateWithoutTripInput = {
+    id?: number
+    userId: number
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TripCollaboratorCreateOrConnectWithoutTripInput = {
+    where: TripCollaboratorWhereUniqueInput
+    create: XOR<TripCollaboratorCreateWithoutTripInput, TripCollaboratorUncheckedCreateWithoutTripInput>
+  }
+
+  export type TripCollaboratorCreateManyTripInputEnvelope = {
+    data: TripCollaboratorCreateManyTripInput | TripCollaboratorCreateManyTripInput[]
     skipDuplicates?: boolean
   }
 
@@ -20716,6 +22437,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tripCollaborations?: TripCollaboratorCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -20730,6 +22452,7 @@ export namespace Prisma {
     password: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    tripCollaborations?: TripCollaboratorUncheckedCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -20765,6 +22488,22 @@ export namespace Prisma {
     name?: StringFilter<"TripMember"> | string
     active?: BoolFilter<"TripMember"> | boolean
     version?: IntFilter<"TripMember"> | number
+  }
+
+  export type TripCollaboratorUpsertWithWhereUniqueWithoutTripInput = {
+    where: TripCollaboratorWhereUniqueInput
+    update: XOR<TripCollaboratorUpdateWithoutTripInput, TripCollaboratorUncheckedUpdateWithoutTripInput>
+    create: XOR<TripCollaboratorCreateWithoutTripInput, TripCollaboratorUncheckedCreateWithoutTripInput>
+  }
+
+  export type TripCollaboratorUpdateWithWhereUniqueWithoutTripInput = {
+    where: TripCollaboratorWhereUniqueInput
+    data: XOR<TripCollaboratorUpdateWithoutTripInput, TripCollaboratorUncheckedUpdateWithoutTripInput>
+  }
+
+  export type TripCollaboratorUpdateManyWithWhereWithoutTripInput = {
+    where: TripCollaboratorScalarWhereInput
+    data: XOR<TripCollaboratorUpdateManyMutationInput, TripCollaboratorUncheckedUpdateManyWithoutTripInput>
   }
 
   export type SplitBillUpsertWithWhereUniqueWithoutTripInput = {
@@ -20927,6 +22666,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tripCollaborations?: TripCollaboratorUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -20941,6 +22681,171 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tripCollaborations?: TripCollaboratorUncheckedUpdateManyWithoutUserNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutUserNestedInput
+    refreshSessions?: RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type TripCreateWithoutCollaboratorsInput = {
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberCreateNestedManyWithoutTripInput
+    bills?: SplitBillCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventCreateNestedManyWithoutTripInput
+    days?: DayCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageCreateNestedManyWithoutTripInput
+    user: UserCreateNestedOneWithoutTripsInput
+  }
+
+  export type TripUncheckedCreateWithoutCollaboratorsInput = {
+    id?: number
+    userId: number
+    tripName: string
+    destination?: string | null
+    startDate?: Date | string | null
+    endDate?: Date | string | null
+    tripDescription?: string | null
+    shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
+    settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
+    billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
+    days?: DayUncheckedCreateNestedManyWithoutTripInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutTripInput
+  }
+
+  export type TripCreateOrConnectWithoutCollaboratorsInput = {
+    where: TripWhereUniqueInput
+    create: XOR<TripCreateWithoutCollaboratorsInput, TripUncheckedCreateWithoutCollaboratorsInput>
+  }
+
+  export type UserCreateWithoutTripCollaborationsInput = {
+    tokenVersion?: number
+    googleSub?: string | null
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trips?: TripCreateNestedManyWithoutUserInput
+    aiMessages?: AiMessageCreateNestedManyWithoutUserInput
+    refreshSessions?: RefreshSessionCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutTripCollaborationsInput = {
+    id?: number
+    tokenVersion?: number
+    googleSub?: string | null
+    username: string
+    email: string
+    password: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    aiMessages?: AiMessageUncheckedCreateNestedManyWithoutUserInput
+    refreshSessions?: RefreshSessionUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutTripCollaborationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTripCollaborationsInput, UserUncheckedCreateWithoutTripCollaborationsInput>
+  }
+
+  export type TripUpsertWithoutCollaboratorsInput = {
+    update: XOR<TripUpdateWithoutCollaboratorsInput, TripUncheckedUpdateWithoutCollaboratorsInput>
+    create: XOR<TripCreateWithoutCollaboratorsInput, TripUncheckedCreateWithoutCollaboratorsInput>
+    where?: TripWhereInput
+  }
+
+  export type TripUpdateToOneWithWhereWithoutCollaboratorsInput = {
+    where?: TripWhereInput
+    data: XOR<TripUpdateWithoutCollaboratorsInput, TripUncheckedUpdateWithoutCollaboratorsInput>
+  }
+
+  export type TripUpdateWithoutCollaboratorsInput = {
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
+    days?: DayUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutTripNestedInput
+    user?: UserUpdateOneRequiredWithoutTripsNestedInput
+  }
+
+  export type TripUncheckedUpdateWithoutCollaboratorsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    tripName?: StringFieldUpdateOperationsInput | string
+    destination?: NullableStringFieldUpdateOperationsInput | string | null
+    startDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
+    shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
+    settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
+    billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
+    days?: DayUncheckedUpdateManyWithoutTripNestedInput
+    aiMessages?: AiMessageUncheckedUpdateManyWithoutTripNestedInput
+  }
+
+  export type UserUpsertWithoutTripCollaborationsInput = {
+    update: XOR<UserUpdateWithoutTripCollaborationsInput, UserUncheckedUpdateWithoutTripCollaborationsInput>
+    create: XOR<UserCreateWithoutTripCollaborationsInput, UserUncheckedCreateWithoutTripCollaborationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTripCollaborationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTripCollaborationsInput, UserUncheckedUpdateWithoutTripCollaborationsInput>
+  }
+
+  export type UserUpdateWithoutTripCollaborationsInput = {
+    tokenVersion?: IntFieldUpdateOperationsInput | number
+    googleSub?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trips?: TripUpdateManyWithoutUserNestedInput
+    aiMessages?: AiMessageUpdateManyWithoutUserNestedInput
+    refreshSessions?: RefreshSessionUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTripCollaborationsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tokenVersion?: IntFieldUpdateOperationsInput | number
+    googleSub?: NullableStringFieldUpdateOperationsInput | string | null
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trips?: TripUncheckedUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUncheckedUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -20995,6 +22900,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     bills?: SplitBillCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventCreateNestedManyWithoutTripInput
@@ -21014,6 +22920,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
@@ -21081,6 +22988,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     bills?: SplitBillUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
@@ -21100,6 +23008,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
@@ -21169,6 +23078,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
@@ -21183,6 +23093,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorUncheckedCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
@@ -21202,6 +23113,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     bills?: SplitBillCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventCreateNestedManyWithoutTripInput
@@ -21221,6 +23133,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
@@ -21252,6 +23165,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
@@ -21266,6 +23180,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUncheckedUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -21291,6 +23206,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     bills?: SplitBillUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
@@ -21310,6 +23226,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
@@ -21325,6 +23242,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
   }
@@ -21339,6 +23257,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorUncheckedCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   }
@@ -21368,6 +23287,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
   }
@@ -21382,6 +23302,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUncheckedUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -21395,6 +23316,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionCreateNestedManyWithoutUserInput
   }
@@ -21409,6 +23331,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     trips?: TripUncheckedCreateNestedManyWithoutUserInput
+    tripCollaborations?: TripCollaboratorUncheckedCreateNestedManyWithoutUserInput
     aiMessages?: AiMessageUncheckedCreateNestedManyWithoutUserInput
     refreshSessions?: RefreshSessionUncheckedCreateNestedManyWithoutUserInput
   }
@@ -21438,6 +23361,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUpdateManyWithoutUserNestedInput
   }
@@ -21452,6 +23376,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     trips?: TripUncheckedUpdateManyWithoutUserNestedInput
+    tripCollaborations?: TripCollaboratorUncheckedUpdateManyWithoutUserNestedInput
     aiMessages?: AiMessageUncheckedUpdateManyWithoutUserNestedInput
     refreshSessions?: RefreshSessionUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -21465,6 +23390,7 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     bills?: SplitBillCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventCreateNestedManyWithoutTripInput
@@ -21484,6 +23410,7 @@ export namespace Prisma {
     shareToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
@@ -21516,6 +23443,7 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     bills?: SplitBillUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
@@ -21535,6 +23463,7 @@ export namespace Prisma {
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
@@ -21552,6 +23481,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventCreateNestedManyWithoutTripInput
     days?: DayCreateNestedManyWithoutTripInput
@@ -21571,6 +23501,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
     days?: DayUncheckedCreateNestedManyWithoutTripInput
@@ -21603,6 +23534,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
     days?: DayUpdateManyWithoutTripNestedInput
@@ -21622,6 +23554,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
@@ -21638,6 +23571,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     bills?: SplitBillCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventCreateNestedManyWithoutTripInput
     days?: DayCreateNestedManyWithoutTripInput
@@ -21657,6 +23591,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
     billingEvents?: BillingEventUncheckedCreateNestedManyWithoutTripInput
     days?: DayUncheckedCreateNestedManyWithoutTripInput
@@ -21689,6 +23624,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     bills?: SplitBillUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
     days?: DayUpdateManyWithoutTripNestedInput
@@ -21708,6 +23644,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
@@ -21724,6 +23661,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorCreateNestedManyWithoutTripInput
     bills?: SplitBillCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementCreateNestedManyWithoutTripInput
     days?: DayCreateNestedManyWithoutTripInput
@@ -21743,6 +23681,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: TripMemberUncheckedCreateNestedManyWithoutTripInput
+    collaborators?: TripCollaboratorUncheckedCreateNestedManyWithoutTripInput
     bills?: SplitBillUncheckedCreateNestedManyWithoutTripInput
     settlements?: SplitSettlementUncheckedCreateNestedManyWithoutTripInput
     days?: DayUncheckedCreateNestedManyWithoutTripInput
@@ -21775,6 +23714,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     bills?: SplitBillUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
     days?: DayUpdateManyWithoutTripNestedInput
@@ -21794,6 +23734,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
     days?: DayUncheckedUpdateManyWithoutTripNestedInput
@@ -21808,6 +23749,15 @@ export namespace Prisma {
     endDate?: Date | string | null
     tripDescription?: string | null
     shareToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TripCollaboratorCreateManyUserInput = {
+    id?: number
+    tripId: number
+    role: string
+    status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -21847,6 +23797,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUpdateManyWithoutTripNestedInput
     bills?: SplitBillUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUpdateManyWithoutTripNestedInput
@@ -21865,6 +23816,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: TripMemberUncheckedUpdateManyWithoutTripNestedInput
+    collaborators?: TripCollaboratorUncheckedUpdateManyWithoutTripNestedInput
     bills?: SplitBillUncheckedUpdateManyWithoutTripNestedInput
     settlements?: SplitSettlementUncheckedUpdateManyWithoutTripNestedInput
     billingEvents?: BillingEventUncheckedUpdateManyWithoutTripNestedInput
@@ -21880,6 +23832,32 @@ export namespace Prisma {
     endDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tripDescription?: NullableStringFieldUpdateOperationsInput | string | null
     shareToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripCollaboratorUpdateWithoutUserInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    trip?: TripUpdateOneRequiredWithoutCollaboratorsNestedInput
+  }
+
+  export type TripCollaboratorUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tripId?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripCollaboratorUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    tripId?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21965,6 +23943,15 @@ export namespace Prisma {
     version?: number
   }
 
+  export type TripCollaboratorCreateManyTripInput = {
+    id?: number
+    userId: number
+    role: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type SplitBillCreateManyTripInput = {
     id?: string
     title: string
@@ -22039,6 +24026,32 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     active?: BoolFieldUpdateOperationsInput | boolean
     version?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type TripCollaboratorUpdateWithoutTripInput = {
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutTripCollaborationsNestedInput
+  }
+
+  export type TripCollaboratorUncheckedUpdateWithoutTripInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TripCollaboratorUncheckedUpdateManyWithoutTripInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    userId?: IntFieldUpdateOperationsInput | number
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SplitBillUpdateWithoutTripInput = {

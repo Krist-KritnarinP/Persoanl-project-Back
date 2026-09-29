@@ -144,6 +144,16 @@ exports.Prisma.TripScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TripCollaboratorScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  userId: 'userId',
+  role: 'role',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.DayScalarFieldEnum = {
   id: 'id',
   tripId: 'tripId',
@@ -296,6 +306,7 @@ exports.AiMessageKind = exports.$Enums.AiMessageKind = {
 exports.Prisma.ModelName = {
   User: 'User',
   Trip: 'Trip',
+  TripCollaborator: 'TripCollaborator',
   Day: 'Day',
   Activity: 'Activity',
   AiMessage: 'AiMessage',

@@ -5,6 +5,7 @@ import { reserveAiQuota } from "../security/quotas.js";
 import { GoogleGenAI } from "@google/genai";
 import createError from "http-errors";
 import { weatherSchema } from "../validations/schema.js";
+import { tripAccessWhere } from "../services/trip-access.js";
 import {
   saveAiMessage,
   getAiHistoryService,
@@ -62,7 +63,7 @@ export const predictTripWeather = async (req, res, next) => {
 
     const { tripId, language } = parsed.data;
     const trip = await prisma.trip.findFirst({
-      where: { id: tripId, userId: req.user.id },
+      where: { id: tripId, ...tripAccessWhere(req.user.id) },
       include: { days: { include: { activities: true } } },
     });
     if (!trip) return next(createError(404, "Trip not found"));
