@@ -1,8 +1,9 @@
-# สถานะล่าสุด — API / Trip collaboration (2026-09-29)
+# สถานะล่าสุด — API / Trip collaboration (2026-09-30)
 
 - เพิ่มการเชิญ/ตอบรับผู้ร่วมและการตรวจ owner/viewer/editor; itinerary, overview, weather ของผู้ใช้เอง และ ledger ใช้สิทธิ์สมาชิก; public share whitelist เดิม
-- เพิ่ม `TripCollaborator`, migration `npm run migrate:collaboration` และ Prisma client ที่ generate แล้ว; ยังไม่ได้ apply migration กับฐานข้อมูลใด
-- ก่อนเปิดใช้ใน environment ให้รัน migration ด้วย credentials สำหรับ migration แล้ว restart API; ทำ owner/viewer/editor และ privacy verification บน PostgreSQL ชั่วคราวก่อน rollout
+- เพิ่ม `TripCollaborator`, migration `npm run migrate:collaboration` และ Prisma client ที่ generate แล้ว; apply migration สำเร็จกับฐานข้อมูลตาม `DIRECT_URL`/`DATABASE_URL` ที่ตั้งใน environment นี้แล้ว
+- ตรวจแบบอ่านอย่างเดียวหลัง migration: ตาราง `trips` ยังมี 5 ทริป และ `trip_collaborators` มี 0 แถว; migration เพิ่มเฉพาะตารางสมาชิก ไม่ได้แก้หรือลบทริปเดิม
+- ต้อง apply migration แยกใน environment อื่นก่อน deploy API เวอร์ชันนี้; ยังต้องทำ owner/viewer/editor และ privacy verification บน PostgreSQL ชั่วคราว
 - แผน implementation/checklist: [docs/TRIP_COLLABORATION_PLAN.md](docs/TRIP_COLLABORATION_PLAN.md); การแจ้งคำเชิญทาง email ยังไม่ทำ ผู้รับเห็นคำเชิญหลัง sign in ที่ Dashboard
 - Repo มีไฟล์ `docs/ADMIN.md` เป็น untracked ซึ่งคงไว้โดยไม่แก้หรือ stage
 - ฟีเจอร์หารบิลชุดแรกยังอยู่ใน [docs/SPLIT_BILLS_PLAN.md](docs/SPLIT_BILLS_PLAN.md) และคู่มือ [docs/BILLING.md](docs/BILLING.md); Frontend checks ล่าสุดที่ผู้ใช้แจ้งผ่าน run 36524216696

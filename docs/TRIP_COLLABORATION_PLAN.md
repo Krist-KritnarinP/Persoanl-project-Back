@@ -1,6 +1,6 @@
 # Trip collaboration roadmap
 
-Updated: 2026-09-29
+Updated: 2026-09-30
 
 ## First release
 
@@ -11,7 +11,7 @@ Updated: 2026-09-29
 - [x] Editors can change itinerary and ledger. Only owner can delete the trip, manage collaborators, or create/revoke the public read-only share link.
 - [x] Enforce membership and role checks in API reads and writes; public share keeps its existing whitelist.
 - [x] Remove collaboration records when either account or trip is deleted; include a user's collaboration list in account export.
-- [ ] Apply the additive migration to each database environment with `npm run migrate:collaboration`.
+- [x] Apply the additive migration to the database configured in this environment; confirmed existing trips remain. Apply it separately to any other database environment before deploying the collaboration API.
 - [ ] Verify owner/viewer/editor, invitation acceptance/decline, revocation, account deletion, and public-share privacy against a temporary PostgreSQL database.
 - [ ] Email new invitations. For now, they appear on the invited user's dashboard after sign-in.
 
