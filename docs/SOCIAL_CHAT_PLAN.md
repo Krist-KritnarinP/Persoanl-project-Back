@@ -25,6 +25,12 @@ Updated: 2026-09-30
 - Message polling is near real time (4 seconds), not a persistent socket connection. Browser location updates follow `watchPosition`; background tabs and mobile OS suspension can delay updates.
 - Test friend acceptance, membership/privacy boundaries, expiry, stop/revoke, and account deletion with a temporary PostgreSQL database before rollout. Do not use production data for smoke tests.
 
+## SQL regression verification (2026-09-30)
+
+- [x] Fix PostgreSQL 42P18 in message notification payload by explicitly casting bound JSON values to text; retain transactional message + notification writes.
+- [x] Verify real notification INSERT planning using read-only EXPLAIN, including configured PostgreSQL; opt-in test command in CODE_GUIDE.
+- [ ] Full send/receive integration with isolated PostgreSQL fixtures remains part of rollout coverage; JS mocks alone do not validate SQL.
+
 ## Deferred
 
 - Push/email delivery, attachments, message deletion/moderation, location history, offline chat, and native background location.

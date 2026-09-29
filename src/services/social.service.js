@@ -159,7 +159,7 @@ export async function sendMessage(conversationId, userId, body, kind = "text") {
       await tx.$executeRaw`
         INSERT INTO notifications (user_id,actor_id,type,entity_type,entity_id,payload)
         SELECT m.user_id,${asId(userId)},'new_message','conversation',${String(conversationId)},
-          jsonb_build_object('conversationId',${String(conversationId)},'messageId',${rows[0].id},'excerpt',left(${message},160))
+          jsonb_build_object('conversationId',${String(conversationId)}::text,'messageId',${rows[0].id}::text,'excerpt',left(${message}::text,160))
         FROM chat_members m WHERE m.conversation_id=${asId(conversationId)} AND m.user_id<>${asId(userId)}`;
     }
     return rows[0];

@@ -1,5 +1,13 @@
 # สถานะล่าสุด — API / Social + Trip collaboration (2026-09-30)
 
+## Chat send failure after notifications migration (2026-09-30)
+
+- Root cause confirmed against the configured PostgreSQL using a read-only SELECT: untyped placeholders inside `jsonb_build_object` raise `42P18` (`could not determine data type of parameter $1`), surfaced as Prisma P2010. Since notification creation is in the message transaction, the message was rolled back too.
+- Added explicit `::text` casts for conversationId/messageId/excerpt parameters in `sendMessage`; keeps atomic messages + recipient notifications, membership checks, and existing schema.
+- Added opt-in `CHECK_SOCIAL_SQL=1 node --test tests/social-notifications.test.js`: captures the actual production notification INSERT and runs EXPLAIN (without ANALYZE) in a READ ONLY transaction. No real messages sent, rows changed, or sequence values consumed.
+- API unit suite: 45 passed, SQL check skipped by default; opt-in suite: 6/6 passed against configured DB. Previous JS/API mocks did not check PostgreSQL parameter inference and missed this failure.
+- Local API watcher restarted and still listens on 8899. No migration/reset or push/deploy required/performed. Frontend handlers unchanged.
+
 ## Friends, group chat, and timed location sharing
 
 - แก้ regression: notification table เป็น optional ระหว่าง rollout; เมื่อยังไม่มีตาราง API ต้องไม่ rollback การส่งข้อความ/เพิ่มหรือรับเพื่อน; unit tests cover ทั้งมี/ไม่มี migration

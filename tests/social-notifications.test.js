@@ -138,3 +138,33 @@ test("friend requests and acceptance keep working before the optional inbox migr
     prisma.$transaction = original.transaction;
   }
 });
+
+// Opt-in: validates the actual production INSERT with PostgreSQL's planner.
+// EXPLAIN without ANALYZE never writes messages/notifications or advances sequences.
+test("PostgreSQL can plan the production message notification INSERT", {skip:process.env.CHECK_SOCIAL_SQL !== "1"}, async () => {
+  const {default:pg} = await import("pg");
+  const client = new pg.Client({connectionString:process.env.DATABASE_URL,connectionTimeoutMillis:5000,query_timeout:10000});
+  const original = {query:prisma.$queryRaw,transaction:prisma.$transaction};
+  let planned = false;
+  prisma.$queryRaw = async () => [{member:true}];
+  prisma.$transaction = async (callback) => callback({
+    $queryRaw:async (strings) => sqlText(strings).includes("to_regclass") ? [{available:true}] : [{id:"91"}],
+    $executeRaw:async (strings,...values) => {
+      const sql = strings.reduce((result,part,index)=>result+(index?`$${index}`:"")+part,"");
+      const {rows} = await client.query("EXPLAIN " + sql,values);
+      assert.ok(rows.length > 0);
+      planned = true;
+      return 0;
+    },
+  });
+  try {
+    await client.connect();
+    await client.query("BEGIN READ ONLY");
+    await sendMessage(4,1,"SQL validation only");
+    assert.equal(planned,true);
+  } finally {
+    prisma.$queryRaw=original.query;
+    prisma.$transaction=original.transaction;
+    await client.end(); // ends the read-only transaction without committing
+  }
+});
