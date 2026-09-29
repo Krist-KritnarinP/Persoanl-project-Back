@@ -13,6 +13,7 @@
 | routes/days.routes.js | เพิ่ม/แก้/ลบวัน; mount ใต้ /api |
 | routes/activities.route.js | เพิ่ม/แก้/ลบกิจกรรม |
 | routes/users.route.js | บัญชี logout export/delete |
+| routes/social.routes.js | เพื่อน กลุ่มแชท ข้อความ และแชร์พิกัดชั่วคราว |
 | routes/weather.route.js | ประวัติและเรียก AI อากาศ |
 | controllers/ | HTTP status, request/response, ส่ง errors ต่อ; auth ใช้ transaction โดยตรงในบาง flow |
 | services/trips.service.js | query ทริปพร้อม ownership และ public share whitelist |
@@ -33,6 +34,7 @@
 - JWT/refresh/reset lock order, tokenVersion, rate limits และ Origin checks ห้ามแก้เพื่อความสั้น
 - AI prompt/model fallback/quota/cache เป็น logic ที่ผู้ใช้ปรับมาแล้ว; รอบนี้จัดรูปแบบเท่านั้น
 - Route shared ต้องอยู่ก่อน middleware /api ที่ตรวจ auth; อย่าสลับ mount order
+- Social API ใช้ PostgreSQL tables ผ่าน `src/services/social.service.js`; อ่าน [SOCIAL_CHAT_PLAN.md](SOCIAL_CHAT_PLAN.md) ก่อนแตะ schema, access checks หรือ retention ของพิกัด
 
 ## ตรวจงานและฐานข้อมูล
 npm test ใช้ unit/stubs; scripts/*-smoke.js เป็น integration ที่มีการสร้าง/ลบข้อมูลทดสอบ ต้องใช้ DB ชั่วคราวเท่านั้น

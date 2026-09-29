@@ -1,4 +1,14 @@
-# สถานะล่าสุด — API / Trip collaboration (2026-09-30)
+# สถานะล่าสุด — API / Social + Trip collaboration (2026-09-30)
+
+## Friends, group chat, and timed location sharing
+
+- เพิ่ม authenticated API สำหรับ friend requests, direct/group conversations, messages, group location requests และแชร์พิกัดตาม consent ได้ 5 นาทีถึง 24 ชั่วโมง
+- ตำแหน่งเก็บล่าสุดจุดเดียวต่อคน/กลุ่ม; stop/expiry ลบ position, API ปฏิเสธ update หลัง expiry และ cleanup job ทำงานทุกนาที
+- Migration `npm run migrate:social` เป็น additive; apply แล้วกับฐานข้อมูลที่ตั้งไว้ ตรวจแล้ว trips=5 และ conversations/messages/locations=0; ต้อง apply แยกทุก environment อื่นก่อน deploy
+- Front เพิ่ม `/chat` กับ floating chat dock; ย้ายกล่องเชิญ collaborator ไปใต้แผนที่และย่อขนาด
+- รายละเอียด contract, privacy/retention, rollout และข้อจำกัด polling: [docs/SOCIAL_CHAT_PLAN.md](docs/SOCIAL_CHAT_PLAN.md)
+- API tests ผ่าน 40; Front build/lint/unit ผ่าน; browser suite ผ่าน 34/34 เมื่อใช้ 2 workers
+- Migration apply กับ DB ที่ตั้งในเครื่องมือแล้ว; ยังไม่ได้ push/deploy โค้ดขึ้น remote
 
 - เพิ่มการเชิญ/ตอบรับผู้ร่วมและการตรวจ owner/viewer/editor; itinerary, overview, weather ของผู้ใช้เอง และ ledger ใช้สิทธิ์สมาชิก; public share whitelist เดิม
 - เพิ่ม `TripCollaborator`, migration `npm run migrate:collaboration` และ Prisma client ที่ generate แล้ว; apply migration สำเร็จกับฐานข้อมูลตาม `DIRECT_URL`/`DATABASE_URL` ที่ตั้งใน environment นี้แล้ว

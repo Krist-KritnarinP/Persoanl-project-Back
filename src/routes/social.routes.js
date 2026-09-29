@@ -1,0 +1,24 @@
+import { Router } from "express";
+import authCheck from "../middlewares/auth.middleware.js";
+import { validateIds } from "../validations/schema.js";
+import * as social from "../controllers/social.controller.js";
+
+const router = Router();
+router.use(authCheck);
+router.get("/friends",social.friends);
+router.post("/friends",social.addFriend);
+router.post("/friends/:friendId/accept",social.acceptFriend);
+router.delete("/friends/:friendId",social.removeFriend);
+router.post("/conversations",social.createConversation);
+router.get("/conversations",social.conversations);
+router.get("/conversations/:conversationId/messages",social.messages);
+router.post("/conversations/:conversationId/messages",social.sendMessage);
+router.post("/conversations/:conversationId/location-requests",social.requestLocation);
+router.get("/conversations/:conversationId/locations",social.locations);
+router.get("/conversations/:conversationId/location-shares",social.ownLocationShare);
+router.post("/conversations/:conversationId/location-shares",social.startLocation);
+router.put("/conversations/:conversationId/location",social.updateLocation);
+router.delete("/conversations/:conversationId/location-shares",social.stopLocation);
+router.delete("/conversations/:conversationId/membership",social.leaveConversation);
+for (const name of ["friendId","conversationId"]) router.param(name,validateIds);
+export default router;

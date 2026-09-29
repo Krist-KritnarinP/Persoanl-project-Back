@@ -68,8 +68,18 @@ test('AI quota rejects before incrementing any counters and uses transaction loc
 });
 test('ownership filters reject other user before reading or modifying records', async () => {
   const tripFind = prisma.trip.findFirst, activityFind = prisma.activity.findFirst;
-  prisma.trip.findFirst = async ({ where }) => { assert.equal(where.userId, 41); return null; };
-  prisma.activity.findFirst = async ({ where }) => { assert.equal(where.day.trip.userId, 41); return null; };
+  prisma.trip.findFirst = async ({ where }) => {
+    assert.equal(where.id, 9);
+    assert.ok(where.OR.some((entry) => entry.userId === 41));
+    assert.ok(where.OR.some((entry) => entry.collaborators?.some?.userId === 41));
+    return null;
+  };
+  prisma.activity.findFirst = async ({ where }) => {
+    assert.equal(where.id, 99);
+    assert.ok(where.day.trip.OR.some((entry) => entry.userId === 41));
+    assert.ok(where.day.trip.OR.some((entry) => entry.collaborators?.some?.userId === 41));
+    return null;
+  };
   try {
     assert.equal(await getTripByIdService(9, 41), null);
     assert.equal(await updateActivityService(99, 41, { locationName: 'Changed' }), null);

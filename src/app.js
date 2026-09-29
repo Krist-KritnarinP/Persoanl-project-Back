@@ -13,6 +13,7 @@ import { pathNotfound } from "./middlewares/pathNotfound.middleware.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import weatherRoutes from "./routes/weather.route.js";
 import collaborationRoutes from "./routes/collaboration.routes.js";
+import socialRoutes from "./routes/social.routes.js";
 
 import { healthHandlers } from "./ops/health.js";
 
@@ -72,6 +73,7 @@ app.get("/check", (req, res) => {
 app.use("/api/auth", authLimiter, authRoute);
 app.use("/api/users", UsersRoute);
 app.use("/api/collaboration", collaborationRoutes);
+app.use("/api/social", socialRoutes);
 app.use("/api/shared", rateLimit({ windowMs: 60000, limit: 60 }), SharedRoute); // 👈 public: ดูทริปผ่านลิงก์แชร์ (ไม่ต้อง auth)
 app.use("/api/trips", TripsRoute);
 // DaysRoute อยู่ใต้ /api: POST /api/trips/:tripId/days, PUT/DELETE /api/days/:dayId

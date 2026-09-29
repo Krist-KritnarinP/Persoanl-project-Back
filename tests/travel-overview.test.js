@@ -45,7 +45,8 @@ test("overview query scopes to authenticated owner with bounded pagination", asy
     data: [],
     nextPage: null,
   });
-  assert.deepEqual(query.where, { userId: 7 });
+  assert.ok(query.where.OR.some((entry) => entry.userId === 7));
+  assert.ok(query.where.OR.some((entry) => entry.collaborators?.some?.userId === 7));
   assert.equal(query.take, 20);
   assert.equal(query.skip, 20);
   assert.equal(query.select.shareToken, undefined);
