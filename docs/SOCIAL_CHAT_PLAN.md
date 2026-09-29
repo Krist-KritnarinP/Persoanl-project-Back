@@ -18,6 +18,7 @@ Updated: 2026-09-30
 ## API and rollout
 
 - Routes are under authenticated `/api/social`; the API verifies friend status and conversation membership on every operation.
+- `DELETE /api/social/conversations/:conversationId/membership` removes only the current user's membership. It leaves the conversation and message history available to the remaining members; the user can start a new direct conversation later.
 - `npm run migrate:social` adds `social_friendships`, `chat_conversations`, `chat_members`, `chat_messages`, `location_shares`, and `live_locations`. The migration is additive and does not alter trips, itinerary, or existing account records.
 - `npm run migrate:notifications` adds a generic notification inbox table with RLS and runtime-role access. Run after `migrate:social` in every target environment before using notification APIs. The migration is not applied to the configured non-local DB in this workspace.
 - Applied the migration to the database configured in this environment; a read-only check confirmed 5 existing trips and zero new conversations/messages/locations. Apply it to each other target database before deploying there.

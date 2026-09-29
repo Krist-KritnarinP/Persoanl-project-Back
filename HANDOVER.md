@@ -4,6 +4,8 @@
 
 - แก้ regression: notification table เป็น optional ระหว่าง rollout; เมื่อยังไม่มีตาราง API ต้องไม่ rollback การส่งข้อความ/เพิ่มหรือรับเพื่อน; unit tests cover ทั้งมี/ไม่มี migration
 - Front ต่อปุ่มลบเพื่อนเข้ากับ DELETE friendship endpoint เดิม; ไม่มีการลบประวัติ conversation
+- Front เพิ่ม header unread badge และปุ่มลบแชท; API ใช้ `DELETE /social/conversations/:id/membership` ถอนเฉพาะสมาชิกปัจจุบัน เก็บห้อง/ข้อความของสมาชิกคนอื่นไว้
+- Notification UI พร้อมแล้ว แต่ event/badge จะว่างจนกว่าจะ apply `npm run migrate:notifications` กับ DB ที่ API ใช้งานจริง; `.env` ชี้ไป Supabase pooler จึงยังไม่ได้รัน migration จาก localhost
 
 - เพิ่ม persisted notification feed สำหรับ friend requests และข้อความใหม่: GET list/unread count, mark read, mark conversation/all read; migrations: `npm run migrate:notifications`
 - สร้าง event ใน transaction เดียวกับ friend request/message; CORS เพิ่ม PATCH; inbox มี privacy scoping ด้วย recipient user และ conversation membership

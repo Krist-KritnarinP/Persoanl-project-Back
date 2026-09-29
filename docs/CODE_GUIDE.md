@@ -13,7 +13,7 @@
 | routes/days.routes.js | เพิ่ม/แก้/ลบวัน; mount ใต้ /api |
 | routes/activities.route.js | เพิ่ม/แก้/ลบกิจกรรม |
 | routes/users.route.js | บัญชี logout export/delete |
-| routes/social.routes.js | เพื่อน กลุ่มแชท ข้อความ และแชร์พิกัดชั่วคราว |
+| routes/social.routes.js | เพื่อน กลุ่มแชท ข้อความ notification และแชร์พิกัดชั่วคราว; DELETE membership ใช้ออกจากแชทเฉพาะบัญชีตนเอง |
 | routes/weather.route.js | ประวัติและเรียก AI อากาศ |
 | controllers/ | HTTP status, request/response, ส่ง errors ต่อ; auth ใช้ transaction โดยตรงในบาง flow |
 | services/trips.service.js | query ทริปพร้อม ownership และ public share whitelist |
