@@ -12,6 +12,8 @@ Updated: 2026-09-30
 - Frontend includes `/chat` and a compact floating chat dock. Trip collaborator invitation controls are compact and now sit below the trip map.
 - Notifications are persisted for incoming friend requests and messages. `/api/social/notifications` returns the user's feed and unread count; read endpoints are scoped to the current user/conversation.
 - Friend requests and messages create notifications in the same transaction as their source event. This is an in-app polling inbox, not push/email delivery.
+- During staggered local rollout, social actions check whether the optional notifications table exists; chat/friendship actions remain usable before `migrate:notifications` is applied, while inbox events are skipped until it exists.
+- Removing a friend deletes the friendship relationship; it preserves existing conversation history and memberships.
 
 ## API and rollout
 

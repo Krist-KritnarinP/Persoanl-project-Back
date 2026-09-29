@@ -3,6 +3,10 @@ import { prisma } from "../lib/prisma.js";
 
 const asId = (value) => Number(value);
 const pair = (a, b) => [Math.min(asId(a), asId(b)), Math.max(asId(a), asId(b))];
+async function notificationsAvailable(db = prisma) {
+  const rows = await db.$queryRaw`SELECT to_regclass('public.notifications') IS NOT NULL AS available`;
+  return rows[0]?.available === true;
+}
 
 export async function listFriends(userId) {
   return prisma.$queryRaw`
@@ -25,7 +29,9 @@ export async function requestFriend(userId, email) {
   if (existing[0]) throw createError(409, "Friend request already exists");
   await prisma.$transaction(async (tx) => {
     await tx.$executeRaw`INSERT INTO social_friendships (user_low,user_high,requested_by) VALUES (${low},${high},${asId(userId)})`;
-    await tx.$executeRaw`INSERT INTO notifications (user_id,actor_id,type,entity_type,entity_id,payload) VALUES (${asId(friendId)},${asId(userId)},'friend_request','friendship',${`${low}:${high}`},'{}'::jsonb)`;
+    if (await notificationsAvailable(tx)) {
+      await tx.$executeRaw`INSERT INTO notifications (user_id,actor_id,type,entity_type,entity_id,payload) VALUES (${asId(friendId)},${asId(userId)},'friend_request','friendship',${`${low}:${high}`},'{}'::jsonb)`;
+    }
   });
   return { requested: true };
 }
@@ -34,7 +40,9 @@ export async function acceptFriend(userId, friendId) {
   const [low, high] = pair(userId, friendId);
   const result = await prisma.$transaction(async (tx) => {
     const updated = await tx.$executeRaw`UPDATE social_friendships SET status='accepted',updated_at=now() WHERE user_low=${low} AND user_high=${high} AND status='pending' AND requested_by<>${asId(userId)}`;
-    if (updated) await tx.$executeRaw`UPDATE notifications SET read_at=COALESCE(read_at,now()),payload=jsonb_set(payload,'{accepted}','true'::jsonb,true) WHERE user_id=${asId(userId)} AND actor_id=${asId(friendId)} AND type='friend_request'`;
+    if (updated && await notificationsAvailable(tx)) {
+      await tx.$executeRaw`UPDATE notifications SET read_at=COALESCE(read_at,now()),payload=jsonb_set(payload,'{accepted}','true'::jsonb,true) WHERE user_id=${asId(userId)} AND actor_id=${asId(friendId)} AND type='friend_request'`;
+    }
     return updated;
   });
   if (!result) throw createError(404, "Incoming friend request not found");
@@ -93,6 +101,7 @@ export async function listConversations(userId) {
 }
 
 export async function listNotifications(userId) {
+  if (!(await notificationsAvailable())) return { items: [], unreadCount: 0 };
   const rows = await prisma.$queryRaw`
     SELECT n.id::text AS id,n.type,n.entity_type AS "entityType",n.entity_id AS "entityId",
       n.payload,n.created_at AS "createdAt",n.read_at AS "readAt",
@@ -105,11 +114,13 @@ export async function listNotifications(userId) {
 }
 
 export async function countUnreadNotifications(userId) {
+  if (!(await notificationsAvailable())) return 0;
   const rows = await prisma.$queryRaw`SELECT count(*)::int AS count FROM notifications WHERE user_id=${asId(userId)} AND read_at IS NULL`;
   return rows[0]?.count || 0;
 }
 
 export async function markNotificationRead(userId, notificationId) {
+  if (!(await notificationsAvailable())) return { read: false };
   const rows = await prisma.$queryRaw`UPDATE notifications SET read_at=COALESCE(read_at,now()) WHERE id=${asId(notificationId)} AND user_id=${asId(userId)} RETURNING id::text AS id`;
   if (!rows.length) throw createError(404,"Notification not found");
   return { read: true };
@@ -117,11 +128,13 @@ export async function markNotificationRead(userId, notificationId) {
 
 export async function markConversationNotificationsRead(userId, conversationId) {
   await requireMember(conversationId,userId);
+  if (!(await notificationsAvailable())) return { read: true, count: 0 };
   const result = await prisma.$executeRaw`UPDATE notifications SET read_at=COALESCE(read_at,now()) WHERE user_id=${asId(userId)} AND type='new_message' AND entity_id=${String(conversationId)} AND read_at IS NULL`;
   return { read: true, count: result };
 }
 
 export async function markAllNotificationsRead(userId) {
+  if (!(await notificationsAvailable())) return { read: true, count: 0 };
   const result = await prisma.$executeRaw`UPDATE notifications SET read_at=COALESCE(read_at,now()) WHERE user_id=${asId(userId)} AND read_at IS NULL`;
   return { read: true, count: result };
 }
@@ -142,11 +155,13 @@ export async function sendMessage(conversationId, userId, body, kind = "text") {
   if (!message || message.length > 2000) throw createError(400, "Message must contain 1 to 2000 characters");
   return prisma.$transaction(async (tx) => {
     const rows = await tx.$queryRaw`INSERT INTO chat_messages (conversation_id,sender_id,kind,body) VALUES (${asId(conversationId)},${asId(userId)},${kind},${message}) RETURNING id::text AS id,kind,body,created_at AS "createdAt",sender_id AS "senderId"`;
-    await tx.$executeRaw`
-      INSERT INTO notifications (user_id,actor_id,type,entity_type,entity_id,payload)
-      SELECT m.user_id,${asId(userId)},'new_message','conversation',${String(conversationId)},
-        jsonb_build_object('conversationId',${String(conversationId)},'messageId',${rows[0].id},'excerpt',left(${message},160))
-      FROM chat_members m WHERE m.conversation_id=${asId(conversationId)} AND m.user_id<>${asId(userId)}`;
+    if (await notificationsAvailable(tx)) {
+      await tx.$executeRaw`
+        INSERT INTO notifications (user_id,actor_id,type,entity_type,entity_id,payload)
+        SELECT m.user_id,${asId(userId)},'new_message','conversation',${String(conversationId)},
+          jsonb_build_object('conversationId',${String(conversationId)},'messageId',${rows[0].id},'excerpt',left(${message},160))
+        FROM chat_members m WHERE m.conversation_id=${asId(conversationId)} AND m.user_id<>${asId(userId)}`;
+    }
     return rows[0];
   });
 }

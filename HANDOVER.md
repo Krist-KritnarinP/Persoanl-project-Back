@@ -2,6 +2,9 @@
 
 ## Friends, group chat, and timed location sharing
 
+- แก้ regression: notification table เป็น optional ระหว่าง rollout; เมื่อยังไม่มีตาราง API ต้องไม่ rollback การส่งข้อความ/เพิ่มหรือรับเพื่อน; unit tests cover ทั้งมี/ไม่มี migration
+- Front ต่อปุ่มลบเพื่อนเข้ากับ DELETE friendship endpoint เดิม; ไม่มีการลบประวัติ conversation
+
 - เพิ่ม persisted notification feed สำหรับ friend requests และข้อความใหม่: GET list/unread count, mark read, mark conversation/all read; migrations: `npm run migrate:notifications`
 - สร้าง event ใน transaction เดียวกับ friend request/message; CORS เพิ่ม PATCH; inbox มี privacy scoping ด้วย recipient user และ conversation membership
 - Notification migration ยังไม่ได้ apply ใน database ที่กำหนดใน environment นี้ เนื่องจาก connection ชี้ออกนอกเครื่อง; ทดสอบ service logic/unit แล้ว ห้ามถือว่า local API เชื่อม DB local
