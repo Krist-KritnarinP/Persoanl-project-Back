@@ -1,3 +1,12 @@
+# สถานะล่าสุด — API (2026-09-29)
+
+- Repo `main` อยู่ที่ `a7dfbca` และตรงกับ `origin/main`; มีไฟล์ `docs/ADMIN.md` เป็น untracked ซึ่งคงไว้โดยไม่แก้หรือ stage
+- ฟีเจอร์หารบิลชุดแรก implement แล้ว; roadmap สถานะตรงกันใน `docs/SPLIT_BILLS_PLAN.md` และรายละเอียด implementation/setup/acceptance อยู่ใน `docs/BILLING.md`
+- Frontend checks ล่าสุดผ่านตาม run 36524216696 ที่ผู้ใช้ยืนยัน
+- รายการ setup บน environment อื่นและ user acceptance ใน `docs/BILLING.md` ยังเป็นงานค้างตามจริง; รอบนี้ไม่เปลี่ยน logic หรือ schema
+
+---
+
 # Handover — Trip billing shipped (2026-09-29)
 
 - เพิ่ม owner-only THB billing: สมาชิก, รายการย่อย/หลายผู้จ่าย, หาร4แบบ, VAT/service/tip, server preview, คืนบางคน/บิล/บางส่วน, reversal และ audit/version/idempotency
