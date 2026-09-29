@@ -8,6 +8,11 @@ const int = (value) => Number.isInteger(Number(value)) && Number(value) > 0;
 const coord = (value,min,max) => typeof value === "number" && Number.isFinite(value) && value>=min && value<=max;
 
 export const friends = run((req) => social.listFriends(req.user.id));
+export const notifications = run((req) => social.listNotifications(req.user.id));
+export const unreadNotificationCount = run((req) => social.countUnreadNotifications(req.user.id));
+export const readNotification = run((req) => social.markNotificationRead(req.user.id,req.params.notificationId));
+export const readConversationNotifications = run((req) => social.markConversationNotificationsRead(req.user.id,req.params.conversationId));
+export const readAllNotifications = run((req) => social.markAllNotificationsRead(req.user.id));
 export const addFriend = run((req) => {
   const email = req.body?.email;
   if (typeof email !== "string" || !/^\S+@\S+\.\S+$/.test(email) || email.length>100) throw createError(400,"Valid email required");

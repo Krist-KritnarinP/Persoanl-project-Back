@@ -17,7 +17,8 @@
     "test:auth:integration": "node scripts/auth-smoke.js",
     "migrate:billing": "node scripts/migrate-billing.js",
     "migrate:collaboration": "node scripts/migrate-collaboration.js",
-    "migrate:social": "node scripts/migrate-social.js"
+    "migrate:social": "node scripts/migrate-social.js",
+    "migrate:notifications": "node scripts/migrate-notifications.js"
   },
   "keywords": [],
   "author": "",

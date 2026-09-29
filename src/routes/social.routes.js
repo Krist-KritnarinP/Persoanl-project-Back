@@ -5,6 +5,11 @@ import * as social from "../controllers/social.controller.js";
 
 const router = Router();
 router.use(authCheck);
+router.get("/notifications",social.notifications);
+router.get("/notifications/unread-count",social.unreadNotificationCount);
+router.patch("/notifications/read-all",social.readAllNotifications);
+router.patch("/notifications/:notificationId/read",social.readNotification);
+router.patch("/notifications/conversations/:conversationId/read",social.readConversationNotifications);
 router.get("/friends",social.friends);
 router.post("/friends",social.addFriend);
 router.post("/friends/:friendId/accept",social.acceptFriend);
@@ -20,5 +25,5 @@ router.post("/conversations/:conversationId/location-shares",social.startLocatio
 router.put("/conversations/:conversationId/location",social.updateLocation);
 router.delete("/conversations/:conversationId/location-shares",social.stopLocation);
 router.delete("/conversations/:conversationId/membership",social.leaveConversation);
-for (const name of ["friendId","conversationId"]) router.param(name,validateIds);
+for (const name of ["friendId","conversationId","notificationId"]) router.param(name,validateIds);
 export default router;

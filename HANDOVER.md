@@ -2,6 +2,12 @@
 
 ## Friends, group chat, and timed location sharing
 
+- เพิ่ม persisted notification feed สำหรับ friend requests และข้อความใหม่: GET list/unread count, mark read, mark conversation/all read; migrations: `npm run migrate:notifications`
+- สร้าง event ใน transaction เดียวกับ friend request/message; CORS เพิ่ม PATCH; inbox มี privacy scoping ด้วย recipient user และ conversation membership
+- Notification migration ยังไม่ได้ apply ใน database ที่กำหนดใน environment นี้ เนื่องจาก connection ชี้ออกนอกเครื่อง; ทดสอบ service logic/unit แล้ว ห้ามถือว่า local API เชื่อม DB local
+
+- Added persistent in-app notifications for incoming friend requests and messages; migration: `npm run migrate:notifications` (must run after social migration per environment).
+
 - เพิ่ม authenticated API สำหรับ friend requests, direct/group conversations, messages, group location requests และแชร์พิกัดตาม consent ได้ 5 นาทีถึง 24 ชั่วโมง
 - ตำแหน่งเก็บล่าสุดจุดเดียวต่อคน/กลุ่ม; stop/expiry ลบ position, API ปฏิเสธ update หลัง expiry และ cleanup job ทำงานทุกนาที
 - Migration `npm run migrate:social` เป็น additive; apply แล้วกับฐานข้อมูลที่ตั้งไว้ ตรวจแล้ว trips=5 และ conversations/messages/locations=0; ต้อง apply แยกทุก environment อื่นก่อน deploy

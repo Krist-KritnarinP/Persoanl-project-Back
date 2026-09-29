@@ -26,7 +26,7 @@ const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
 app.use(
   cors({
     origin: [frontendUrl],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true, // Access JWT + HttpOnly refresh cookie; origin is explicit
   }),
 );

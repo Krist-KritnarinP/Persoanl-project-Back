@@ -17,6 +17,7 @@
 | routes/weather.route.js | ประวัติและเรียก AI อากาศ |
 | controllers/ | HTTP status, request/response, ส่ง errors ต่อ; auth ใช้ transaction โดยตรงในบาง flow |
 | services/trips.service.js | query ทริปพร้อม ownership และ public share whitelist |
+| services/social.service.js | access-check, conversation, friend/message operations และ notification events |
 | services/trip-summary.js | เติมวันเริ่ม/จบ fallback + totalDays จากลำดับวันเดิม; ไม่ query DB |
 | services/days.service.js, activities.service.js | CRUD, ownership และ creation limit |
 | security/ | quota/config/refresh rotation และการเพิกถอน session |
@@ -35,6 +36,7 @@
 - AI prompt/model fallback/quota/cache เป็น logic ที่ผู้ใช้ปรับมาแล้ว; รอบนี้จัดรูปแบบเท่านั้น
 - Route shared ต้องอยู่ก่อน middleware /api ที่ตรวจ auth; อย่าสลับ mount order
 - Social API ใช้ PostgreSQL tables ผ่าน `src/services/social.service.js`; อ่าน [SOCIAL_CHAT_PLAN.md](SOCIAL_CHAT_PLAN.md) ก่อนแตะ schema, access checks หรือ retention ของพิกัด
+- `/api/social/notifications` เป็น inbox ต่อผู้ใช้; friend/message writes สร้าง event transactionally; `scripts/notifications-migration.sql` เป็น additive migration แยกจาก social tables
 
 ## ตรวจงานและฐานข้อมูล
 npm test ใช้ unit/stubs; scripts/*-smoke.js เป็น integration ที่มีการสร้าง/ลบข้อมูลทดสอบ ต้องใช้ DB ชั่วคราวเท่านั้น
