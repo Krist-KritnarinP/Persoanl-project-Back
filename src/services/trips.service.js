@@ -191,6 +191,7 @@ export const getSharedTripService = async (token) => {
           id: true,
           dayCount: true,
           dayDate: true,
+          manualWeather: true,
           description: true,
           activities: {
             orderBy: [{ activityDate: "asc" }, { activityTime: "asc" }],
@@ -205,6 +206,7 @@ export const getSharedTripService = async (token) => {
               status: true,
               latitude: true,
               longitude: true,
+              manualWeather: true,
             },
           },
         },

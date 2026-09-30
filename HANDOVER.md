@@ -1,5 +1,13 @@
 # สถานะล่าสุด — API / Social + Trip collaboration (2026-09-30)
 
+## Manual weather at day/activity level (2026-10-01)
+
+- Optional manual observations: 22 icon conditions, 15 description presets, custom description (1,000 characters), decimal Celsius temperature −100..70. Blank is null; 0 and negative readings remain valid. Codes localize in TH/EN/ZH/KO.
+- Day/activity records are independent; no automatic inheritance or replacement of AI forecasts. Owner/editor can edit through existing CRUD; viewer/public share can read. Explicit null clears; omitted field preserves existing observations.
+- Additive `manual_weather` JSONB on days/activities; `npm run migrate:manual-weather` applied to the DB configured for localhost API. Before/after: trips=5, days=36, activities=118. No reset/deploy/push.
+- Verified: API 47 passed + 1 opt-in SQL test skipped; Front unit 14 passed, build passed, lint 9 existing warnings; weather/trip browser coverage 8/8 desktop/mobile with mocks (save, reload, independent observations, clear, public share). Reviewed mobile form screenshot.
+
+
 ## Copy fix: register duplicate-email grammar (2026-09-30)
 
 - "Email already exist" → "Email already exists" ใน `auth.controller.js` (ข้อความเดียวที่แก้; ไม่แตะ logic/validation/DB; unit 45 ผ่าน)

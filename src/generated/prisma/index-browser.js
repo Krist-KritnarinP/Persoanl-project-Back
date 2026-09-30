@@ -161,7 +161,8 @@ exports.Prisma.DayScalarFieldEnum = {
   dayDate: 'dayDate',
   description: 'description',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  manualWeather: 'manualWeather'
 };
 
 exports.Prisma.ActivityScalarFieldEnum = {
@@ -177,7 +178,8 @@ exports.Prisma.ActivityScalarFieldEnum = {
   latitude: 'latitude',
   longitude: 'longitude',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  manualWeather: 'manualWeather'
 };
 
 exports.Prisma.AiMessageScalarFieldEnum = {
@@ -266,12 +268,12 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.JsonNullValueInput = {
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 

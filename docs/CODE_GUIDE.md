@@ -55,3 +55,7 @@ npm test ใช้ unit/stubs; scripts/*-smoke.js เป็น integration ท�
 
 ## PostgreSQL notification parameters (2026-09-30)
 `social.service.js` uses explicit `::text` casts for bound values passed into polymorphic `jsonb_build_object`. Without these, PostgreSQL can reject the notification INSERT with 42P18 and roll back the chat message. Unit stubs cannot detect SQL type inference. Run `CHECK_SOCIAL_SQL=1 node --test tests/social-notifications.test.js` for read-only EXPLAIN validation against the configured DB (requires social/notification schema). This plans the real production SQL without executing INSERT; it is not a full end-to-end send test.
+
+## Manual weather (2026-10-01)
+
+`validations/manual-weather.js` validates optional observation JSON. `services/manual-weather.js` maps explicit null to Prisma.DbNull; day/activity services preserve existing access checks. Public share explicitly selects manualWeather. Additive migration is `scripts/manual-weather-migration.sql`. See [weather behavior](WEATHER_AI.md).

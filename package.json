@@ -18,7 +18,8 @@
     "migrate:billing": "node scripts/migrate-billing.js",
     "migrate:collaboration": "node scripts/migrate-collaboration.js",
     "migrate:social": "node scripts/migrate-social.js",
-    "migrate:notifications": "node scripts/migrate-notifications.js"
+    "migrate:notifications": "node scripts/migrate-notifications.js",
+    "migrate:manual-weather": "node scripts/migrate-manual-weather.js"
   },
   "keywords": [],
   "author": "",

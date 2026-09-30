@@ -6019,6 +6019,7 @@ export namespace Prisma {
     description: number
     createdAt: number
     updatedAt: number
+    manualWeather: number
     _all: number
   }
 
@@ -6063,6 +6064,7 @@ export namespace Prisma {
     description?: true
     createdAt?: true
     updatedAt?: true
+    manualWeather?: true
     _all?: true
   }
 
@@ -6160,6 +6162,7 @@ export namespace Prisma {
     description: string | null
     createdAt: Date
     updatedAt: Date
+    manualWeather: JsonValue | null
     _count: DayCountAggregateOutputType | null
     _avg: DayAvgAggregateOutputType | null
     _sum: DaySumAggregateOutputType | null
@@ -6189,6 +6192,7 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
     activities?: boolean | Day$activitiesArgs<ExtArgs>
     trip?: boolean | TripDefaultArgs<ExtArgs>
     _count?: boolean | DayCountOutputTypeDefaultArgs<ExtArgs>
@@ -6202,6 +6206,7 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["day"]>
 
@@ -6213,6 +6218,7 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["day"]>
 
@@ -6224,9 +6230,10 @@ export namespace Prisma {
     description?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
   }
 
-  export type DayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "dayCount" | "dayDate" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["day"]>
+  export type DayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "dayCount" | "dayDate" | "description" | "createdAt" | "updatedAt" | "manualWeather", ExtArgs["result"]["day"]>
   export type DayInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     activities?: boolean | Day$activitiesArgs<ExtArgs>
     trip?: boolean | TripDefaultArgs<ExtArgs>
@@ -6253,6 +6260,7 @@ export namespace Prisma {
       description: string | null
       createdAt: Date
       updatedAt: Date
+      manualWeather: Prisma.JsonValue | null
     }, ExtArgs["result"]["day"]>
     composites: {}
   }
@@ -6685,6 +6693,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Day", 'String'>
     readonly createdAt: FieldRef<"Day", 'DateTime'>
     readonly updatedAt: FieldRef<"Day", 'DateTime'>
+    readonly manualWeather: FieldRef<"Day", 'Json'>
   }
     
 
@@ -7202,6 +7211,7 @@ export namespace Prisma {
     longitude: number
     createdAt: number
     updatedAt: number
+    manualWeather: number
     _all: number
   }
 
@@ -7268,6 +7278,7 @@ export namespace Prisma {
     longitude?: true
     createdAt?: true
     updatedAt?: true
+    manualWeather?: true
     _all?: true
   }
 
@@ -7371,6 +7382,7 @@ export namespace Prisma {
     longitude: number | null
     createdAt: Date
     updatedAt: Date
+    manualWeather: JsonValue | null
     _count: ActivityCountAggregateOutputType | null
     _avg: ActivityAvgAggregateOutputType | null
     _sum: ActivitySumAggregateOutputType | null
@@ -7406,6 +7418,7 @@ export namespace Prisma {
     longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
     day?: boolean | DayDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["activity"]>
 
@@ -7423,6 +7436,7 @@ export namespace Prisma {
     longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
     day?: boolean | DayDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["activity"]>
 
@@ -7440,6 +7454,7 @@ export namespace Prisma {
     longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
     day?: boolean | DayDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["activity"]>
 
@@ -7457,9 +7472,10 @@ export namespace Prisma {
     longitude?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    manualWeather?: boolean
   }
 
-  export type ActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayId" | "activityType" | "locationName" | "activityDate" | "activityTime" | "price" | "description" | "status" | "latitude" | "longitude" | "createdAt" | "updatedAt", ExtArgs["result"]["activity"]>
+  export type ActivityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "dayId" | "activityType" | "locationName" | "activityDate" | "activityTime" | "price" | "description" | "status" | "latitude" | "longitude" | "createdAt" | "updatedAt" | "manualWeather", ExtArgs["result"]["activity"]>
   export type ActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     day?: boolean | DayDefaultArgs<ExtArgs>
   }
@@ -7489,6 +7505,7 @@ export namespace Prisma {
       longitude: number | null
       createdAt: Date
       updatedAt: Date
+      manualWeather: Prisma.JsonValue | null
     }, ExtArgs["result"]["activity"]>
     composites: {}
   }
@@ -7926,6 +7943,7 @@ export namespace Prisma {
     readonly longitude: FieldRef<"Activity", 'Float'>
     readonly createdAt: FieldRef<"Activity", 'DateTime'>
     readonly updatedAt: FieldRef<"Activity", 'DateTime'>
+    readonly manualWeather: FieldRef<"Activity", 'Json'>
   }
     
 
@@ -17398,7 +17416,8 @@ export namespace Prisma {
     dayDate: 'dayDate',
     description: 'description',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    manualWeather: 'manualWeather'
   };
 
   export type DayScalarFieldEnum = (typeof DayScalarFieldEnum)[keyof typeof DayScalarFieldEnum]
@@ -17417,7 +17436,8 @@ export namespace Prisma {
     latitude: 'latitude',
     longitude: 'longitude',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    manualWeather: 'manualWeather'
   };
 
   export type ActivityScalarFieldEnum = (typeof ActivityScalarFieldEnum)[keyof typeof ActivityScalarFieldEnum]
@@ -17536,19 +17556,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -17624,6 +17644,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
    * Reference to a field of type 'ActivityType'
    */
   export type EnumActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ActivityType'>
@@ -17683,20 +17717,6 @@ export namespace Prisma {
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
   /**
    * Deep Input Types
@@ -17972,6 +17992,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Day"> | string | null
     createdAt?: DateTimeFilter<"Day"> | Date | string
     updatedAt?: DateTimeFilter<"Day"> | Date | string
+    manualWeather?: JsonNullableFilter<"Day">
     activities?: ActivityListRelationFilter
     trip?: XOR<TripScalarRelationFilter, TripWhereInput>
   }
@@ -17984,6 +18005,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    manualWeather?: SortOrderInput | SortOrder
     activities?: ActivityOrderByRelationAggregateInput
     trip?: TripOrderByWithRelationInput
   }
@@ -17999,6 +18021,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Day"> | string | null
     createdAt?: DateTimeFilter<"Day"> | Date | string
     updatedAt?: DateTimeFilter<"Day"> | Date | string
+    manualWeather?: JsonNullableFilter<"Day">
     activities?: ActivityListRelationFilter
     trip?: XOR<TripScalarRelationFilter, TripWhereInput>
   }, "id">
@@ -18011,6 +18034,7 @@ export namespace Prisma {
     description?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    manualWeather?: SortOrderInput | SortOrder
     _count?: DayCountOrderByAggregateInput
     _avg?: DayAvgOrderByAggregateInput
     _max?: DayMaxOrderByAggregateInput
@@ -18029,6 +18053,7 @@ export namespace Prisma {
     description?: StringNullableWithAggregatesFilter<"Day"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Day"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Day"> | Date | string
+    manualWeather?: JsonNullableWithAggregatesFilter<"Day">
   }
 
   export type ActivityWhereInput = {
@@ -18048,6 +18073,7 @@ export namespace Prisma {
     longitude?: FloatNullableFilter<"Activity"> | number | null
     createdAt?: DateTimeFilter<"Activity"> | Date | string
     updatedAt?: DateTimeFilter<"Activity"> | Date | string
+    manualWeather?: JsonNullableFilter<"Activity">
     day?: XOR<DayScalarRelationFilter, DayWhereInput>
   }
 
@@ -18065,6 +18091,7 @@ export namespace Prisma {
     longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    manualWeather?: SortOrderInput | SortOrder
     day?: DayOrderByWithRelationInput
   }
 
@@ -18085,6 +18112,7 @@ export namespace Prisma {
     longitude?: FloatNullableFilter<"Activity"> | number | null
     createdAt?: DateTimeFilter<"Activity"> | Date | string
     updatedAt?: DateTimeFilter<"Activity"> | Date | string
+    manualWeather?: JsonNullableFilter<"Activity">
     day?: XOR<DayScalarRelationFilter, DayWhereInput>
   }, "id">
 
@@ -18102,6 +18130,7 @@ export namespace Prisma {
     longitude?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    manualWeather?: SortOrderInput | SortOrder
     _count?: ActivityCountOrderByAggregateInput
     _avg?: ActivityAvgOrderByAggregateInput
     _max?: ActivityMaxOrderByAggregateInput
@@ -18126,6 +18155,7 @@ export namespace Prisma {
     longitude?: FloatNullableWithAggregatesFilter<"Activity"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Activity"> | Date | string
+    manualWeather?: JsonNullableWithAggregatesFilter<"Activity">
   }
 
   export type AiMessageWhereInput = {
@@ -18950,6 +18980,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityCreateNestedManyWithoutDayInput
     trip: TripCreateNestedOneWithoutDaysInput
   }
@@ -18962,6 +18993,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedCreateNestedManyWithoutDayInput
   }
 
@@ -18971,6 +19003,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUpdateManyWithoutDayNestedInput
     trip?: TripUpdateOneRequiredWithoutDaysNestedInput
   }
@@ -18983,6 +19016,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedUpdateManyWithoutDayNestedInput
   }
 
@@ -18994,6 +19028,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type DayUpdateManyMutationInput = {
@@ -19002,6 +19037,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type DayUncheckedUpdateManyInput = {
@@ -19012,6 +19048,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityCreateInput = {
@@ -19026,6 +19063,7 @@ export namespace Prisma {
     longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     day: DayCreateNestedOneWithoutActivitiesInput
   }
 
@@ -19043,6 +19081,7 @@ export namespace Prisma {
     longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityUpdateInput = {
@@ -19057,6 +19096,7 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     day?: DayUpdateOneRequiredWithoutActivitiesNestedInput
   }
 
@@ -19074,6 +19114,7 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityCreateManyInput = {
@@ -19090,6 +19131,7 @@ export namespace Prisma {
     longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityUpdateManyMutationInput = {
@@ -19104,6 +19146,7 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityUncheckedUpdateManyInput = {
@@ -19120,6 +19163,7 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AiMessageCreateInput = {
@@ -20074,6 +20118,29 @@ export namespace Prisma {
     tripId?: SortOrder
     userId?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type ActivityListRelationFilter = {
     every?: ActivityWhereInput
@@ -20093,6 +20160,7 @@ export namespace Prisma {
     description?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    manualWeather?: SortOrder
   }
 
   export type DayAvgOrderByAggregateInput = {
@@ -20125,6 +20193,32 @@ export namespace Prisma {
     id?: SortOrder
     tripId?: SortOrder
     dayCount?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type EnumActivityTypeNullableFilter<$PrismaModel = never> = {
@@ -20175,6 +20269,7 @@ export namespace Prisma {
     longitude?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    manualWeather?: SortOrder
   }
 
   export type ActivityAvgOrderByAggregateInput = {
@@ -20683,29 +20778,6 @@ export namespace Prisma {
     amount?: SortOrder
     version?: SortOrder
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type BillingEventTripIdRequestIdCompoundUniqueInput = {
     tripId: number
@@ -20752,32 +20824,6 @@ export namespace Prisma {
   export type BillingEventSumOrderByAggregateInput = {
     tripId?: SortOrder
     actorId?: SortOrder
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type TripCreateNestedManyWithoutUserInput = {
@@ -21730,6 +21776,29 @@ export namespace Prisma {
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumActivityTypeNullableFilter<$PrismaModel = never> = {
     equals?: $Enums.ActivityType | EnumActivityTypeFieldRefInput<$PrismaModel> | null
@@ -21880,29 +21949,6 @@ export namespace Prisma {
     | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
 
   export type NestedJsonFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
     equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
     path?: string[]
     mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
@@ -22377,6 +22423,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityCreateNestedManyWithoutDayInput
   }
 
@@ -22387,6 +22434,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedCreateNestedManyWithoutDayInput
   }
 
@@ -22629,6 +22677,7 @@ export namespace Prisma {
     description?: StringNullableFilter<"Day"> | string | null
     createdAt?: DateTimeFilter<"Day"> | Date | string
     updatedAt?: DateTimeFilter<"Day"> | Date | string
+    manualWeather?: JsonNullableFilter<"Day">
   }
 
   export type AiMessageUpsertWithWhereUniqueWithoutTripInput = {
@@ -22863,6 +22912,7 @@ export namespace Prisma {
     longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityUncheckedCreateWithoutDayInput = {
@@ -22878,6 +22928,7 @@ export namespace Prisma {
     longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityCreateOrConnectWithoutDayInput = {
@@ -22965,6 +23016,7 @@ export namespace Prisma {
     longitude?: FloatNullableFilter<"Activity"> | number | null
     createdAt?: DateTimeFilter<"Activity"> | Date | string
     updatedAt?: DateTimeFilter<"Activity"> | Date | string
+    manualWeather?: JsonNullableFilter<"Activity">
   }
 
   export type TripUpsertWithoutDaysInput = {
@@ -23021,6 +23073,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     trip: TripCreateNestedOneWithoutDaysInput
   }
 
@@ -23032,6 +23085,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type DayCreateOrConnectWithoutActivitiesInput = {
@@ -23056,6 +23110,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     trip?: TripUpdateOneRequiredWithoutDaysNestedInput
   }
 
@@ -23067,6 +23122,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserCreateWithoutAiMessagesInput = {
@@ -23995,6 +24051,7 @@ export namespace Prisma {
     description?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AiMessageCreateManyTripInput = {
@@ -24168,6 +24225,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUpdateManyWithoutDayNestedInput
   }
 
@@ -24178,6 +24236,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedUpdateManyWithoutDayNestedInput
   }
 
@@ -24188,6 +24247,7 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AiMessageUpdateWithoutTripInput = {
@@ -24232,6 +24292,7 @@ export namespace Prisma {
     longitude?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityUpdateWithoutDayInput = {
@@ -24246,6 +24307,7 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityUncheckedUpdateWithoutDayInput = {
@@ -24261,6 +24323,7 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityUncheckedUpdateManyWithoutDayInput = {
@@ -24276,6 +24339,7 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    manualWeather?: NullableJsonNullValueInput | InputJsonValue
   }
 
 

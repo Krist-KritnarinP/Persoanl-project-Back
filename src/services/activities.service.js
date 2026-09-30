@@ -1,3 +1,4 @@
+import { manualWeatherWrite } from "./manual-weather.js";
 import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import { prisma } from "../lib/prisma.js";
 import { tripAccessWhere } from "./trip-access.js";
@@ -70,6 +71,7 @@ export const createActivityService = async (userId, activityData) => {
     );
     return await tx.activity.create({
       data: {
+        ...manualWeatherWrite(activityData),
         dayId: targetDayId,
         activityType: rawType || null,
         locationName: targetLocation,
@@ -120,7 +122,7 @@ export const updateActivityService = async (activityId, userId, updateData) => {
     );
   }
 
-  const dataToUpdate = {};
+  const dataToUpdate = manualWeatherWrite(updateData);
   const locationVal = locationName || location_name;
   const dateVal = activityDate || activity_date;
   const timeVal = activityTime || activity_time;

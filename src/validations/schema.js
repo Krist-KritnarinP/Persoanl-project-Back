@@ -1,4 +1,5 @@
 import z from "zod";
+import { manualWeatherSchema } from "./manual-weather.js";
 export const idSchema = z.coerce.number().int().positive().max(2147483647);
 const password = z
   .string()
@@ -75,7 +76,7 @@ export const tripUpdateSchema = tripFields
   .partial()
   .refine(ordered, "End date must follow start date");
 export const dayCreateSchema = z
-  .object({ dayDate: optionalDate, description: text.optional() })
+  .object({ dayDate: optionalDate, description: text.optional(), manualWeather: manualWeatherSchema })
   .strict();
 export const dayUpdateSchema = dayCreateSchema
   .extend({ dayCount: idSchema.optional() })
@@ -91,6 +92,7 @@ const coord = (min, max) =>
 const activityFields = z
   .object({
     dayId: idSchema,
+    manualWeather: manualWeatherSchema,
     locationName: z.string().trim().min(1).max(150),
     activityType: z
       .enum(["ACCOMMODATION", "TRANSPORT", "RESTAURANT", "ATTRACTION"])

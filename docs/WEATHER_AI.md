@@ -1,3 +1,13 @@
+## Manual weather (2026-10-01)
+
+This is a separate user observation, not AI output. Edit a day/activity and use the weather fields. All fields are optional; clearing one record does not affect any other day/activity or AI history. Shared links include these observations with the itinerary, so avoid private notes in a publicly shared trip.
+
+API `manualWeather`: nullable object `{condition, temperatureC, descriptionCode, description}` on existing day/activity create/update bodies. Temperature is a finite JSON number −100..70 °C; description max 1,000 characters. Omitted object preserves current data, null clears, all-empty object normalizes to null. Enum catalogs: API `src/validations/manual-weather.js`, Front `src/constants/manualWeather.js`. UI translations have four languages. Persisted presets are codes, custom text stays as written.
+
+API setup: `npm run migrate:manual-weather` (idempotent, additive JSONB columns, no reset) then `npx prisma generate`. Restart API if running a non-watched process. Applied locally against configured DB; each other environment needs its own migration.
+
+Condition coverage follows [NWS weather icon categories](https://www.weather.gov/forecast-icons), with an Other option for unlisted combinations. Description presets are editorial usability choices, not official weather measurements. No automatic weather provider lookup was added.
+
 > Update 2026-09-28: ใช้ prompt แบบสั้นตามผู้ใช้กำหนดแล้ว: Task / Constraints / Itinerary Data; รายวันสามบรรทัดเช้า/กลางวัน/เย็น ไม่มี overview/advice/marker บังคับ อนุญาตช่วงอุณหภูมิประมาณตามฤดูกาลเมื่อรองรับได้ และกล่าวถึงแสงเหนือเชิงคุณภาพเฉพาะพื้นที่/ช่วงเย็นที่เหมาะสม ไม่ใช่พยากรณ์สด รายละเอียดพฤติกรรมเดิมด้านล่างที่กล่าวถึงคำแนะนำผลต่อแผนถูกแทนที่ด้วยรูปแบบนี้
 
 # AI Weather — 2026-09-28

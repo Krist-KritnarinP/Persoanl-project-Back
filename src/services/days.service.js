@@ -1,3 +1,4 @@
+import { manualWeatherWrite } from "./manual-weather.js";
 import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import { prisma } from "../lib/prisma.js";
 import { tripAccessWhere } from "./trip-access.js";
@@ -62,6 +63,7 @@ export const createDayService = async (userId, dayData) => {
     enforceLimit(await tx.day.count({ where: { tripId: targetTripId } }), 60);
     return await tx.day.create({
       data: {
+        ...manualWeatherWrite(dayData),
         tripId: targetTripId,
         dayCount: nextDayCount,
         dayDate: nextDayDate,
@@ -88,7 +90,7 @@ export const updateDayService = async (dayId, userId, updateData) => {
   if (!day) return null;
 
   // 2. จัดเตรียมข้อมูลที่จะแก้ไข
-  const dataToUpdate = {};
+  const dataToUpdate = manualWeatherWrite(updateData);
   const countVal = dayCount ?? day_count;
   const dateVal = dayDate || day_date;
 
