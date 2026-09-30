@@ -1,5 +1,10 @@
 # สถานะล่าสุด — API / Social + Trip collaboration (2026-09-30)
 
+## Copy fix: register duplicate-email grammar (2026-09-30)
+
+- "Email already exist" → "Email already exists" ใน `auth.controller.js` (ข้อความเดียวที่แก้; ไม่แตะ logic/validation/DB; unit 45 ผ่าน)
+- ตรวจแล้ว: frontend แสดง toast กลางของตัวเอง ข้อความ backend นี้แทบไม่โผล่ถึง user โดยตรง
+
 ## Chat send failure after notifications migration (2026-09-30)
 
 - Root cause confirmed against the configured PostgreSQL using a read-only SELECT: untyped placeholders inside `jsonb_build_object` raise `42P18` (`could not determine data type of parameter $1`), surfaced as Prisma P2010. Since notification creation is in the message transaction, the message was rolled back too.

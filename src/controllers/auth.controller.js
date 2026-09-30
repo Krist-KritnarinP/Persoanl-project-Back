@@ -16,7 +16,7 @@ export async function register(req, res, next) {
 
     const user = await findUserByEmail(email);
     if (user) {
-      return next(createError(400, "Email already exist"));
+      return next(createError(400, "Email already exists"));
     }
     const hashPassword = await bcrypt.hash(password, 12);
     const newUser = await createUser(username, email, hashPassword);
