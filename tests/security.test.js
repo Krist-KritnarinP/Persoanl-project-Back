@@ -2,6 +2,7 @@ import test from 'node:test';
 import { randomBytes } from 'node:crypto';
 import assert from 'node:assert/strict';
 import bcrypt from 'bcrypt';
+import createError from 'http-errors';
 import { prisma } from '../src/lib/prisma.js';
 import { registerSchema, activityCreateSchema, activityUpdateSchema, tripCreateSchema, dayCreateSchema, forgotPasswordSchema, resetPasswordSchema, googleLoginSchema } from '../src/validations/schema.js';
 import { createToken } from '../src/utilities/jwt.js';
@@ -20,6 +21,8 @@ const user = { id: 41, email: 'test@example.invalid', username: 'Test', tokenVer
 
 test('reject weak passwords, oversized UTF-8 and malformed activity/date inputs', () => {
   assert.equal(registerSchema.safeParse({ username: 'Test', email: user.email, password: '1234' }).success, false);
+  assert.equal(registerSchema.safeParse({ username: 'Test', email: user.email, password: '1234567' }).success, false);
+  assert.equal(registerSchema.safeParse({ username: 'Test', email: user.email, password: '12345678' }).success, true);
   assert.equal(registerSchema.safeParse({ username: 'Test', email: user.email, password: 'ก'.repeat(25) }).success, false);
   assert.equal(activityCreateSchema.safeParse({ dayId: 1, locationName: 'Place', latitude: 91 }).success, false);
   assert.equal(activityCreateSchema.safeParse({ dayId: 1, locationName: 'Place', price: -1 }).success, false);
@@ -59,6 +62,12 @@ test('password change requires existing password and invalidates previously issu
 test('internal errors never return query or secret details', () => {
   const res = response(); errorHandler(new Error('SECRET SQL password=hidden'), { method: 'POST' }, res, () => {});
   assert.equal(res.statusCode, 500); assert.equal(res.body.message.includes('SECRET'), false); assert.ok(res.body.requestId);
+});
+test('registration email conflict has a stable public code', () => {
+  const res = response();
+  errorHandler(createError(409, 'Email already exists', { code: 'EMAIL_ALREADY_REGISTERED' }), { method: 'POST' }, res, () => {});
+  assert.equal(res.statusCode, 409);
+  assert.equal(res.body.code, 'EMAIL_ALREADY_REGISTERED');
 });
 test('AI quota rejects before incrementing any counters and uses transaction lock', async () => {
   let locked = false, writes = 0;
@@ -109,6 +118,7 @@ test('auth recovery schemas normalize email and enforce one-time token and passw
   assert.equal(resetPasswordSchema.safeParse({ token: 'a'.repeat(43), password: 'a sufficiently long password' }).success, true);
   assert.equal(resetPasswordSchema.safeParse({ token: 'short', password: 'a sufficiently long password' }).success, false);
   assert.equal(resetPasswordSchema.safeParse({ token: 'a'.repeat(43), password: 'short' }).success, false);
+  assert.equal(resetPasswordSchema.safeParse({ token: 'a'.repeat(43), password: '12345678' }).success, true);
   assert.equal(resetPasswordSchema.safeParse({ token: 'a'.repeat(43), password: 'ก'.repeat(25) }).success, false);
   assert.equal(googleLoginSchema.safeParse({ credential: 'x'.repeat(100) }).success, true);
   assert.equal(googleLoginSchema.safeParse({ credential: 'x'.repeat(10_000) }).success, false);

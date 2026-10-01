@@ -3,7 +3,7 @@ import { manualWeatherSchema } from "./manual-weather.js";
 export const idSchema = z.coerce.number().int().positive().max(2147483647);
 const password = z
   .string()
-  .min(15, "Use at least 15 characters")
+  .min(8, "Use at least 8 characters")
   .refine(
     (v) => Buffer.byteLength(v, "utf8") <= 72,
     "Password must not exceed 72 UTF-8 bytes",

@@ -51,6 +51,7 @@ export default function errorHandler(err, req, res, next) {
         ? "Service temporarily unavailable"
         : messages[status] || "Request failed",
     requestId,
+    ...(err.code === "EMAIL_ALREADY_REGISTERED" ? { code: err.code } : {}),
     ...(retryAfterSeconds ? { retryAfterSeconds } : {}),
   });
 }

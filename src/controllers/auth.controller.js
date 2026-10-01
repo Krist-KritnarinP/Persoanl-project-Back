@@ -16,7 +16,7 @@ export async function register(req, res, next) {
 
     const user = await findUserByEmail(email);
     if (user) {
-      return next(createError(400, "Email already exists"));
+      return next(createError(409, "Email already exists", { code: "EMAIL_ALREADY_REGISTERED" }));
     }
     const hashPassword = await bcrypt.hash(password, 12);
     const newUser = await createUser(username, email, hashPassword);
@@ -30,6 +30,8 @@ export async function register(req, res, next) {
       },
     });
   } catch (err) {
+    if (err.code === "P2002")
+      return next(createError(409, "Email already exists", { code: "EMAIL_ALREADY_REGISTERED" }));
     next(err);
   }
 }

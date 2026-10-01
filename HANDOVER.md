@@ -9,6 +9,12 @@
 
 # สถานะล่าสุด — API / Manual weather + Nearby places (2026-10-01)
 
+## Password minimum and registration feedback (2026-10-01)
+
+- Shared `validations/schema.js` password rule accepts 8+ characters for registration, password reset and authenticated profile change; unchanged bcrypt 72 UTF-8 byte limit, password hashing and session invalidation. No schema/DB migration.
+- Registration returns a stable `EMAIL_ALREADY_REGISTERED` code with HTTP 409 when the submitted email already exists; only this code is exposed by the central error handler, so Front can display a field-level reason. Other error handling stays generic.
+- API unit tests passed (55 pass, 1 opt-in SQL test skipped). Front signup and existing auth desktop/mobile browser checks passed with API mocks. No real email or account was created. See Front HANDOVER for password meter and translations. Local commits only; no push/deploy.
+
 ## Nearby places and itinerary insertion (2026-10-01)
 
 - Collapsed disclosure below each daily ActivityItem; filters radius 1–5 km, restaurants/cafés, attractions, parks/nature reserves, hotels/accommodation and result count 1–5. Search is on demand, with loading/error/empty states, straight-line distance, Google Maps links and provider attribution. Four UI languages; selected insertion form receives keyboard focus.

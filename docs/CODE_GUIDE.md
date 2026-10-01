@@ -22,7 +22,7 @@
 | services/days.service.js, activities.service.js | CRUD, ownership และ creation limit |
 | security/ | quota/config/refresh rotation และการเพิกถอน session |
 | middlewares/ | ตรวจ JWT, error response และ not found |
-| validations/schema.js | Zod schemas/IDs/date/password/input limits |
+| validations/schema.js | Zod schemas/IDs/date/password/input limits; 8-character password minimum for register/reset/profile and 72 UTF-8 byte limit |
 | ops/ | health/readiness + sanitized monitoring |
 | lib/prisma.js | จุดสร้าง Prisma client/connection pool |
 | generated/prisma/ | code generator; ห้าม refactor ด้วยมือ |
