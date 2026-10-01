@@ -1,5 +1,11 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
+## GitHub push / automatic deployment verified (2026-10-01)
+
+- Pushed API `a41b661` to `Krist-KritnarinP/Persoanl-project-Back` `main`; Front `4082d7b` was pushed to its own `main` after the API. Git refs matched `origin/main` at the push checkpoint.
+- Production `/health/live` returned HTTP 200. A harmless registration request using an invalid email and an eight-character password returned only the email validation error, so the new API password rule is active on Render. Vercel reported success for Front `4082d7b` and its production homepage returned HTTP 200.
+- No manual Render Redeploy was needed. Auto-deploy is expected from linked `main` pushes while enabled; inspect Render Deploys if a future commit does not appear.
+
 - Repo ที่ใช้จริงมีแค่ 2 ตัวนี้: `PersonalProject_API` ↔ GitHub `Krist-KritnarinP/Persoanl-project-Back` และ `PersonalProject_Front` ↔ GitHub `Krist-KritnarinP/Persoanl-project-front` ห้ามใช้ `AIlhongdeploy` / `AIlhongdeploy-phase0` (monorepo backup เก่าใน `_AI_LHOUNG_BACKUP_2026-09-26/`) มา deploy เด็ดขาด
 - API อยู่บน **Render** service `Persoanl-project-Back`: `https://persoanl-project-back.onrender.com` (Singapore, Free) — Build `npm install && npx prisma generate`, Start `node src/server.js`, Health `/health/live`; `render.yaml` Blueprint อยู่ที่ root ของ repo นี้
 - Front อยู่บน **Vercel** project `persoanl-project-front`: `https://persoanl-project-front.vercel.app` — Build `npm run build`, Output `dist`
