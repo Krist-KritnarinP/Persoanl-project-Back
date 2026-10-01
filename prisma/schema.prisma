@@ -88,6 +88,7 @@ model Day {
 
   @@map("days")
   manualWeather Json? @map("manual_weather")
+  activityOrder Json? @map("activity_order")
 }
 
 

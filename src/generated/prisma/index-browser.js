@@ -162,7 +162,8 @@ exports.Prisma.DayScalarFieldEnum = {
   description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  manualWeather: 'manualWeather'
+  manualWeather: 'manualWeather',
+  activityOrder: 'activityOrder'
 };
 
 exports.Prisma.ActivityScalarFieldEnum = {

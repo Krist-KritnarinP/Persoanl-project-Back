@@ -54,6 +54,8 @@ export const createActivityService = async (userId, activityData) => {
 
     if (!day) throw new Error("Day not found or unauthorized");
 
+    await tx.$queryRaw`SELECT day_id FROM days WHERE day_id = ${targetDayId} FOR UPDATE`;
+    const currentDay = await tx.day.findUnique({ where: { id: targetDayId }, select: { activityOrder: true } });
     const inputDate = activityDate || activity_date;
     const inputTime = activityTime || activity_time;
     const lat =
@@ -69,7 +71,7 @@ export const createActivityService = async (userId, activityData) => {
       await tx.activity.count({ where: { dayId: targetDayId } }),
       100,
     );
-    return await tx.activity.create({
+    const created = await tx.activity.create({
       data: {
         ...manualWeatherWrite(activityData),
         dayId: targetDayId,
@@ -84,6 +86,10 @@ export const createActivityService = async (userId, activityData) => {
         longitude: lng !== null && !isNaN(lng) ? lng : null,
       },
     });
+    if (Array.isArray(currentDay.activityOrder)) {
+      await tx.day.update({ where: { id: targetDayId }, data: { activityOrder: [...currentDay.activityOrder, created.id] } });
+    }
+    return created;
   });
 };
 

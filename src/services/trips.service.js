@@ -1,3 +1,4 @@
+import { orderDayActivities } from "./activity-order.js";
 import { summarizeTrip } from "./trip-summary.js";
 import { withCreationLimit, enforceLimit } from "../security/quotas.js";
 import createError from "http-errors";
@@ -101,7 +102,7 @@ export const getTripByIdService = async (tripId, userId) => {
   const accessRole = trip.userId === Number(userId)
     ? "owner"
     : (trip.collaborators[0]?.role || "viewer");
-  const result = summarizeTrip(trip);
+  const result = summarizeTrip({ ...trip, days: trip.days.map(orderDayActivities) });
   if (accessRole !== "owner") delete result.shareToken;
   return { ...result, accessRole };
 };
@@ -192,6 +193,7 @@ export const getSharedTripService = async (token) => {
           dayCount: true,
           dayDate: true,
           manualWeather: true,
+          activityOrder: true,
           description: true,
           activities: {
             orderBy: [{ activityDate: "asc" }, { activityTime: "asc" }],
@@ -214,10 +216,11 @@ export const getSharedTripService = async (token) => {
     },
   });
   if (!trip) return null;
-  const days = trip.days;
+  const days = trip.days.map(orderDayActivities);
   const totalDays = days.length;
   return {
     ...trip,
+    days,
     sharedBy: trip.user?.username || null,
     user: undefined,
     startDate: trip.startDate ?? (totalDays > 0 ? days[0].dayDate : null),

@@ -6020,6 +6020,7 @@ export namespace Prisma {
     createdAt: number
     updatedAt: number
     manualWeather: number
+    activityOrder: number
     _all: number
   }
 
@@ -6065,6 +6066,7 @@ export namespace Prisma {
     createdAt?: true
     updatedAt?: true
     manualWeather?: true
+    activityOrder?: true
     _all?: true
   }
 
@@ -6163,6 +6165,7 @@ export namespace Prisma {
     createdAt: Date
     updatedAt: Date
     manualWeather: JsonValue | null
+    activityOrder: JsonValue | null
     _count: DayCountAggregateOutputType | null
     _avg: DayAvgAggregateOutputType | null
     _sum: DaySumAggregateOutputType | null
@@ -6193,6 +6196,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     manualWeather?: boolean
+    activityOrder?: boolean
     activities?: boolean | Day$activitiesArgs<ExtArgs>
     trip?: boolean | TripDefaultArgs<ExtArgs>
     _count?: boolean | DayCountOutputTypeDefaultArgs<ExtArgs>
@@ -6207,6 +6211,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     manualWeather?: boolean
+    activityOrder?: boolean
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["day"]>
 
@@ -6219,6 +6224,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     manualWeather?: boolean
+    activityOrder?: boolean
     trip?: boolean | TripDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["day"]>
 
@@ -6231,9 +6237,10 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     manualWeather?: boolean
+    activityOrder?: boolean
   }
 
-  export type DayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "dayCount" | "dayDate" | "description" | "createdAt" | "updatedAt" | "manualWeather", ExtArgs["result"]["day"]>
+  export type DayOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tripId" | "dayCount" | "dayDate" | "description" | "createdAt" | "updatedAt" | "manualWeather" | "activityOrder", ExtArgs["result"]["day"]>
   export type DayInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     activities?: boolean | Day$activitiesArgs<ExtArgs>
     trip?: boolean | TripDefaultArgs<ExtArgs>
@@ -6261,6 +6268,7 @@ export namespace Prisma {
       createdAt: Date
       updatedAt: Date
       manualWeather: Prisma.JsonValue | null
+      activityOrder: Prisma.JsonValue | null
     }, ExtArgs["result"]["day"]>
     composites: {}
   }
@@ -6694,6 +6702,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"Day", 'DateTime'>
     readonly updatedAt: FieldRef<"Day", 'DateTime'>
     readonly manualWeather: FieldRef<"Day", 'Json'>
+    readonly activityOrder: FieldRef<"Day", 'Json'>
   }
     
 
@@ -17417,7 +17426,8 @@ export namespace Prisma {
     description: 'description',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    manualWeather: 'manualWeather'
+    manualWeather: 'manualWeather',
+    activityOrder: 'activityOrder'
   };
 
   export type DayScalarFieldEnum = (typeof DayScalarFieldEnum)[keyof typeof DayScalarFieldEnum]
@@ -17993,6 +18003,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Day"> | Date | string
     updatedAt?: DateTimeFilter<"Day"> | Date | string
     manualWeather?: JsonNullableFilter<"Day">
+    activityOrder?: JsonNullableFilter<"Day">
     activities?: ActivityListRelationFilter
     trip?: XOR<TripScalarRelationFilter, TripWhereInput>
   }
@@ -18006,6 +18017,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     manualWeather?: SortOrderInput | SortOrder
+    activityOrder?: SortOrderInput | SortOrder
     activities?: ActivityOrderByRelationAggregateInput
     trip?: TripOrderByWithRelationInput
   }
@@ -18022,6 +18034,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Day"> | Date | string
     updatedAt?: DateTimeFilter<"Day"> | Date | string
     manualWeather?: JsonNullableFilter<"Day">
+    activityOrder?: JsonNullableFilter<"Day">
     activities?: ActivityListRelationFilter
     trip?: XOR<TripScalarRelationFilter, TripWhereInput>
   }, "id">
@@ -18035,6 +18048,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     manualWeather?: SortOrderInput | SortOrder
+    activityOrder?: SortOrderInput | SortOrder
     _count?: DayCountOrderByAggregateInput
     _avg?: DayAvgOrderByAggregateInput
     _max?: DayMaxOrderByAggregateInput
@@ -18054,6 +18068,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"Day"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Day"> | Date | string
     manualWeather?: JsonNullableWithAggregatesFilter<"Day">
+    activityOrder?: JsonNullableWithAggregatesFilter<"Day">
   }
 
   export type ActivityWhereInput = {
@@ -18981,6 +18996,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityCreateNestedManyWithoutDayInput
     trip: TripCreateNestedOneWithoutDaysInput
   }
@@ -18994,6 +19010,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedCreateNestedManyWithoutDayInput
   }
 
@@ -19004,6 +19021,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUpdateManyWithoutDayNestedInput
     trip?: TripUpdateOneRequiredWithoutDaysNestedInput
   }
@@ -19017,6 +19035,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedUpdateManyWithoutDayNestedInput
   }
 
@@ -19029,6 +19048,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type DayUpdateManyMutationInput = {
@@ -19038,6 +19058,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type DayUncheckedUpdateManyInput = {
@@ -19049,6 +19070,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type ActivityCreateInput = {
@@ -20161,6 +20183,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     manualWeather?: SortOrder
+    activityOrder?: SortOrder
   }
 
   export type DayAvgOrderByAggregateInput = {
@@ -22424,6 +22447,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityCreateNestedManyWithoutDayInput
   }
 
@@ -22435,6 +22459,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedCreateNestedManyWithoutDayInput
   }
 
@@ -22678,6 +22703,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Day"> | Date | string
     updatedAt?: DateTimeFilter<"Day"> | Date | string
     manualWeather?: JsonNullableFilter<"Day">
+    activityOrder?: JsonNullableFilter<"Day">
   }
 
   export type AiMessageUpsertWithWhereUniqueWithoutTripInput = {
@@ -23074,6 +23100,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     trip: TripCreateNestedOneWithoutDaysInput
   }
 
@@ -23086,6 +23113,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type DayCreateOrConnectWithoutActivitiesInput = {
@@ -23111,6 +23139,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     trip?: TripUpdateOneRequiredWithoutDaysNestedInput
   }
 
@@ -23123,6 +23152,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UserCreateWithoutAiMessagesInput = {
@@ -24052,6 +24082,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AiMessageCreateManyTripInput = {
@@ -24226,6 +24257,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUpdateManyWithoutDayNestedInput
   }
 
@@ -24237,6 +24269,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
     activities?: ActivityUncheckedUpdateManyWithoutDayNestedInput
   }
 
@@ -24248,6 +24281,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     manualWeather?: NullableJsonNullValueInput | InputJsonValue
+    activityOrder?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AiMessageUpdateWithoutTripInput = {

@@ -19,7 +19,9 @@
     "migrate:collaboration": "node scripts/migrate-collaboration.js",
     "migrate:social": "node scripts/migrate-social.js",
     "migrate:notifications": "node scripts/migrate-notifications.js",
-    "migrate:manual-weather": "node scripts/migrate-manual-weather.js"
+    "migrate:manual-weather": "node scripts/migrate-manual-weather.js",
+    "migrate:nearby": "node scripts/migrate-nearby.js",
+    "test:itinerary:integration": "node scripts/verify-itinerary-features.js"
   },
   "keywords": [],
   "author": "",
