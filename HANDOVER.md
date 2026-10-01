@@ -1,3 +1,12 @@
+# DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
+
+- Repo ที่ใช้จริงมีแค่ 2 ตัวนี้: `PersonalProject_API` ↔ GitHub `Krist-KritnarinP/Persoanl-project-Back` และ `PersonalProject_Front` ↔ GitHub `Krist-KritnarinP/Persoanl-project-front` ห้ามใช้ `AIlhongdeploy` / `AIlhongdeploy-phase0` (monorepo backup เก่าใน `_AI_LHOUNG_BACKUP_2026-09-26/`) มา deploy เด็ดขาด
+- API อยู่บน **Render** service `Persoanl-project-Back`: `https://persoanl-project-back.onrender.com` (Singapore, Free) — Build `npm install && npx prisma generate`, Start `node src/server.js`, Health `/health/live`; `render.yaml` Blueprint อยู่ที่ root ของ repo นี้
+- Front อยู่บน **Vercel** project `persoanl-project-front`: `https://persoanl-project-front.vercel.app` — Build `npm run build`, Output `dist`
+- DB ใช้ Supabase project เดิมตัวเดียว (`Ailhong`, pooler ap-southeast-1) ทั้ง local+prod; Render ใช้ `DATABASE_URL` เส้น role `ailhoung_runtime` เท่านั้น, `DIRECT_URL` (owner) อยู่แค่ใน `.env` เครื่องไว้ migrate; backup ล่าสุด `/tmp/ailhoung-2026-10-01.dump` (users 2 / trips 5 / days 36 / activities 119)
+- Env ที่ต้องตรงกัน: Render `FRONTEND_URL` = URL Vercel production (https ไม่มี `/` ท้าย) + `REFRESH_COOKIE_SAME_SITE=none` + `TRUST_PROXY_HOPS=1`; Vercel `VITE_API_URL` = URL Render + `/api`, `VITE_SITE_URL` = URL Vercel production
+- Push ขึ้น `main` แล้ว Vercel/Render auto-deploy เอง (ถ้าไม่ deploy ให้เช็ค Settings ว่า auto-deploy เปิดอยู่); dev ในเครื่องยัง `npm run dev` แยก 2 terminal ด้วย `.env` localhost เหมือนเดิม
+
 # สถานะล่าสุด — API / Manual weather + Nearby places (2026-10-01)
 
 ## Nearby places and itinerary insertion (2026-10-01)
