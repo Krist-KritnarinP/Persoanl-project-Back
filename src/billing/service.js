@@ -5,6 +5,12 @@ import { calculateBill } from "./calculate.js";
 import { allocateSettlement, ledgerSummary } from "./ledger.js";
 import { reject } from "./money.js";
 import { requireTripAccess } from "../services/trip-access.js";
+export function memberHasBillingHistory(memberId, bills, settlements) {
+  return bills.some((bill) => JSON.stringify(bill.data).includes(memberId)) ||
+    settlements.some((settlement) =>
+      settlement.fromId === memberId || settlement.toId === memberId
+    );
+}
 async function snapshot(tx, tripId) {
   const members = await tx.tripMember.findMany({
     where: { tripId },
@@ -100,19 +106,39 @@ export async function billingCommand(tripId, userId, raw, db = prisma) {
           where: { id: before.id },
           data: { ...c.member, version: { increment: 1 } },
         });
-      } else if (c.action === "bill.save" || c.action === "bill.void") {
+      } else if (c.action === "member.remove") {
+        before = current(data.members);
+        if (memberHasBillingHistory(before.id, data.bills, data.settlements)) {
+          const error = new Error("Member has billing history");
+          error.status = 409;
+          error.code = "MEMBER_HAS_BILLING_HISTORY";
+          throw error;
+        }
+        result = await tx.tripMember.delete({ where: { id: before.id } });
+      } else if (c.action === "bill.save" || c.action === "bill.void" || c.action === "bill.remove") {
         if (c.id) {
           before = current(data.bills);
-          if (before.voided) reject("Bill is void", 409);
+          if (before.voided && c.action !== "bill.remove") reject("Bill is void", 409);
+          if (c.action === "bill.remove" && data.settlements.some(
+            (s) => s.allocations.some((a) => a.billId === c.id),
+          )) {
+            const error = new Error("Bill has repayment history");
+            error.status = 409;
+            error.code = "BILL_HAS_REPAYMENT_HISTORY";
+            throw error;
+          }
           if (
+            c.action !== "bill.remove" &&
             data.settlements.some(
               (s) =>
                 !s.reversed && s.allocations.some((a) => a.billId === c.id),
             )
           )
             reject("Reverse repayments before changing this bill", 409);
-        } else if (c.action === "bill.void") reject();
-        if (c.action === "bill.void")
+        } else if (c.action !== "bill.save") reject();
+        if (c.action === "bill.remove")
+          result = await tx.splitBill.delete({ where: { id: c.id } });
+        else if (c.action === "bill.void")
           result = await tx.splitBill.update({
             where: { id: c.id },
             data: { voided: true, version: { increment: 1 } },

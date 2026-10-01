@@ -5,13 +5,13 @@ Open an owned trip → ค่าใช้จ่าย / หารบิล → `
 THB only, managed by the trip owner and accepted trip editors. Named participants do not need accounts and gain no access rights. Accepted viewers can read the ledger but cannot change it. This records expenses and repayments; it does not transfer money or verify bank slips. No AI calls.
 
 ## User flow
-1. Add member names; rename/archive/restore without deleting historical IDs.
+1. Add member names; rename/archive/restore. Members with no bill or repayment history can be removed; archive members who have history to keep old amounts and audit records intact.
 2. Add a standalone bill or import an activity's name/date/price as editable defaults.
 3. Add item lines; select participants per line. Split equally, exact amounts, percentages totaling 100, or weighted shares.
 4. Optionally add service charge, VAT and tip. Choose amount/rate, calculation base and participants for each charge. Proportional allocation follows net item shares.
 5. Choose one or several payers. Preview first; a sole payer can be assigned the full preview total. Recalculate after edits, then confirm.
 6. Select debtor, creditor and one or several outstanding bills. Repay fully or partially. Review selected/remaining amount and confirm.
-7. Reverse an incorrect repayment before changing or voiding affected bill amounts. Changes preserve audit events and old calculation snapshots.
+7. Reverse an incorrect repayment before changing or voiding affected bill amounts. Bills with no repayment history can be removed, including voided bills; bills with any repayment history remain for audit. Changes preserve audit events and old calculation snapshots.
 
 ## Calculation semantics
 - Inputs use decimal strings with at most 2 decimal places. Server calculates in integer satang; rational products/division use BigInt.
@@ -38,7 +38,7 @@ THB only, managed by the trip owner and accepted trip editors. Named participant
 API:
 - GET `/api/trips/:tripId/billing`: owned ledger, balances and latest 100 audit events.
 - POST `.../preview`: server calculation, no database mutation.
-- POST `.../billing`: `requestId` UUID plus action: `member.add`, `member.update`, `bill.save`, `bill.void`, `settlement.add`, `settlement.reverse`.
+- POST `.../billing`: `requestId` UUID plus action: `member.add`, `member.update`, `member.remove`, `bill.save`, `bill.void`, `bill.remove`, `settlement.add`, `settlement.reverse`. `member.remove` requires ID/version; any reference in a bill snapshot (including voided bills) or repayment (including reversed repayments) returns 409 `MEMBER_HAS_BILLING_HISTORY`. `bill.remove` requires ID/version and rejects any repayment allocation, including reversed ones, with 409 `BILL_HAS_REPAYMENT_HISTORY`.
 - Updates require ID and version. A reused requestId with the same parsed payload returns the original result; a different payload conflicts.
 
 ## Storage and privacy

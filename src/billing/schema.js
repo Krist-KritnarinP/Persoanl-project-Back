@@ -56,8 +56,10 @@ export const commandSchema = z
     action: z.enum([
       "member.add",
       "member.update",
+      "member.remove",
       "bill.save",
       "bill.void",
+      "bill.remove",
       "settlement.add",
       "settlement.reverse",
     ]),

@@ -52,6 +52,8 @@ export default function errorHandler(err, req, res, next) {
         : messages[status] || "Request failed",
     requestId,
     ...(err.code === "EMAIL_ALREADY_REGISTERED" ? { code: err.code } : {}),
+    ...(err.code === "MEMBER_HAS_BILLING_HISTORY" ? { code: err.code } : {}),
+    ...(err.code === "BILL_HAS_REPAYMENT_HISTORY" ? { code: err.code } : {}),
     ...(retryAfterSeconds ? { retryAfterSeconds } : {}),
   });
 }

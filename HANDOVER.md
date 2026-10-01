@@ -1,5 +1,10 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
+## Billing member and bill removal (2026-10-02)
+
+- Billing commands now include versioned/idempotent `member.remove` and `bill.remove` under the existing trip editor access check, advisory lock and audit event. A member with any bill snapshot reference or repayment history cannot be deleted; a bill with any repayment allocation, even reversed, cannot be deleted. Both conflicts return typed 409 codes. This protects ledger totals, references and historic audit records; no schema change or data migration.
+- Front provides delete controls and makes existing bill editing visible in the expanded bill card. API 58 tests passed (1 optional skipped), including removal, history guard and retry cases. Front build/unit and desktop/mobile browser flow passed. See `docs/BILLING.md` for complete behavior. Commit and push state recorded by Git after this entry.
+
 ## GitHub push / automatic deployment verified (2026-10-01)
 
 - Pushed API `a41b661` to `Krist-KritnarinP/Persoanl-project-Back` `main`; Front `4082d7b` was pushed to its own `main` after the API. Git refs matched `origin/main` at the push checkpoint.
