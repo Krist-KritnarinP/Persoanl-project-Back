@@ -21,7 +21,8 @@
     "migrate:notifications": "node scripts/migrate-notifications.js",
     "migrate:manual-weather": "node scripts/migrate-manual-weather.js",
     "migrate:nearby": "node scripts/migrate-nearby.js",
-    "test:itinerary:integration": "node scripts/verify-itinerary-features.js"
+    "test:itinerary:integration": "node scripts/verify-itinerary-features.js",
+    "reset:ai-quota": "node scripts/reset-ai-quota.js"
   },
   "keywords": [],
   "author": "",
