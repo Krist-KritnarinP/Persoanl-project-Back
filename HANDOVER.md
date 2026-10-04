@@ -5,7 +5,7 @@
 - Added dev-only error cause logging in `errorHandler.js` (`NODE_ENV !== "production"`) so developers can see underlying Google GenAI or database exceptions during local development while preserving production data sanitization.
 - Verified Google AI Studio Authentication Key (`AQ.` format) and Gemini 3.8 Flash model configuration.
 - Diagnosed AI 429 quota exhaustion in PostgreSQL `ai_usages` table (per-minute/per-day guard). Added `npm run reset:ai-quota` (`scripts/reset-ai-quota.js`) and increased `.env` dev limits to `AI_USER_DAILY_LIMIT=100` and `AI_GLOBAL_DAILY_LIMIT=1000`.
-- Handled Google upstream high-demand spikes (503 UNAVAILABLE) on `gemini-3.8-flash` by configuring active fallback model `GEMINI_FALLBACK_MODEL=gemini-3.5-flash-lite` in `.env` (handled automatically via `src/services/model-fallback.js`).
+- Configured `GEMINI_MODEL=gemini-3.5-flash-lite` as primary model for higher throughput and capacity, with `GEMINI_FALLBACK_MODEL=gemini-3.8-flash` as fallback.
 
 ## Billing member and bill removal (2026-10-02)
 
