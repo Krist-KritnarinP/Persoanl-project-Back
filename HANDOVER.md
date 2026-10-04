@@ -1,5 +1,10 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
+## Dev error visibility and AI troubleshooting (2026-10-05)
+
+- Added dev-only error cause logging in `errorHandler.js` (`NODE_ENV !== "production"`) so developers can see underlying Google GenAI or database exceptions during local development while preserving production data sanitization.
+- Verified Google AI Studio Authentication Key (`AQ.` format) and Gemini 3.8 Flash model configuration.
+
 ## Billing member and bill removal (2026-10-02)
 
 - Billing commands now include versioned/idempotent `member.remove` and `bill.remove` under the existing trip editor access check, advisory lock and audit event. A member with any bill snapshot reference or repayment history cannot be deleted; a bill with any repayment allocation, even reversed, cannot be deleted. Both conflicts return typed 409 codes. This protects ledger totals, references and historic audit records; no schema change or data migration.

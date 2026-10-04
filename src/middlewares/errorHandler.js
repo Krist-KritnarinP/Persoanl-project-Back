@@ -34,7 +34,10 @@ export default function errorHandler(err, req, res, next) {
       ? err.retryAfterSeconds
       : undefined;
   if (retryAfterSeconds) res.set("Retry-After", String(retryAfterSeconds));
-  // Never log request bodies, Prisma queries, tokens, or upstream error messages.
+  // Never log request bodies, Prisma queries, tokens, or upstream error messages in production.
+  if (process.env.NODE_ENV !== "production") {
+    console.error("[DEV ERROR]", err.cause || err);
+  }
   console.error(
     JSON.stringify({
       requestId,
