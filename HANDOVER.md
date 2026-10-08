@@ -1,5 +1,12 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
+## Security patch: proxy-addr IP spoofing fix (2026-10-08)
+
+- Performed full system security audit across API and Frontend (73 tests passed, 0 live AI calls).
+- Patched critical vulnerability in `proxy-addr` (2.0.7 -> 2.0.8, GHSA-jqcg-44mw-7w3h) resolving IPv4-mapped IPv6 trust subnet spoofing under `trust proxy`.
+- `npm audit --omit=dev` in API now reports 0 vulnerabilities. All 58 API unit and security tests passed.
+- Frontend dependencies left unmodified to avoid dependency regressions in UI libraries.
+
 ## Dev error visibility and AI troubleshooting (2026-10-05)
 
 - Added dev-only error cause logging in `errorHandler.js` (`NODE_ENV !== "production"`) so developers can see underlying Google GenAI or database exceptions during local development while preserving production data sanitization.
