@@ -1,5 +1,26 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
+## Trip ID 2: Verified flight ticket & itinerary synchronization (2026-10-10)
+
+- Updated Trip 2 ("ไอซ์แลนด์ Road Trip ล่าแสงเหนือ") flight tickets, schedules, and baggage allowances to exactly match authentic passenger e-tickets:
+  - **PNRs / Booking References:** `8WTISC`, `8WRGAK`, `8WSHNQ` (Thai Airways & Icelandair)
+  - **E-Ticket Numbers:** `217-4844864365`, `108-4844864363`, `108-4844864364`
+  - **Flight 1 (TG954):** 18 Oct 2026, 00:05 BKK -> 07:25 OSL | Thai Airways | Airbus A350-900 | Economy
+  - **Flight 2 (FI319):** 18 Oct 2026, 13:50 OSL -> 14:45 KEF | Icelandair | Airbus A321neo | Economy
+  - **Flight 3 (FI216):** 23 Oct 2026, 16:30 KEF -> 21:45 CPH T2 | Icelandair | Airbus A321neo | Economy
+  - **Flight 4 (TG951):** 24 Oct 2026, 14:25 CPH T2 -> 06:00 (+1, 25 Oct) BKK | Thai Airways | Boeing 777-300ER | Economy
+  - **Baggage Allowance:**
+    - Personal item (under seat): BKK-OSL & CPH-BKK (1 pc <=1 kg, 37x25x12 cm); OSL-KEF & KEF-CPH (1 pc <=40x30x15 cm)
+    - Carry-on: BKK-OSL & CPH-BKK (1 pc <=7 kg, 56x45x25 cm); OSL-KEF & KEF-CPH (1 pc <=10 kg, 55x40x20 cm)
+    - Checked baggage: BKK-OSL, OSL-KEF, KEF-CPH (1 pc <=23 kg, sum <=158 cm); CPH-BKK (2 pcs <=23 kg/pc, sum <=158 cm)
+- Updated activities in database:
+  - Day 1 (17 Oct): Activity 1 (Meet at BKK 21:00)
+  - Day 2 (18 Oct): Activity 2 (TG954 BKK-OSL), Activity 3 (FI319 OSL-KEF), Activity 4 (Pick up rental car at KEF 15:30)
+  - Day 7 (23 Oct): Activity 29 (FI216 KEF-CPH), Activity 30 (Check-in Clarion Hotel Copenhagen Airport)
+  - Day 8 (24 Oct): Activity 31 (TG951 CPH-BKK)
+  - Day 9 (25 Oct): Activity 32 (Arrive BKK 06:00)
+- Verified database transaction completed successfully.
+
 ## Security patch: proxy-addr IP spoofing fix (2026-10-08)
 
 - Performed full system security audit across API and Frontend (73 tests passed, 0 live AI calls).
