@@ -1,5 +1,15 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
+## Trip ID 2: Coordinates fix & geocode accuracy hardening (2026-10-13)
+
+- Corrected mismatched/intercontinental activity coordinates for Trip 2 in database:
+  - Fixed `Diamond Beach` (ID 19) from Cape May, New Jersey, USA (38.9593, -74.8529) to actual Iceland beach (64.0443, -16.1777).
+  - Fixed `Hörgsland Cottages` (ID 21) from Scotland, UK (55.5306, -4.6089) to Kirkjubæjarklaustur, Iceland (63.8967, -17.8637).
+  - Fixed `Sólheimasandur Plane Wreck` (ID 24) from Southern France (43.7800, 7.1250) to South Iceland black sand beach (63.4591, -19.3646).
+  - Fixed `Check out → Blue Lagoon → KEF` (ID 27) from Ontario, Canada (42.3029, -81.9922) to Blue Lagoon area, Iceland (63.8792, -22.4443).
+  - Populated missing coordinates for `Kirkjufell Mountain` (ID 8) -> (64.9417, -23.3072), `Drangshlid Inn` (ID 26) -> (63.5247, -19.5516), and `อาหารกลางวัน @ Geysir` (ID 15) -> (64.3104, -20.2995).
+- All 32 activities in Trip 2 now have exact verified coordinates without transcontinental mismatches.
+
 ## Trip ID 2: Verified flight ticket & itinerary synchronization (2026-10-10)
 
 - Updated Trip 2 ("ไอซ์แลนด์ Road Trip ล่าแสงเหนือ") flight tickets, schedules, and baggage allowances to exactly match authentic passenger e-tickets:
