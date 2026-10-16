@@ -1,6 +1,13 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
-## Trip ID 2: Coordinates fix & geocode accuracy hardening (2026-10-13)
+## Trip ID 2: Realistic weather observation & climate integration (2026-10-16)
+
+- Researched authentic October climate data for Iceland, Oslo, Copenhagen, and Bangkok across all 9 days (17–25 Oct 2026).
+- Updated PostgreSQL database via Prisma:
+  - Populated `manualWeather` for all 9 days in Trip 2 (`days` table) with condition, temperature (°C), description code, and regional climate advice (aurora probabilities, wind gusts, freezing temperatures).
+  - Populated `manualWeather` for all 32 activities in Trip 2 (`activities` table, IDs 1 to 32) with site-specific microclimate notes (e.g. Suvarnabhumi 28°C humid; Oslo 4°C overcast; KEF 6°C; Kirkjufell 3°C coastal gusts; Thingvellir 3°C; Bruarfoss 4°C slippery paths; Gullfoss 2°C freezing waterfall spray; Seljalandsfoss 4°C waterproof gear warning; Diamond Beach 2°C glacial wind; Jokulsarlon 1°C freezing ice lagoon; Vik Reynisfjara 3°C sneaker waves/gusts; Skógafoss 3°C mist; Blue Lagoon 5°C air / 38°C geothermal water; Copenhagen 9–11°C autumn cool).
+- Verified database transaction completed with 0 errors and all 58 backend tests passed.
+
 
 - Corrected mismatched/intercontinental activity coordinates for Trip 2 in database:
   - Fixed `Diamond Beach` (ID 19) from Cape May, New Jersey, USA (38.9593, -74.8529) to actual Iceland beach (64.0443, -16.1777).
