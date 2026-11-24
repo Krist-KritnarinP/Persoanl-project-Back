@@ -258,30 +258,7 @@ Copy the example environment configuration:
 cp .env.example .env
 ```
 
-Edit `.env` with your credentials:
-
-```env
-# Server Configuration
-PORT=8899
-NODE_ENV=development
-FRONTEND_URL=http://localhost:5173
-
-# Database Connection (PostgreSQL)
-DATABASE_URL="postgresql://user:password@localhost:5432/ailhoung_db?schema=public"
-
-# Cryptography & JWT Secrets
-JWT_SECRET=your_super_secret_jwt_key_at_least_32_characters_long
-JWT_EXPIRES_IN=1h
-REFRESH_TOKEN_EXPIRES_IN=30d
-
-# Google Gemini API
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-3.5-flash-lite
-GEMINI_FALLBACK_MODEL=gemini-3.8-flash
-
-# Google OAuth Client (Optional for Google Sign-In)
-GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
-```
+All configurable environment variables are documented with safe defaults in `.env.example`.
 
 ### 3. Database Initialization & Migration
 

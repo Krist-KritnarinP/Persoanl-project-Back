@@ -29,9 +29,7 @@
 
 ## Trip ID 2: Verified flight ticket & itinerary synchronization (2026-10-10)
 
-- Updated Trip 2 ("ไอซ์แลนด์ Road Trip ล่าแสงเหนือ") flight tickets, schedules, and baggage allowances to exactly match authentic passenger e-tickets:
-  - **PNRs / Booking References:** `8WTISC`, `8WRGAK`, `8WSHNQ` (Thai Airways & Icelandair)
-  - **E-Ticket Numbers:** `217-4844864365`, `108-4844864363`, `108-4844864364`
+- Updated Trip 2 ("ไอซ์แลนด์ Road Trip ล่าแสงเหนือ") flight tickets, schedules, and baggage allowances:
   - **Flight 1 (TG954):** 18 Oct 2026, 00:05 BKK -> 07:25 OSL | Thai Airways | Airbus A350-900 | Economy
   - **Flight 2 (FI319):** 18 Oct 2026, 13:50 OSL -> 14:45 KEF | Icelandair | Airbus A321neo | Economy
   - **Flight 3 (FI216):** 23 Oct 2026, 16:30 KEF -> 21:45 CPH T2 | Icelandair | Airbus A321neo | Economy
