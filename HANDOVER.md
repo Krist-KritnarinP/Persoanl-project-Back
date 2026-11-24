@@ -1,5 +1,15 @@
 # DEPLOY LIVE — อ่านก่อนแตะงาน deploy (2026-10-01)
 
+## GitHub Documentation: Professional README overhaul (2026-11-24)
+
+- Created comprehensive, production-grade `README.md` for `PersonalProject_Back`:
+  - Full project overview, live badges, architecture flow diagram (Mermaid).
+  - Detailed feature breakdown (Google Gemini AI planning & weather, multi-model fallback, durable quota guards).
+  - Security architecture documentation (cryptographic refresh token rotation, Google OAuth 2.0, Helmet, trust proxy).
+  - Satang-precision billing ledger math and ERD diagram.
+  - Complete REST API endpoint reference table.
+  - Local development setup, Prisma migration steps, and automated test suite documentation (58 tests passing).
+
 ## Trip ID 2: Realistic weather observation & climate integration (2026-10-16)
 
 - Researched authentic October climate data for Iceland, Oslo, Copenhagen, and Bangkok across all 9 days (17–25 Oct 2026).
