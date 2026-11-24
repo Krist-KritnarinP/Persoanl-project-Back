@@ -275,7 +275,7 @@ JWT_EXPIRES_IN=1h
 REFRESH_TOKEN_EXPIRES_IN=30d
 
 # Google Gemini API
-GEMINI_API_KEY=AIzaSyYourGeminiApiKeyHere
+GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-3.5-flash-lite
 GEMINI_FALLBACK_MODEL=gemini-3.8-flash
 
